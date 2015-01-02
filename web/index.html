@@ -1,4 +1,4 @@
-<html ng-app="project">
+<html ng-app="geneSearchApp">
 <head>
     <script src="lib/angular.min.js"></script>
     <script src="lib/angular-resource.min.js"></script>
@@ -30,7 +30,7 @@
             $routeProvider
                     .when('/', {
                         controller:'SearchCtrl',
-                        templateUrl:'search.html'
+                        templateUrl:'page/search.html'
                     })
                     .when('/edit/:projectId', {
                         controller:'EditCtrl',

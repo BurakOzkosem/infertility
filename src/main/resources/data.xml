@@ -1,29 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE hibernate-configuration SYSTEM
-        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/jee
+       http://www.springframework.org/schema/jee/spring-jee.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.dialect">
-            org.hibernate.dialect.MySQLDialect
-        </property>
-        <property name="hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
-        </property>
+    <!--<jee:jndi-lookup id="dataSource" jndi-name="jdbc/rtnriDS" lookup-on-startup="true" lazy-init="false"/>-->
 
-        <!-- Assume test is the database name -->
-        <property name="hibernate.connection.url">
-            jdbc:mysql://104.236.114.52/infertilitydb
-        </property>
-        <property name="hibernate.connection.username">
-            vavilen
-        </property>
-        <property name="hibernate.connection.password">
-            harlavradok
-        </property>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-        <!-- List of XML mapping files -->
-        <mapping resource="Employee.hbm.xml"/>
+    <!--<bean id="dataSourceInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="databasePopulator">-->
+            <!--<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">-->
+                <!--<property name="sqlScriptEncoding" value="UTF-8"/>-->
+                <!--<property name="continueOnError" value="true"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    </session-factory>
-</hibernate-configuration>
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://104.236.114.52:3306/infertilitydb"/>
+        <property name="username" value="vavilen"/>
+        <property name="password" value="harlavradok"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!--depends-on="dataSourceInitializer">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <property name="hibernateProperties">
+            <props>
+                <!-- SQL dialect -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <!-- Echo all executed SQL to stdout -->
+                <prop key="hibernate.show_sql">true</prop>
+                <!-- Drop and re-create the database schema on startup -->
+                <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
+                <!-- JDBC connection pool (use the built-in) -->
+                <!--<prop key="hibernate.connection.pool_size">10</prop>-->
+                <!--<prop key="hibernate.jdbc.use_get_generated_keys">true</prop>-->
+                <!--<prop key="hibernate.jdbc.batch_size">50</prop>-->
+                <!-- Enable Hibernate's automatic session context management -->
+                <!--<prop key="hibernate.current_session_context_class">thread</prop>-->
+                <!-- Disable the second-level cache -->
+                <!--<prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>-->
+            </props>
+        </property>
+        <property name="packagesToScan" value="com.genesearch.model"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+
+    <!--<bean id="jdbcOperations" class="ru.atconsulting.spring.jdbc.JdbcHibernateTemplate">-->
+        <!--<constructor-arg index="0" ref="sessionFactory"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg index="0" ref="jdbcOperations"/>-->
+    <!--</bean>-->
+
+</beans>
