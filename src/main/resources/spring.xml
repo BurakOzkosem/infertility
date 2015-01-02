@@ -13,7 +13,7 @@
     <mvc:annotation-driven />
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-    <mvc:resources mapping="/pages/**" location="/page/"/>
+    <mvc:resources mapping="/page/**" location="/page/"/>
 
     <!--<mvc:interceptors>-->
         <!--<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">-->

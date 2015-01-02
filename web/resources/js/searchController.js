@@ -3,4 +3,5 @@
  */
 function SearchCtrl($scope) {
 
+    $scope.state = {};
 }

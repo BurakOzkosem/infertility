@@ -6,9 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="nrivApp">
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="geneSearchApp">
 <head>
-    <title>NRIV</title>
+    <title>GENESEARCH</title>
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <meta name="description" content="">
@@ -42,7 +42,7 @@
 
     <script src="<c:url value="/resources/lib/jquery-1.11.2.min.js"/>?v=<%=version%>"></script>
 
-    <script src="<c:url value="/resources/lib/angular.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/angular.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/angular-locale_ru-ru.js"/>?v=<%=version%>"></script>--%>
     <script src="<c:url value="/resources/lib/underscore-min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/ui-bootstrap-tpls.min.js"/>?v=<%=version%>"></script>
@@ -66,9 +66,9 @@
         geneSearchApp.constant('BASE_PATH', '<c:url value="/"/>');
         geneSearchApp.constant('API_END_POINT', '<c:url value="/api"/>');
 
-        geneSearchApp.config(function (RestangularProvider, $parseProvider, $sceProvider, API_END_POINT) {
+        geneSearchApp.config(function (RestangularProvider, $sceProvider, API_END_POINT) {
             $sceProvider.enabled(false);
-            $parseProvider.unwrapPromises(true);
+//            $parseProvider.unwrapPromises(true);
             RestangularProvider.setBaseUrl(API_END_POINT);
 
 //            $httpProvider.interceptors.push('HttpInterceptor');
@@ -84,11 +84,11 @@
         geneSearchApp.config(function($routeProvider) {
             $routeProvider
                     .when('/', {
-                        controller:'SearchCtrl',
+                        controller: SearchCtrl,
                         templateUrl:'page/search.html'
                     })
                     .when('/edit/:projectId', {
-                        controller:'EditCtrl',
+                        controller: EditCtrl,
                         templateUrl:'page/detail.html'
                     })
                     .otherwise({
