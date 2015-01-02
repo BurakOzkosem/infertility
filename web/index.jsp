@@ -33,22 +33,22 @@
     </script>
     <![endif]-->
     <!--[if lte IE 9]>
-    <script src='<c:url value="lib/html5shiv.min.js"/>?v=<%=version%>'></script>
-    <script src='<c:url value="lib/html5shiv-printshiv.min.js"/>?v=<%=version%>'></script>
+    <script src='<c:url value="/resources/lib/html5shiv.min.js"/>?v=<%=version%>'></script>
+    <script src='<c:url value="/resources/lib/html5shiv-printshiv.min.js"/>?v=<%=version%>'></script>
     <![endif]-->
     <!--[if lte IE 8]>
-    <script src='<c:url value="lib/json3.min.js"/>?v=<%=version%>'></script>
+    <script src='<c:url value="/resources/lib/json3.min.js"/>?v=<%=version%>'></script>
     <![endif]-->
 
-    <script src="<c:url value="lib/jquery-1.11.2.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/jquery-1.11.2.min.js"/>?v=<%=version%>"></script>
 
-    <script src="<c:url value="lib/angular.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/angular.min.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/angular-locale_ru-ru.js"/>?v=<%=version%>"></script>--%>
-    <script src="<c:url value="lib/underscore-min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="lib/ui-bootstrap-tpls.min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="lib/restangular.min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="lib/angular-resource.min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="lib/angular-route.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/underscore-min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/ui-bootstrap-tpls.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/restangular.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/angular-resource.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/angular-route.min.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/ng-breadcrumbs.js"/>?v=<%=version%>"></script>--%>
 
     <%--<script src="<c:url value="/resources/lib/angular-class-extender.js"/>?v=<%=version%>"></script>--%>
@@ -66,7 +66,7 @@
         geneSearchApp.constant('BASE_PATH', '<c:url value="/"/>');
         geneSearchApp.constant('API_END_POINT', '<c:url value="/api"/>');
 
-        geneSearchApp.config(function (RestangularProvider, $httpProvider, $parseProvider, $sceProvider, API_END_POINT) {
+        geneSearchApp.config(function (RestangularProvider, $parseProvider, $sceProvider, API_END_POINT) {
             $sceProvider.enabled(false);
             $parseProvider.unwrapPromises(true);
             RestangularProvider.setBaseUrl(API_END_POINT);
@@ -101,12 +101,12 @@
 
     </script>
     <% double key = 101d;//Math.random() * 100;%>
-    <script src="<c:url value="js/searchController.js"/>?v=<%=key%>"></script>
-    <script src="<c:url value="js/editController.js"/>?v=<%=key%>"></script>
-    <link href='<c:url value="css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
+    <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
+    <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>
+    <link href='<c:url value="/resources/css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
 
     <!--[if lte IE 9]>
-    <script src='<c:url value="lib/respond.min.js"/>?v=<%=version%>'></script>
+    <script src='<c:url value="/resources/lib/respond.min.js"/>?v=<%=version%>'></script>
     <![endif]-->
 
     <%--<link href='<c:url value="/resources/css/application.css"/>?v=<%=version%>' rel="stylesheet">--%>
