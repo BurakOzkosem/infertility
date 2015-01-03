@@ -9,14 +9,14 @@ import javax.persistence.Table;
  * Created by user on 02.01.2015.
  */
 @Entity
-@Table(name="gene", schema = "infertilitydb")
+@Table(name="Gene")
 public class Gene {
 
     @Id
     @Column(name = "GENE_ID")
     private Long id;
 
-    @Column(name="name")
+    @Column(name="NAME")
     private String name;
 
     public Long getId() {

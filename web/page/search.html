@@ -1,8 +1,114 @@
-<div>
-    SEARCH
-    <div class="row">
-        <div class="col-sm-12">
-            <a class="btn btn-link" href="#/edit">Детали</a>
+<div class="container-fluid">
+    <button class="btn btn-link" ng-click="collapsed = !collapsed" style="width:100%;text-align:left">Filter</button>
+    <div class="border" ng-hide="collapsed">
+        <div class="row">
+            <!--<div class="col-sm-2">-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label">Filter</label>-->
+                    <!--<div class="input-group">-->
+                        <!--<input class="form-control" ng-model="filters.operator.name" name="title" placeholder="Filter" disabled="" type="text">-->
+                        <!--<span class="input-group-btn" ng-hide="state.filters.disableOperator">-->
+                            <!--<button class="btn btn-default" type="button" ng-click="functions.modalServicesSccp.clearOperator(filters.operator)">-->
+                                <!--<i class="glyphicon glyphicon-remove"></i>-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-default" type="button" ng-click="functions.modalServicesSccp.selectOperator(filters.operator)">-->
+                                <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                            <!--</button>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">ID</label>
+                    <input type="text" ng-model="filters.id" placeholder="ID" ng-maxlength="50" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <input type="text" ng-model="filters.name" placeholder="Name" ng-maxlength="50" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Filter</label>
+                    <select class="form-control" ng-model="filters.na" ng-options="na.id as na.value for na in references.naList">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>Filter</label>
+                    <select class="form-control" ng-model="filters.np" ng-options="np.id as np.value for np in references.npList">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Filter</label>
+                    <input type="text" ng-model="filters.tt" placeholder="Filter" ng-maxlength="20" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div class="col-xs-12">
+            <ul class="list-inline gs-header-ul">
+                <li><button class="btn btn-default gs-btn" type="button" ng-click="openInsert()">Create</button></li>
+                <li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canEdit()" ng-click="openEdit()" disabled="true">Edit</button></li>
+                <li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canDelete()" ng-click="openDeleteGlobalTitles()">Remove</button></li>
+                <li><button class="btn btn-default gs-btn" type="button" ng-click="clearFilters()">Clear</button></li>
+                <li><button class="btn btn-default gs-btn" type="button" ng-click="load()">Search</button></li>
+                <li><div ng-include="'page/table-pagination.html'"></div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div class="col-sm-12 scroll-width">
+            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:1000px">
+                <thead>
+                <tr>
+                    <th style="min-width: 20px; max-width: 20px; width: 20px;">
+                        <input type="checkbox" ng-model="state.allChecked" ng-click="checkAll()">
+                    </th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">
+                    <td ng-hide="!state.checkbox"><input type="checkbox" ng-model="model.utils.selected" ng-click="check(model)"></td>
+                    <td>{{model.gene.id}}</td>
+                    <td>{{model.gene.name}}</td>
+                    <td>{{model.gene.attr}}</td>
+                    <td>{{model.gene.attr}}</td>
+                    <td>{{model.gene.attr}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+
+
+
+<!--<div>-->
+    <!--SEARCH-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-12">-->
+            <!--<a class="btn btn-link" href="#/edit">Details</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-sm-12">-->
+            <!--<a class="btn btn-link" ng-click="showGene()">Show gene</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

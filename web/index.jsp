@@ -45,7 +45,7 @@
     <script src="<c:url value="/resources/lib/angular.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/angular-locale_ru-ru.js"/>?v=<%=version%>"></script>--%>
     <script src="<c:url value="/resources/lib/underscore-min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="/resources/lib/ui-bootstrap-tpls.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/ui-bootstrap-tpls-0.9.0.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/restangular.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-resource.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-route.min.js"/>?v=<%=version%>"></script>
@@ -56,12 +56,12 @@
     <%--<script src="<c:url value="/resources/new/angular-file-upload.js"/>?v=<%=version%>"></script>--%>
 
     <%--<script src="<c:url value="/resources/new/angular-cookies.js"/>?v=<%=version%>"></script>--%>
-    <%--<script src="<c:url value="/resources/new/angularLocalStorage.js"/>?v=<%=version%>"></script>--%>
+    <script src="<c:url value="/resources/lib/angular-local-storage.min.js"/>?v=<%=version%>"></script>
 
 
 
     <script type="text/javascript">
-        var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute']);
+        var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute', 'LocalStorageModule']);
 
         geneSearchApp.constant('BASE_PATH', '<c:url value="/"/>');
         geneSearchApp.constant('API_END_POINT', '<c:url value="/api"/>');
@@ -103,13 +103,13 @@
     <% double key = 101d;//Math.random() * 100;%>
     <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>
+
     <link href='<c:url value="/resources/css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
+    <link href='<c:url value="/resources/css/application.css"/>?v=<%=version%>' rel="stylesheet">
 
     <!--[if lte IE 9]>
-    <script src='<c:url value="/resources/lib/respond.min.js"/>?v=<%=version%>'></script>
+        <script src='<c:url value="/resources/lib/respond.min.js"/>?v=<%=version%>'></script>
     <![endif]-->
-
-    <%--<link href='<c:url value="/resources/css/application.css"/>?v=<%=version%>' rel="stylesheet">--%>
 
 </head>
 <body>
