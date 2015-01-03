@@ -83,12 +83,12 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">
-                    <td ng-hide="!state.checkbox"><input type="checkbox" ng-model="model.utils.selected" ng-click="check(model)"></td>
-                    <td>{{model.gene.id}}</td>
-                    <td>{{model.gene.name}}</td>
-                    <td>{{model.gene.attr}}</td>
-                    <td>{{model.gene.attr}}</td>
-                    <td>{{model.gene.attr}}</td>
+                    <td><input type="checkbox" ng-model="model.utils.selected" ng-click="check(model)"></td>
+                    <td>{{model.id}}</td>
+                    <td>{{model.name}}</td>
+                    <td>{{model.name}}</td>
+                    <td>{{model.name}}</td>
+                    <td>{{model.name}}</td>
                 </tr>
                 </tbody>
             </table>

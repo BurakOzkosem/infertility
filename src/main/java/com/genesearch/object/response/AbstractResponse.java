@@ -34,4 +34,12 @@ public abstract class AbstractResponse {
     public void setDsc(String dsc) {
         this.dsc = dsc;
     }
+
+    public UtilResponse getUtils() {
+        return utils;
+    }
+
+    public void setUtils(UtilResponse utils) {
+        this.utils = utils;
+    }
 }

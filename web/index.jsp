@@ -114,7 +114,7 @@
 </head>
 <body>
 
-<h2>    GENESEARCH PROJECT STARTED </h2>
+<h2>    GENESEARCH PROJECT </h2>
 
 <div class="container-fluid">
     <div class="row">

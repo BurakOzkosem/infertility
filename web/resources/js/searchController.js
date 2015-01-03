@@ -20,6 +20,13 @@ function SearchCtrl($scope, Restangular, localStorageService) {
 
     $scope.filters = localStorageService.get('gene.filters');
 
+    if (!angular.isDefined($scope.filters) || $scope.filters == null) {
+        $scope.filters = {
+            id: '',
+            name: ''
+        };
+    }
+
     $scope.load = function () {
         localStorageService.set('gene.filters', $scope.filters);
 
@@ -38,7 +45,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         };
 
         Restangular.all('gene/search').post(filters).then(function(result) {
-            $scope.state.genes = result.content;
+            $scope.state.geneList = result.content;
             $scope.state.count = result.totalElements;
             $scope.state.size = result.size;
             $scope.state.totalPages = result.totalPages;
@@ -94,17 +101,16 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         }
     };
 
-    // Пометить checkbox глобального заголовка
     $scope.checkGt = function(itemSelected) {
         itemSelected.utils.selected = !itemSelected.utils.selected;
-    }
+    };
 
     $scope.checkAll = function() {
         $scope.state.allChecked = !$scope.state.allChecked;
         for(var i=0; i<$scope.state.geneList.length; i++) {
             $scope.state.geneList[i].utils.selected = $scope.state.allChecked;
         }
-    }
+    };
 
 
     $scope.clearFilters = function() {
@@ -117,18 +123,5 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         $scope.sorts = {direction: 'asc', property: 'id'};
     };
 
-    if (!angular.isDefined($scope.filters) || $scope.filters == null) {
-        $scope.clearFilters();
-    }
-    else {
-        $scope.load();
-    }
-
-
-//    $scope.showGene = function() {
-//        Restangular.oneUrl('gene/show').get().then(function(result) {
-//            $scope.state.id = result.id;
-//            $scope.state.name = result.name;
-//        });
-//    }
+    $scope.load();
 }
