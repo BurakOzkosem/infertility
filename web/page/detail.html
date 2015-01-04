@@ -1,8 +1,61 @@
-<div>
-    DETAIL
+<div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+
+    <div class="row">
+        <a href="#/">Back to search</a>
+    </div>
+
+    <div class="row">
+        <label class="control-label col-sm-4"><h1>Gene details</h1></label>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
-            <a class="btn btn-link" href="#/search">Search</a>
+            <form class="form-horizontal" name="formEdit" novalidate>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Оператор</label>-->
+                    <!--<div class="col-sm-8">-->
+                        <!--<div class="input-group">-->
+                            <!--<input class="form-control" ng-model="state.model.operator.name" name="title" placeholder="Оператор" disabled="" type="text" ng-required="true">-->
+                                <!--<span class="input-group-btn">-->
+                                    <!--<button class="btn btn-default" type="button" ng-click="functions.modalServicesSccp.clearOperator(state.model.operator)">-->
+                                        <!--<i class="glyphicon glyphicon-remove"></i>-->
+                                    <!--</button>-->
+                                    <!--<button class="btn btn-default" type="button" ng-click="functions.modalServicesSccp.selectOperator(state.model.operator)">-->
+                                        <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                    <!--</button>-->
+                                <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Id</label>
+                    <div class="col-sm-3">
+                        <input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Name</label>
+                    <div class="col-sm-3">
+                        <input type="text" ng-model="state.model.name" placeholder="Name" ng-maxlength="50" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Attribute</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-model="state.model.na.id" ng-options="na.id as na.value for na in references.naList" ng-required="true">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-1">Attribute</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" ng-model="state.model.np.id" ng-options="np.id as np.value for np in references.npList" ng-required="true">
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

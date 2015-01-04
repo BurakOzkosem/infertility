@@ -87,7 +87,7 @@
                         controller: SearchCtrl,
                         templateUrl:'page/search.html'
                     })
-                    .when('/edit', {
+                    .when('/edit/:id', {
                         controller: EditCtrl,
                         templateUrl:'page/detail.html'
                     })

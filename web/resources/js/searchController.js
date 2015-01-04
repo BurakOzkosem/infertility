@@ -52,6 +52,10 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         });
     };
 
+    $scope.getDetailsUrl = function(item) {
+        return "#/edit/" + item.id;
+    }
+
     $scope.canSort = function (property, ascending) {
         if ($scope.sorts.property == property) {
             if ($scope.sorts.direction == (ascending == 'asc')) {

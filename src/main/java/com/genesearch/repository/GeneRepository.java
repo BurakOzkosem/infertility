@@ -22,8 +22,8 @@ import java.util.List;
 @Repository
 public class GeneRepository extends ModelRepository<Gene> {
 
-    public Gene show(Long id) {
-        return findById(id);
+    public GeneResponse show(Long id) {
+        return GeneResponse.create(findById(id));
     }
 
 
