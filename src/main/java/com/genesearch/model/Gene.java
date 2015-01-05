@@ -1,5 +1,7 @@
 package com.genesearch.model;
 
+import com.genesearch.object.request.GeneRequest;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,5 +35,10 @@ public class Gene {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void update(GeneRequest request) {
+        this.id = request.getId();
+        this.name = request.getName();
     }
 }

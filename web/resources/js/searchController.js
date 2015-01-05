@@ -52,9 +52,14 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         });
     };
 
+    $scope.getMM = function() {
+        Restangular.oneUrl('gene/mm').get();
+    };
+
     $scope.getDetailsUrl = function(item) {
+//        return "edit/" + item.id;
         return "#/edit/" + item.id;
-    }
+    };
 
     $scope.canSort = function (property, ascending) {
         if ($scope.sorts.property == property) {

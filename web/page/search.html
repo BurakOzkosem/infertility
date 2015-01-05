@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="row" style="margin-top: 15px">
-        <div class="col-xs-12">
+        <div class="col-sm-10">
             <ul class="list-inline gs-header-ul">
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="openInsert()">Create</button></li>
                 <li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canEdit()" ng-click="openEdit()" disabled="true">Edit</button></li>
@@ -63,11 +63,12 @@
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="clearFilters()">Clear</button></li>
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="load()">Search</button></li>
                 <li><div ng-include="'page/table-pagination.html'"></div></li>
+                <li><button class="btn btn-default gs-btn" type="button" ng-click="getMM()">MM</button></li>
             </ul>
         </div>
     </div>
     <div class="row" style="margin-top: 15px">
-        <div class="col-sm-12 scroll-width">
+        <div class="col-sm-10 scroll-width">
             <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:1000px">
                 <thead>
                 <tr>
@@ -83,6 +84,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">
+                <!--<tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)">-->
                     <td><input type="checkbox" ng-model="model.utils.selected" ng-click="check(model)"></td>
                     <td>{{model.id}}</td>
                     <td><a href="{{getDetailsUrl(model)}}">{{model.name}}</a></td>

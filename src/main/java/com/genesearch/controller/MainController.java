@@ -1,9 +1,11 @@
 package com.genesearch.controller;
 
 import com.genesearch.model.Gene;
+import com.genesearch.object.request.GeneRequest;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import com.genesearch.repository.GeneRepository;
+import com.genesearch.webservice.GeneWebServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,26 @@ public class    MainController {
     @ResponseBody
     public GeneResponse showGene(@PathVariable Long id) {
         return geneRepository.show(id);
+    }
+
+    @Transactional(readOnly = false)
+    @RequestMapping(value = "/gene/{id}/update", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneResponse updateGene(@PathVariable Long id, @RequestBody GeneRequest request) {
+        Gene gene = geneRepository.findById(request.getId());
+        gene.update(request);
+        geneRepository.save(gene);
+        return geneRepository.show(request.getId());
+    }
+
+    @RequestMapping(value = "/gene/mm", method = RequestMethod.GET)
+    @ResponseBody
+    public GeneResponse getFromMM() {
+        GeneResponse response = new GeneResponse();
+
+        GeneWebServiceClient client = new GeneWebServiceClient();
+        client.get();
+
+        return response;
     }
 }
