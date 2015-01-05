@@ -3,6 +3,7 @@ package com.genesearch.webservice;
 import org.intermine.metadata.Model;
 import org.intermine.pathquery.Constraints;
 import org.intermine.pathquery.OrderDirection;
+import org.intermine.pathquery.PathConstraint;
 import org.intermine.pathquery.PathQuery;
 import org.intermine.webservice.client.core.ServiceFactory;
 import org.intermine.webservice.client.services.QueryService;
@@ -18,7 +19,7 @@ public class GeneWebServiceClient {
 
     private static final String ROOT = "http://www.mousemine.org/mousemine/service";
 
-    public void get() {
+    public void execute(String[] views, PathConstraint[] constraints) {
         ServiceFactory factory = new ServiceFactory(ROOT);
         Model model = factory.getModel();
         PathQuery query = new PathQuery(model);

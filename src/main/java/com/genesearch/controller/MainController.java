@@ -62,7 +62,7 @@ public class    MainController {
         GeneResponse response = new GeneResponse();
 
         GeneWebServiceClient client = new GeneWebServiceClient();
-        client.get();
+        client.execute(null, null);
 
         return response;
     }

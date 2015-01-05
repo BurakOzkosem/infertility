@@ -1,24 +1,25 @@
 package com.genesearch.model;
 
-import com.genesearch.object.request.GeneRequest;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by user on 02.01.2015.
+ * Created by user on 06.01.2015.
  */
 @Entity
-@Table(name="Gene")
-public class Gene extends AbstractEntity {
+@Table(name="Ontology_term")
+public class OntologyTerm extends AbstractEntity {
 
     @Id
-    @Column(name = "gene_id")
+    @Column(name = "ontology_term_id")
     private Long id;
 
-    @Column(name="name")
+    @Column(name = "primary_identifier")
+    private String primary_identifier;
+
+    @Column(name = "name")
     private String name;
 
     @Override
@@ -37,10 +38,5 @@ public class Gene extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void update(GeneRequest request) {
-        this.id = request.getId();
-        this.name = request.getName();
     }
 }
