@@ -1,5 +1,7 @@
 package com.genesearch.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,8 @@ import javax.persistence.*;
 public class OntologyAnnotation  extends AbstractEntity {
 
     @Id
+    @GenericGenerator(name="ontology_annotation_generator",strategy="increment")
+    @GeneratedValue(generator="ontology_annotation_generator")
     @Column(name = "ontology_annotation_id")
     private Long id;
 

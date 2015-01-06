@@ -50,6 +50,7 @@
     <script src="<c:url value="/resources/lib/restangular.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-resource.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-route.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/ngProgress.min.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/ng-breadcrumbs.js"/>?v=<%=version%>"></script>--%>
 
     <%--<script src="<c:url value="/resources/lib/angular-class-extender.js"/>?v=<%=version%>"></script>--%>

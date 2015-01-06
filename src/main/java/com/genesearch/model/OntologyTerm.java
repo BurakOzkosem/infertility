@@ -1,9 +1,8 @@
 package com.genesearch.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 /**
  * Created by user on 06.01.2015.
@@ -13,11 +12,13 @@ import javax.persistence.Table;
 public class OntologyTerm extends AbstractEntity {
 
     @Id
+    @GenericGenerator(name="ontology_term_generator",strategy="increment")
+    @GeneratedValue(generator="ontology_term_generator")
     @Column(name = "ontology_term_id")
     private Long id;
 
     @Column(name = "primary_identifier")
-    private String primary_identifier;
+    private String primaryIdentifier;
 
     @Column(name = "name")
     private String name;
@@ -38,5 +39,13 @@ public class OntologyTerm extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPrimaryIdentifier() {
+        return primaryIdentifier;
+    }
+
+    public void setPrimaryIdentifier(String primaryIdentifier) {
+        this.primaryIdentifier = primaryIdentifier;
     }
 }

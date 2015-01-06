@@ -1,11 +1,9 @@
 package com.genesearch.model;
 
 import com.genesearch.object.request.GeneRequest;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by user on 02.01.2015.
@@ -15,6 +13,8 @@ import javax.persistence.Table;
 public class Gene extends AbstractEntity {
 
     @Id
+    @GenericGenerator(name="gene_generator",strategy="increment")
+    @GeneratedValue(generator="gene_generator")
     @Column(name = "gene_id")
     private Long id;
 

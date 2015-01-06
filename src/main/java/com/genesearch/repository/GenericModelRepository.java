@@ -22,14 +22,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: skiselev
- * Date: 10.09.13
- * Time: 17:26
- * @param M - Class of object
- * @param T - Class of identifier of object
- */
 @Transactional(propagation = Propagation.MANDATORY)
 public class GenericModelRepository<M, T extends Serializable> implements InternalRepository<M, T> {
 
@@ -69,7 +61,7 @@ public class GenericModelRepository<M, T extends Serializable> implements Intern
     public Page<M> findAll(Pageable pageable) {
         Criteria c = getSession().createCriteria(getEntityClass());
         c.setProjection(Projections.rowCount());
-        Long total = (Long) c.list().get(0);
+        Integer total = (Integer) c.list().get(0);
 
         Criteria criteria = getSession().createCriteria(getEntityClass());
         criteria.setFirstResult(pageable.getOffset() * pageable.getPageNumber());
@@ -135,7 +127,7 @@ public class GenericModelRepository<M, T extends Serializable> implements Intern
         Criteria criteria = getSession().createCriteria(getEntityClass());
         criteria.add(Restrictions.eq("id", id));
         criteria.setProjection(Projections.rowCount());
-        return ((Integer) criteria.list().get(0)) > 0;
+        return ((Long) criteria.list().get(0)) > 0;
     }
 
     @Override

@@ -1,7 +1,7 @@
 /**
  * Created by user on 31.12.2014.
  */
-function SearchCtrl($scope, Restangular, localStorageService) {
+function SearchCtrl($scope, Restangular, localStorageService, ngProgress) {
 
     $scope.collapsed = false;
 
@@ -28,6 +28,8 @@ function SearchCtrl($scope, Restangular, localStorageService) {
     }
 
     $scope.load = function () {
+        ngProgress.start();
+
         localStorageService.set('gene.filters', $scope.filters);
 
         var sorts = [{
@@ -49,6 +51,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
             $scope.state.count = result.totalElements;
             $scope.state.size = result.size;
             $scope.state.totalPages = result.totalPages;
+            ngProgress.complete();
         });
     };
 

@@ -1,7 +1,7 @@
 /**
  * Created by user on 03.01.2015.
  */
-var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute', 'LocalStorageModule']);
+var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute', 'LocalStorageModule', 'ngProgress']);
 
 geneSearchApp.constant('BASE_PATH', '/');
 geneSearchApp.constant('API_END_POINT', '/api');

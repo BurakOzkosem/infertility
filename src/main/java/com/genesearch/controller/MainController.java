@@ -1,11 +1,13 @@
 package com.genesearch.controller;
 
+import com.genesearch.domain.DbSaver;
+import com.genesearch.domain.MouseMineSaver;
 import com.genesearch.model.Gene;
 import com.genesearch.object.request.GeneRequest;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import com.genesearch.repository.GeneRepository;
-import com.genesearch.webservice.GeneWebServiceClient;
+import com.genesearch.webservice.MouseMineRetriever;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,12 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/api")
-public class    MainController {
+public class MainController {
 
     private static final Logger log = LoggerFactory.getLogger(MainController.class);
+
+    @Autowired
+    private MouseMineSaver dbSaver;
 
     @Autowired
     private GeneRepository geneRepository;
@@ -61,8 +66,7 @@ public class    MainController {
     public GeneResponse getFromMM() {
         GeneResponse response = new GeneResponse();
 
-        GeneWebServiceClient client = new GeneWebServiceClient();
-        client.execute(null, null);
+        dbSaver.execute(new MouseMineRetriever());
 
         return response;
     }

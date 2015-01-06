@@ -38,6 +38,7 @@ public class GeneRepository extends ModelRepository<Gene> {
         safeAddRestrictionEq(and, "gn.dsc", request.getDsc());
 
         c.add(and);
+
         c.setProjection(Projections.countDistinct("gn.id"));
         long total = (Long) c.uniqueResult();
 
@@ -79,11 +80,4 @@ public class GeneRepository extends ModelRepository<Gene> {
         return page;
     }
 
-    private void safeAddRestrictionEq(Conjunction and, String fieldName, Object fieldValue) {
-        if(fieldValue == null ||
-                (fieldValue instanceof String && ((String) fieldValue).isEmpty())) {
-            return;
-        }
-        and.add(Restrictions.eq(fieldName, fieldValue));
-    }
 }

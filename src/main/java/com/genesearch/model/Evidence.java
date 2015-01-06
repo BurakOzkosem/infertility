@@ -1,5 +1,7 @@
 package com.genesearch.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -10,6 +12,8 @@ import javax.persistence.*;
 public class Evidence extends AbstractEntity {
 
     @Id
+    @GenericGenerator(name="evidence_generator",strategy="increment")
+    @GeneratedValue(generator="evidence_generator")
     @Column(name = "evidence_id")
     private Long id;
 
@@ -56,4 +60,5 @@ public class Evidence extends AbstractEntity {
     public void setBaseAnnotationsSubjectZygosity(String baseAnnotationsSubjectZygosity) {
         this.baseAnnotationsSubjectZygosity = baseAnnotationsSubjectZygosity;
     }
+
 }
