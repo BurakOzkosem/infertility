@@ -1,7 +1,7 @@
 /**
  * Created by user on 31.12.2014.
  */
-function SearchCtrl($scope, Restangular, localStorageService, ngProgress) {
+function SearchCtrl($scope, Restangular, localStorageService) {
 
     $scope.collapsed = false;
 
@@ -28,7 +28,7 @@ function SearchCtrl($scope, Restangular, localStorageService, ngProgress) {
     }
 
     $scope.load = function () {
-        ngProgress.start();
+//        ngProgress.start();
 
         localStorageService.set('gene.filters', $scope.filters);
 
@@ -51,7 +51,10 @@ function SearchCtrl($scope, Restangular, localStorageService, ngProgress) {
             $scope.state.count = result.totalElements;
             $scope.state.size = result.size;
             $scope.state.totalPages = result.totalPages;
-            ngProgress.complete();
+//            ngProgress.complete();
+        },
+        function() {
+
         });
     };
 

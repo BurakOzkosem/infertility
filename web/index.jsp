@@ -62,6 +62,8 @@
 
     <% double key = 101d;//Math.random() * 100;%>
 
+    <script src="<c:url value="/resources/js/loading.js"/>?v=<%=key%>"></script>
+
     <script src="<c:url value="/resources/js/common.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>
@@ -84,6 +86,10 @@
             <div ng-view></div>
         </div>
     </div>
+</div>
+
+<div id="mydiv" loading>
+    <img src="/resources/img/loading.gif" class="ajax-loader"/>
 </div>
 
 </body>
