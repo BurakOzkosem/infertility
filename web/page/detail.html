@@ -5,7 +5,7 @@
     </div>
 
     <div class="row">
-        <label class="control-label col-sm-4"><h1>Gene details</h1></label>
+        <label class="control-label col-sm-4"><h1>Details</h1></label>
     </div>
 
     <div class="row">
@@ -30,34 +30,171 @@
 
 
                 <div class="form-group">
-                    <label class="control-label col-sm-1">Id</label>
+                    <label class="control-label col-sm-2">Subject ID:</label>
                     <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">
+                        <label class="control-label">
+                            <b>{{state.model.subjectEdit.primaryIdentifier}}</b>
+                        </label>
+                        <!--<input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">-->
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label col-sm-1">Name</label>
+                    <label class="control-label col-sm-2">Subject symbol:</label>
                     <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.name" placeholder="Name" ng-maxlength="50" class="form-control">
+                        <label class="control-label">
+                            <b>{{state.model.subjectEdit.symbol}}</b>
+                        </label>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label col-sm-1">Attribute</label>
+                    <label class="control-label col-sm-2">Subject name:</label>
                     <div class="col-sm-3">
-                        <select class="form-control" ng-model="state.model.na.id" ng-options="na.id as na.value for na in references.naList" ng-required="true">
-                        </select>
+                        <label class="control-label">
+                            <b>{{state.model.subjectEdit.name}}</b>
+                        </label>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label col-sm-1">Attribute</label>
+                    <label class="control-label col-sm-2">Ontology term name:</label>
                     <div class="col-sm-3">
-                        <select class="form-control" ng-model="state.model.np.id" ng-options="np.id as np.value for np in references.npList" ng-required="true">
-                        </select>
+                        <label class="control-label">
+                            <b>{{state.model.ontologyTermEdit.name}}</b>
+                        </label>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Subject description:</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.subjectEdit.dsc}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Publication ID</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.evidenceEdit.publicationEdit.id}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Ontology term ID:</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.ontologyTermEdit.primaryIdentifier}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Subject background name:</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.evidenceEdit.baseAnnotationsSubjectBackgroundName}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Subject zygocity</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.evidenceEdit.baseAnnotationsSubjectZygosity}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Publication doi:</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.evidenceEdit.publicationEdit.doi}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2">Subject chromosome:</label>
+                    <div class="col-sm-3">
+                        <label class="control-label">
+                            <b>{{state.model.subjectEdit.chromosomeName}}</b>
+                        </label>
+                    </div>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Name</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<input type="text" ng-model="state.model.name" placeholder="Name" ng-maxlength="50" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Attribute</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<select class="form-control" ng-model="filters.ontologyTermName" ng-options="term.id as term.value for term in reference.ontologyTerm" ng-required="true">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+<!--==========                -->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Attribute</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<select class="form-control" ng-model="state.model.ontologyId" ng-options="term.id as term.value for term in reference.ontologyTerm">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Id</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Name</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<input type="text" ng-model="state.model.name" placeholder="Name" ng-maxlength="50" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Attribute</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<select class="form-control" ng-model="state.model.na.id" ng-options="na.id as na.value for na in references.naList" ng-required="true">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Attribute</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<select class="form-control" ng-model="state.model.np.id" ng-options="np.id as np.value for np in references.npList" ng-required="true">-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Id</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label col-sm-1">Name</label>-->
+                    <!--<div class="col-sm-3">-->
+                        <!--<input type="text" ng-model="state.model.name" placeholder="Name" ng-maxlength="50" class="form-control">-->
+                    <!--</div>-->
+                <!--</div>-->
+
             </form>
         </div>
     </div>
 
-    <button class="btn btn-default gs-btn" type="button" ng-click="save(state.model.id)">Save</button>
+    <!--<button class="btn btn-default gs-btn" type="button" ng-click="save(state.model.id)">Save</button>-->
 </div>

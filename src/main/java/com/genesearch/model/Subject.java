@@ -17,19 +17,19 @@ public class Subject extends AbstractEntity {
     @Column(name = "subject_id")
     private Long id;
 
-    @Column(name = "primary_identifier")
+    @Column(name = "primary_identifier", length = 200)
     private String primaryIdentifier;
 
-    @Column(name = "symbol")
+    @Column(name = "symbol", length = 200)
     private String symbol;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 200)
     private String name;
 
-    @Column(name = "dsc")
+    @Column(name = "dsc", length = 2000)
     private String dsc;
 
-    @Column(name = "chromosome_name")
+    @Column(name = "chromosome_name", length = 200)
     private String chromosomeName;
 
     @Override

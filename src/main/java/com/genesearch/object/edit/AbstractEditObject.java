@@ -1,9 +1,11 @@
-package com.genesearch.object.response;
+package com.genesearch.object.edit;
+
+import com.genesearch.object.response.UtilResponse;
 
 /**
  * Created by user on 03.01.2015.
  */
-public abstract class AbstractResponse {
+public abstract class AbstractEditObject {
 
     protected Long id;
     protected String name;
@@ -42,4 +44,5 @@ public abstract class AbstractResponse {
     public void setUtils(UtilResponse utils) {
         this.utils = utils;
     }
+
 }

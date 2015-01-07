@@ -1,6 +1,7 @@
 package com.genesearch.repository;
 
 import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -10,6 +11,14 @@ import org.hibernate.criterion.Restrictions;
  * Time: 15:34
  */
 public abstract class ModelRepository<M> extends GenericModelRepository<M, Long> {
+
+    protected void safeAddRestrictionIlikeAnyWhere(Conjunction and, String fieldName, String fieldValue) {
+        if(fieldValue == null ||
+                (fieldValue instanceof String && ((String) fieldValue).isEmpty())) {
+            return;
+        }
+        and.add(Restrictions.ilike(fieldName, fieldValue, MatchMode.ANYWHERE));
+    }
 
     protected void safeAddRestrictionEq(Conjunction and, String fieldName, Object fieldValue) {
         if(fieldValue == null ||

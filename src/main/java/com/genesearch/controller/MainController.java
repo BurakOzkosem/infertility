@@ -1,12 +1,17 @@
 package com.genesearch.controller;
 
-import com.genesearch.domain.DbSaver;
 import com.genesearch.domain.MouseMineSaver;
 import com.genesearch.model.Gene;
+import com.genesearch.model.OntologyTerm;
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.request.GeneRequest;
-import com.genesearch.object.request.SearchGeneRequest;
+import com.genesearch.object.request.SearchOntologyAnnotationRequest;
 import com.genesearch.object.response.GeneResponse;
+import com.genesearch.object.response.ReferenceResponse;
+import com.genesearch.object.response.SearchOntologyAnnotationResponse;
 import com.genesearch.repository.GeneRepository;
+import com.genesearch.repository.OntologyAnnotationRepository;
+import com.genesearch.repository.OntologyTermRepository;
 import com.genesearch.webservice.MouseMineRetriever;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,16 +39,53 @@ public class MainController {
 
     @Autowired
     private GeneRepository geneRepository;
+    @Autowired
+    private OntologyAnnotationRepository ontologyAnnotationRepository;
+    @Autowired
+    private OntologyTermRepository ontologyTermRepository;
+
 
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/search", method = RequestMethod.POST)
     @ResponseBody
-    public Page<GeneResponse> showGene(@RequestBody SearchGeneRequest request) {
-        List<GeneResponse> response = new ArrayList<GeneResponse>();
-        response = geneRepository.search(request).getContent();
-        return new PageImpl<GeneResponse>(response, request, response.size());
+    public Page<SearchOntologyAnnotationResponse> search(@RequestBody SearchOntologyAnnotationRequest request) {
+        List<SearchOntologyAnnotationResponse> response = new ArrayList<SearchOntologyAnnotationResponse>();
+        response = ontologyAnnotationRepository.search(request).getContent();
+        return new PageImpl<SearchOntologyAnnotationResponse>(response, request, response.size());
     }
 
+    @Transactional(readOnly = true)
+    @RequestMapping(value = "/gene/showDetails/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public OntologyAnnotationEdit showDetails(@PathVariable Long id) {
+        return ontologyAnnotationRepository.show(id);
+    }
+
+//    @Transactional(readOnly = false)
+//    @RequestMapping(value = "/details/{id}/update", method = RequestMethod.POST)
+//    @ResponseBody
+//    public OntologyAnnotationEdit updateDetails(@PathVariable Long id, @RequestBody OntologyAnnotationEdit request) {
+//        OntologyAnnotation ontologyAnnotation = ontologyAnnotationRepository.findById(request.getId());
+//        ontologyAnnotationRepository.update(ontologyAnnotation, request);
+//        ontologyAnnotationRepository.save(ontologyAnnotation);
+//        return ontologyAnnotationRepository.show(request.getId());
+//    }
+
+    @Transactional(readOnly = true)
+    @RequestMapping(value = "/gene/reference/ontologyterm", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ReferenceResponse> getOntologyTermReference() {
+        List<OntologyTerm> result = new ArrayList<OntologyTerm>();
+        result = (List<OntologyTerm>) ontologyTermRepository.getAll();
+
+        List<ReferenceResponse> response = new ArrayList<ReferenceResponse>();
+        for(OntologyTerm term : result) {
+            response.add(new ReferenceResponse(term.getId(), term.getName()));
+        }
+        return response;
+    }
+
+//=====================================================================================================================
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/show/{id}", method = RequestMethod.GET)
     @ResponseBody

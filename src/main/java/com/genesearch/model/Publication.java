@@ -15,7 +15,7 @@ public class Publication extends AbstractEntity {
     @Column(name = "pubmed_id")
     private Long id;
 
-    @Column(name = "doi")
+    @Column(name = "doi", length = 200)
     private String doi;
 
     @Override

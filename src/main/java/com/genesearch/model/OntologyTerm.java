@@ -17,10 +17,10 @@ public class OntologyTerm extends AbstractEntity {
     @Column(name = "ontology_term_id")
     private Long id;
 
-    @Column(name = "primary_identifier")
+    @Column(name = "primary_identifier", length = 200)
     private String primaryIdentifier;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 200)
     private String name;
 
     @Override

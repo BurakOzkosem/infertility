@@ -16,21 +16,35 @@ function SearchCtrl($scope, Restangular, localStorageService) {
         size: 25
     };
 
+    $scope.reference = {
+        ontologyTerm: []
+    };
+
     $scope.sorts = {direction: 'asc', property: 'id'};
 
-    $scope.filters = localStorageService.get('gene.filters');
+    $scope.filters = localStorageService.get('gene.filters.v1.1');
 
     if (!angular.isDefined($scope.filters) || $scope.filters == null) {
         $scope.filters = {
             id: '',
-            name: ''
+            ontologyId: '',
+
+            ontologyTermPrimaryIdentifier: '',
+            ontologyTermName: '',
+            subjectPrimaryIdentifier: '',
+            subjectSymbol: '',
+            subjectName: '',
+            subjectDsc: '',
+            subjectChromosomeName: '',
+            evidenceBaseAnnotationsSubjectBackgroundName: '',
+            evidenceBaseAnnotationsSubjectZygosity: '',
+            publicationId: '',
+            publicationDoi: ''
         };
     }
 
     $scope.load = function () {
-//        ngProgress.start();
-
-        localStorageService.set('gene.filters', $scope.filters);
+        localStorageService.set('gene.filters.v1.1', $scope.filters);
 
         var sorts = [{
             'direction': $scope.sorts.direction ? 'asc' : 'desc',
@@ -39,7 +53,19 @@ function SearchCtrl($scope, Restangular, localStorageService) {
 
         var filters = {
             id: $scope.filters.id,
-            name: $scope.filters.name,
+            ontologyId: $scope.filters.ontologyId,
+
+            ontologyTermPrimaryIdentifier: $scope.filters.ontologyTermPrimaryIdentifier,
+            ontologyTermName: $scope.filters.ontologyTermName,
+            subjectPrimaryIdentifier:         $scope.filters.subjectPrimaryIdentifier,
+            subjectSymbol:        $scope.filters.subjectSymbol,
+            subjectName:        $scope.filters.subjectName,
+            subjectDsc:       $scope.filters.subjectDsc,
+            subjectChromosomeName:        $scope.filters.subjectChromosomeName,
+            evidenceBaseAnnotationsSubjectBackgroundName:        $scope.filters.evidenceBaseAnnotationsSubjectBackgroundName,
+            evidenceBaseAnnotationsSubjectZygosity:        $scope.filters.evidenceBaseAnnotationsSubjectZygosity,
+            publicationId:        $scope.filters.publicationId,
+            publicationDoi:        $scope.filters.publicationDoi,
 
             sorts: sorts,
             page: $scope.state.page,
@@ -51,11 +77,17 @@ function SearchCtrl($scope, Restangular, localStorageService) {
             $scope.state.count = result.totalElements;
             $scope.state.size = result.size;
             $scope.state.totalPages = result.totalPages;
-//            ngProgress.complete();
         },
         function() {
 
         });
+    };
+
+    $scope.loadReferences = function() {
+        Restangular.oneUrl('gene/reference/ontologyterm').get().then(function(result) {
+                $scope.reference.ontologyTerm = result;
+            },
+            function() { });
     };
 
     $scope.getMM = function() {
@@ -63,7 +95,6 @@ function SearchCtrl($scope, Restangular, localStorageService) {
     };
 
     $scope.getDetailsUrl = function(item) {
-//        return "edit/" + item.id;
         return "#/edit/" + item.id;
     };
 
@@ -131,10 +162,22 @@ function SearchCtrl($scope, Restangular, localStorageService) {
     $scope.clearFilters = function() {
         $scope.filters = {
             id: '',
-            name: ''
+            ontologyId: '',
+
+            ontologyTermPrimaryIdentifier: '',
+            ontologyTermName: '',
+            subjectPrimaryIdentifier: '',
+            subjectSymbol: '',
+            subjectName: '',
+            subjectDsc: '',
+            subjectChromosomeName: '',
+            evidenceBaseAnnotationsSubjectBackgroundName: '',
+            evidenceBaseAnnotationsSubjectZygosity: '',
+            publicationId: '',
+            publicationDoi: ''
         };
 
-        localStorageService.remove('gene.search');
+        localStorageService.remove('gene.filters.v1.1');
         $scope.sorts = {direction: 'asc', property: 'id'};
     };
 

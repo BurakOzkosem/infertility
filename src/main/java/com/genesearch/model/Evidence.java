@@ -21,10 +21,10 @@ public class Evidence extends AbstractEntity {
     @JoinColumn(name = "pubmed_id")
     private Publication publication;
 
-    @Column(name = "b_annot_subj_bckground_name")
+    @Column(name = "b_annot_subj_bckground_name", length = 200)
     private String baseAnnotationsSubjectBackgroundName;
 
-    @Column(name = "b_annot_subj_zygocity")
+    @Column(name = "b_annot_subj_zygocity", length = 200)
     private String baseAnnotationsSubjectZygosity;
 
     @Override

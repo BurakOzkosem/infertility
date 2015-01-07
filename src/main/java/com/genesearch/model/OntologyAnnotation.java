@@ -1,5 +1,6 @@
 package com.genesearch.model;
 
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -62,4 +63,5 @@ public class OntologyAnnotation  extends AbstractEntity {
     public void setEvidence(Evidence evidence) {
         this.evidence = evidence;
     }
+
 }

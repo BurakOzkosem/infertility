@@ -20,36 +20,58 @@
             <!--</div>-->
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label class="control-label">ID</label>
-                    <input type="text" ng-model="filters.id" placeholder="ID" ng-maxlength="50" class="form-control">
+                    <label class="control-label">Subj. ID</label>
+                    <input type="text" ng-model="filters.subjectPrimaryIdentifier" placeholder="ID" ng-maxlength="200" class="form-control">
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
-                    <label class="control-label">Name</label>
-                    <input type="text" ng-model="filters.name" placeholder="Name" ng-maxlength="50" class="form-control">
+                    <label class="control-label">Subj. symbol</label>
+                    <input type="text" ng-model="filters.subjectSymbol" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Subj. name</label>
+                    <input type="text" ng-model="filters.subjectName" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Subj. chrom.</label>
+                    <input type="text" ng-model="filters.subjectChromosomeName" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Subj. bckg. name</label>
+                    <input type="text" ng-model="filters.evidenceBaseAnnotationsSubjectBackgroundName" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Subj. zyg.</label>
+                    <input type="text" ng-model="filters.evidenceBaseAnnotationsSubjectZygosity" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Pub. ID</label>
+                    <input type="text" ng-model="filters.publicationId" placeholder="Name" ng-maxlength="200" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label class="control-label">Pub. doi</label>
+                    <input type="text" ng-model="filters.publicationDoi" placeholder="Name" ng-maxlength="200" class="form-control">
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="form-group">
                     <label>Filter</label>
-                    <select class="form-control" ng-model="filters.na" ng-options="na.id as na.value for na in references.naList">
+                    <select class="form-control" ng-model="filters.ontologyId" ng-options="term.id as term.value for term in reference.ontologyTerm">
                         <option value=""></option>
                     </select>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label>Filter</label>
-                    <select class="form-control" ng-model="filters.np" ng-options="np.id as np.value for np in references.npList">
-                        <option value=""></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group">
-                    <label class="control-label">Filter</label>
-                    <input type="text" ng-model="filters.tt" placeholder="Filter" ng-maxlength="20" class="form-control">
                 </div>
             </div>
         </div>
@@ -58,59 +80,112 @@
         <div class="col-sm-10">
             <ul class="list-inline gs-header-ul">
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="openInsert()">Create</button></li>
-                <li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canEdit()" ng-click="openEdit()" disabled="true">Edit</button></li>
+                <!--<li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canEdit()" ng-click="openEdit()" disabled="true">Edit</button></li>-->
                 <li><button class="btn btn-default gs-btn" type="button" ng-disabled="!canDelete()" ng-click="openDeleteGlobalTitles()">Remove</button></li>
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="clearFilters()">Clear</button></li>
                 <li><button class="btn btn-default gs-btn" type="button" ng-click="load()">Search</button></li>
                 <li><div ng-include="'page/table-pagination.html'"></div></li>
-                <li><button class="btn btn-default gs-btn" type="button" ng-click="getMM()">MM</button></li>
+                <!--<li><button class="btn btn-default gs-btn" type="button" ng-click="getMM()">MM</button></li>-->
             </ul>
         </div>
     </div>
     <div class="row" style="margin-top: 15px">
         <div class="col-sm-10 scroll-width">
-            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:1000px">
+            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
                 <thead>
                 <tr>
                     <th style="min-width: 20px; max-width: 20px; width: 20px;">
                         <input type="checkbox" ng-model="state.allChecked" ng-click="checkAll()">
                     </th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Header</th>
-                    <th>Header</th>
-                    <th>Header</th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('subjectPrimaryIdentifier')">
+                            Subj. ID
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('subjectPrimaryIdentifier', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('subjectPrimaryIdentifier', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('subjectSymbol')">
+                            Subj. symbol
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('subjectSymbol', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('subjectSymbol', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('subjectName')">
+                            Subj. name
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('subjectName', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('ontologyTermName')">
+                            Term name
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('ontologyTermName', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('ontologyTermName', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('publicationId')">
+                            Pub. ID
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('publicationId', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('publicationId', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('ontologyTermPrimaryIdentifier')">
+                            Term ID
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('ontologyTermPrimaryIdentifier', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('ontologyTermPrimaryIdentifier', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('evidenceBaseAnnotationsSubjectBackgroundName')">
+                            Subj. bckgr. name
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('evidenceBaseAnnotationsSubjectBackgroundName', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('evidenceBaseAnnotationsSubjectBackgroundName', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('evidenceBaseAnnotationsSubjectZygosity')">
+                            Subj. zyg.
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('evidenceBaseAnnotationsSubjectZygosity', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('evidenceBaseAnnotationsSubjectZygosity', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('publicationDoi')">
+                            Pub. doi
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('publicationDoi', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('publicationDoi', 'desc')}"></i>
+                        </div>
+                    </th>
+                    <th style="width: 10%;">
+                        <div class="ng-binding" ng-click="setSort('subjectChromosomeName')">
+                            Subj. chrom.
+                            <i class="pull-right"
+                               ng-class="{'glyphicon glyphicon-chevron-down': canSort('subjectChromosomeName', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('subjectChromosomeName', 'desc')}"></i>
+                        </div>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">
                 <!--<tr ng-repeat="model in state.geneList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)">-->
                     <td><input type="checkbox" ng-model="model.utils.selected" ng-click="check(model)"></td>
-                    <td>{{model.id}}</td>
-                    <td><a href="{{getDetailsUrl(model)}}">{{model.name}}</a></td>
-                    <td>{{model.name}}</td>
-                    <td>{{model.name}}</td>
-                    <td>{{model.name}}</td>
+                    <td><a href="{{getDetailsUrl(model)}}">{{model.subjectPrimaryIdentifier}}</a></td>
+                    <td>{{model.subjectSymbol}}</td>
+                    <td>{{model.subjectName}}</td>
+                    <td>{{model.ontologyTermName}}</td>
+                    <td>{{model.publicationId}}</td>
+                    <td>{{model.ontologyTermPrimaryIdentifier}}</td>
+                    <td>{{model.evidenceBaseAnnotationsSubjectBackgroundName}}</td>
+                    <td>{{model.evidenceBaseAnnotationsSubjectZygosity}}</td>
+                    <td>{{model.publicationDoi}}</td>
+                    <td>{{model.subjectChromosomeName}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-
-
-
-<!--<div>-->
-    <!--SEARCH-->
-    <!--<div class="row">-->
-        <!--<div class="col-sm-12">-->
-            <!--<a class="btn btn-link" href="#/edit">Details</a>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-        <!--<div class="col-sm-12">-->
-            <!--<a class="btn btn-link" ng-click="showGene()">Show gene</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
