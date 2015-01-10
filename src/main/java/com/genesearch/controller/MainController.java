@@ -49,9 +49,8 @@ public class MainController {
     @RequestMapping(value = "/gene/search", method = RequestMethod.POST)
     @ResponseBody
     public Page<SearchOntologyAnnotationResponse> search(@RequestBody SearchOntologyAnnotationRequest request) {
-        List<SearchOntologyAnnotationResponse> response = new ArrayList<SearchOntologyAnnotationResponse>();
-        response = ontologyAnnotationRepository.search(request).getContent();
-        return new PageImpl<SearchOntologyAnnotationResponse>(response, request, response.size());
+        Page<SearchOntologyAnnotationResponse> responsePage = ontologyAnnotationRepository.search(request);
+        return new PageImpl<SearchOntologyAnnotationResponse>(responsePage.getContent(), request, responsePage.getTotalElements());
     }
 
     @Transactional(readOnly = true)

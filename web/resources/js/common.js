@@ -3,13 +3,14 @@
  */
 var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute', 'LocalStorageModule', 'directive.loading']);
 
-geneSearchApp.constant('BASE_PATH', '/');
+geneSearchApp.constant('BASE_PATH', '/genesearch');
 geneSearchApp.constant('API_END_POINT', '/api');
 
-geneSearchApp.config(function (RestangularProvider, $sceProvider, API_END_POINT) {
+geneSearchApp.config(function (RestangularProvider, $sceProvider, BASE_PATH, API_END_POINT) {
+
     $sceProvider.enabled(false);
 //            $parseProvider.unwrapPromises(true);
-    RestangularProvider.setBaseUrl(API_END_POINT);
+    RestangularProvider.setBaseUrl(BASE_PATH + "/" + API_END_POINT);
 
 //            $httpProvider.interceptors.push('HttpInterceptor');
 

@@ -18,12 +18,11 @@
                         next-text="&rsaquo;"
                         first-text="&laquo;"
                         last-text="&raquo;"
-                        on-select-page="setPage(page)"
-                    >
+                        on-select-page="setPage(page)">
             </pagination>
         </td>
         <td>
-            <select ng-model="state.size" ng-options="size for size in [5, 10, 25, 50, 100, 500]" class="form-control page-size">
+            <select ng-model="state.size" ng-change="load()" ng-options="size for size in [5, 10, 25, 50, 100, 500]" class="form-control page-size">
             </select>
         </td>
     </tr>

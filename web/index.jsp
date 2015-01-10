@@ -31,6 +31,7 @@
         document.createElement('ng:pluralize');
         document.createElement('ng:view');
         document.createElement('pagination');
+
     </script>
     <![endif]-->
     <!--[if lte IE 9]>
@@ -89,7 +90,7 @@
 </div>
 
 <div id="mydiv" loading>
-    <img src="/resources/img/loading.gif" class="ajax-loader"/>
+    <img src="/genesearch/resources/img/loading.gif" class="ajax-loader"/>
 </div>
 
 </body>
