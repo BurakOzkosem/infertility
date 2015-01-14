@@ -629,3 +629,7 @@ ul.gs-header-ul > li {
     margin-top: -32px;  /* -1 * image height / 2 */
     display: block;
 }
+
+.vspace-top-5 {
+    margin-top: 5px;
+}
