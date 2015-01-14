@@ -20,12 +20,32 @@ public abstract class ModelRepository<M> extends GenericModelRepository<M, Long>
         and.add(Restrictions.ilike(fieldName, fieldValue, MatchMode.ANYWHERE));
     }
 
+    protected void safeAddRestrictionIlikeAnyWhereOrNull(Conjunction and, String fieldName, String fieldValue) {
+        if(fieldValue == null ||
+                (fieldValue instanceof String && ((String) fieldValue).isEmpty())) {
+            and.add(Restrictions.isNull(fieldName));
+        }
+        else {
+            and.add(Restrictions.ilike(fieldName, fieldValue, MatchMode.ANYWHERE));
+        }
+    }
+
     protected void safeAddRestrictionEq(Conjunction and, String fieldName, Object fieldValue) {
         if(fieldValue == null ||
                 (fieldValue instanceof String && ((String) fieldValue).isEmpty())) {
             return;
         }
         and.add(Restrictions.eq(fieldName, fieldValue));
+    }
+
+    protected void safeAddRestrictionEqOrNull(Conjunction and, String fieldName, Object fieldValue) {
+        if(fieldValue == null ||
+                (fieldValue instanceof String && ((String) fieldValue).isEmpty())) {
+            and.add(Restrictions.isNull(fieldName));
+        }
+        else {
+            and.add(Restrictions.eq(fieldName, fieldValue));
+        }
     }
 
     protected void safeAddRestrictionGe(Conjunction and, String fieldName, Object fieldValue) {
@@ -43,4 +63,6 @@ public abstract class ModelRepository<M> extends GenericModelRepository<M, Long>
         }
         and.add(Restrictions.le(fieldName, fieldValue));
     }
+
+
 }

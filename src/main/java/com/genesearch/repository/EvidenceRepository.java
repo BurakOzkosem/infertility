@@ -21,9 +21,9 @@ public class EvidenceRepository extends ModelRepository<Evidence> {
 
         Conjunction and = new Conjunction();
 
-        safeAddRestrictionEq(and, "pub.id", pubmedId);
-        safeAddRestrictionEq(and, "baseAnnotationsSubjectBackgroundName", baseAnnoBkgName);
-        safeAddRestrictionEq(and, "baseAnnotationsSubjectZygosity", baseAnnoZygocity);
+        safeAddRestrictionEqOrNull(and, "pub.id", pubmedId);
+        safeAddRestrictionEqOrNull(and, "baseAnnotationsSubjectBackgroundName", baseAnnoBkgName);
+        safeAddRestrictionEqOrNull(and, "baseAnnotationsSubjectZygosity", baseAnnoZygocity);
 
         c.add(and);
 
@@ -35,4 +35,5 @@ public class EvidenceRepository extends ModelRepository<Evidence> {
         }
         return result.get(0);
     }
+
 }

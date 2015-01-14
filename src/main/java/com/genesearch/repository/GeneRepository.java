@@ -1,6 +1,7 @@
 package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
+import com.genesearch.model.Homologue;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import org.hibernate.Criteria;
@@ -8,6 +9,7 @@ import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
@@ -22,10 +24,38 @@ import java.util.List;
 @Repository
 public class GeneRepository extends ModelRepository<Gene> {
 
+    public Gene find(String primaryIdentifier, String symbol, String organismName, String ncbi, Homologue homologue) {
+        Criteria c = getSession().createCriteria(getEntityClass(), "gn");
+        c.createAlias("gn.homologue", "hm", JoinType.LEFT_OUTER_JOIN);
+
+
+        Conjunction and = new Conjunction();
+
+        safeAddRestrictionEqOrNull(and, "gn.primaryIdentifier", primaryIdentifier);
+        safeAddRestrictionEqOrNull(and, "gn.symbol", symbol);
+        safeAddRestrictionEqOrNull(and, "gn.organismName", organismName);
+        safeAddRestrictionEqOrNull(and, "gn.ncbi", ncbi);
+        safeAddRestrictionEqOrNull(and, "hm.id", homologue != null ? homologue.getId() : null);
+
+        c.add(and);
+
+        c.setProjection(Projections.countDistinct("gn.id"));
+        long total = (Long) c.uniqueResult();
+
+        c.setProjection(null);
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        List<Gene> result = c.list();
+
+        if(result.size() == 0) {
+            return null;
+        }
+        return result.get(0);
+    }
+
     public GeneResponse show(Long id) {
         return GeneResponse.create(findById(id));
     }
-
 
     public Page<GeneResponse> search(SearchGeneRequest request) {
 
@@ -79,5 +109,6 @@ public class GeneRepository extends ModelRepository<Gene> {
 
         return page;
     }
+
 
 }

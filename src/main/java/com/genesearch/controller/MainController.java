@@ -97,7 +97,7 @@ public class MainController {
     @ResponseBody
     public GeneResponse updateGene(@PathVariable Long id, @RequestBody GeneRequest request) {
         Gene gene = geneRepository.findById(request.getId());
-        gene.update(request);
+//        gene.update(request);
         geneRepository.save(gene);
         return geneRepository.show(request.getId());
     }

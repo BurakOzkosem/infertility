@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 public class MouseMineRetriever implements WebServiceRetriever {
 
-    private static final String ROOT = "http://www.mousemine.org/mousemine/service";
-
     @Override
     public List<List<Object>> execute() {
         ServiceFactory factory = new ServiceFactory(ROOT);

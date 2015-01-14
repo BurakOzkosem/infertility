@@ -1,21 +1,20 @@
 package com.genesearch.model;
 
-import com.genesearch.object.request.GeneRequest;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * Created by user on 02.01.2015.
+ * Created by user on 14.01.2015.
  */
 @Entity
-@Table(name="Gene")
-public class Gene extends AbstractEntity {
+@Table(name="Homologue")
+public class Homologue extends AbstractEntity {
 
     @Id
-    @GenericGenerator(name="gene_generator",strategy="increment")
-    @GeneratedValue(generator="gene_generator")
-    @Column(name = "gene_id")
+    @GenericGenerator(name="homologue_generator",strategy="increment")
+    @GeneratedValue(generator="homologue_generator")
+    @Column(name = "homologue_id")
     private Long id;
 
     @Column(name="primary_identifier", length = 200)
@@ -27,12 +26,11 @@ public class Gene extends AbstractEntity {
     @Column(name="organism_name", length = 200)
     private String organismName;
 
-    @Column(name="ncbi_id", length = 200)
-    private String ncbi;
+    @Column(name="type", length = 200)
+    private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "homologue_id")
-    private Homologue homologue;
+    @Column(name="datasets_name", length = 200)
+    private String datasetsName;
 
     @Override
     public Long getId() {
@@ -68,19 +66,19 @@ public class Gene extends AbstractEntity {
         this.organismName = organismName;
     }
 
-    public Homologue getHomologue() {
-        return homologue;
+    public String getType() {
+        return type;
     }
 
-    public void setHomologue(Homologue homologue) {
-        this.homologue = homologue;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getNcbi() {
-        return ncbi;
+    public String getDatasetsName() {
+        return datasetsName;
     }
 
-    public void setNcbi(String ncbi) {
-        this.ncbi = ncbi;
+    public void setDatasetsName(String datasetsName) {
+        this.datasetsName = datasetsName;
     }
 }
