@@ -72,18 +72,6 @@ public class MouseMineSaver implements DbSaver {
             publication.setDoi(safeString(row.get(9)));
             subject.setChromosomeName(safeString(row.get(10)));
 
-            gene.setPrimaryIdentifier(safeString(row.get(0)));
-            gene.setSymbol(safeString(row.get(1)));
-            gene.setOrganismName(safeString(row.get(11)));
-            homologue.setPrimaryIdentifier(safeString(row.get(12)));
-            homologue.setSymbol(safeString(row.get(13)));
-            homologue.setOrganismName(safeString(row.get(14)));
-            homologue.setType(safeString(row.get(15)));
-            homologue.setDatasetsName(safeString(row.get(16)));
-            gene.setNcbi(safeString(row.get(17)));
-            gene.setHomologue(homologue);
-
-
             if(publication.getId() != null) {
                 publication = publicationRepository.exists(publication.getId())
                         ? publicationRepository.findById(publication.getId())
@@ -125,23 +113,6 @@ public class MouseMineSaver implements DbSaver {
 
             if(ontologyAnnotationFromDb == null) {
                 ontologyAnnotationRepository.save(ontologyAnnotation);
-            }
-
-            Homologue homologueFromDb = homologueRepository.find(homologue.getPrimaryIdentifier(), homologue.getSymbol(),
-                                                    homologue.getOrganismName(), homologue.getType(), homologue.getDatasetsName());
-            if(homologueFromDb == null) {
-                homologueRepository.save(homologue);
-            }
-            else {
-                homologue = homologueFromDb;
-            }
-
-            Gene geneFromDb = geneRepository.find(gene.getPrimaryIdentifier(), gene.getSymbol(), gene.getOrganismName(), gene.getNcbi(), gene.getHomologue());
-            if(geneFromDb == null) {
-                geneRepository.save(gene);
-            }
-            else {
-                gene = geneFromDb;
             }
         }
     }

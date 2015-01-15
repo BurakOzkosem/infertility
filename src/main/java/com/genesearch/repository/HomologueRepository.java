@@ -29,7 +29,7 @@ public class HomologueRepository extends  ModelRepository<Homologue> {
 
         c.add(and);
 
-        c.setProjection(Projections.countDistinct("gn.id"));
+        c.setProjection(Projections.countDistinct("hm.id"));
         long total = (Long) c.uniqueResult();
 
         c.setProjection(null);

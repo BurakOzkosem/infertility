@@ -1,5 +1,6 @@
 package com.genesearch.controller;
 
+import com.genesearch.domain.GeneDetailsSaver;
 import com.genesearch.domain.MouseMineSaver;
 import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyTerm;
@@ -12,6 +13,7 @@ import com.genesearch.object.response.SearchOntologyAnnotationResponse;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.OntologyAnnotationRepository;
 import com.genesearch.repository.OntologyTermRepository;
+import com.genesearch.webservice.GeneDetailsRetriever;
 import com.genesearch.webservice.MouseMineRetriever;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,9 @@ public class MainController {
 
     @Autowired
     private MouseMineSaver dbSaver;
+    @Autowired
+    private GeneDetailsSaver geneSaver;
+
 
     @Autowired
     private GeneRepository geneRepository;
@@ -107,7 +112,7 @@ public class MainController {
     public GeneResponse getFromMM() {
         GeneResponse response = new GeneResponse();
 
-        dbSaver.execute(new MouseMineRetriever());
+        geneSaver.execute(new GeneDetailsRetriever());
 
         return response;
     }

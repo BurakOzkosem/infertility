@@ -14,10 +14,7 @@ import java.util.List;
  */
 public class GeneDetailsRetriever implements WebServiceRetriever {
 
-    private String geneId;
-
-    public GeneDetailsRetriever(String geneId) {
-        this.geneId = geneId;
+    public GeneDetailsRetriever() {
     }
 
     @Override
@@ -27,34 +24,8 @@ public class GeneDetailsRetriever implements WebServiceRetriever {
         PathQuery query = new PathQuery(model);
 
         // Select the output columns:
-        query.addViews("OntologyAnnotation.subject.primaryIdentifier",
-                "OntologyAnnotation.subject.symbol",
-                "OntologyAnnotation.subject.name",
-                "OntologyAnnotation.ontologyTerm.name",
-                "OntologyAnnotation.subject.description",
-                "OntologyAnnotation.evidence.publications.pubMedId",
-                "OntologyAnnotation.ontologyTerm.identifier",
-                "OntologyAnnotation.evidence.baseAnnotations.subject.background.name",
-                "OntologyAnnotation.evidence.baseAnnotations.subject.zygosity",
-                "OntologyAnnotation.evidence.publications.doi",
-                "OntologyAnnotation.subject.chromosome.name");
-
-        // Add orderby
-        query.addOrderBy("OntologyAnnotation.subject.symbol", OrderDirection.ASC);
-
-        // Select the output columns:
         query.addViews("Gene.primaryIdentifier",
                 "Gene.symbol",
-                "OntologyAnnotation.subject.name",
-                "OntologyAnnotation.ontologyTerm.name",
-                "OntologyAnnotation.subject.description",
-                "OntologyAnnotation.evidence.publications.pubMedId",
-                "OntologyAnnotation.ontologyTerm.identifier",
-                "OntologyAnnotation.evidence.baseAnnotations.subject.background.name",
-                "OntologyAnnotation.evidence.baseAnnotations.subject.zygosity",
-                "OntologyAnnotation.evidence.publications.doi",
-                "OntologyAnnotation.subject.chromosome.name",
-
                 "Gene.organism.name",
                 "Gene.homologues.homologue.primaryIdentifier",
                 "Gene.homologues.homologue.symbol",
