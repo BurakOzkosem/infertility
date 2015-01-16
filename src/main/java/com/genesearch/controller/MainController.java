@@ -4,6 +4,8 @@ import com.genesearch.domain.GeneDetailsSaver;
 import com.genesearch.domain.MouseMineSaver;
 import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyTerm;
+import com.genesearch.object.edit.GeneEdit;
+import com.genesearch.object.edit.MainEdit;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.request.GeneRequest;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
@@ -61,8 +63,10 @@ public class MainController {
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/showDetails/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public OntologyAnnotationEdit showDetails(@PathVariable Long id) {
-        return ontologyAnnotationRepository.show(id);
+    public MainEdit showDetails(@PathVariable Long id) {
+        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationRepository.show(id);
+        GeneEdit geneEdit = geneRepository.show(ontologyAnnotationEdit.getSubjectEdit().getPrimaryIdentifier());
+        return new MainEdit(ontologyAnnotationEdit, geneEdit);
     }
 
 //    @Transactional(readOnly = false)

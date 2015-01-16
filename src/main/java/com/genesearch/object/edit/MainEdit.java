@@ -8,6 +8,14 @@ public class MainEdit {
     private OntologyAnnotationEdit ontologyAnnotationEdit;
     private GeneEdit geneEdit;
 
+    public MainEdit() {
+    }
+
+    public MainEdit(OntologyAnnotationEdit ontologyAnnotationEdit, GeneEdit geneEdit) {
+        this.ontologyAnnotationEdit = ontologyAnnotationEdit;
+        this.geneEdit = geneEdit;
+    }
+
     public OntologyAnnotationEdit getOntologyAnnotationEdit() {
         return ontologyAnnotationEdit;
     }

@@ -1,17 +1,15 @@
 package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
+import com.genesearch.model.GeneHomologue;
 import com.genesearch.model.Homologue;
 import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.edit.HomologueEdit;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,7 +17,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 03.01.2015.
@@ -56,6 +56,10 @@ public class GeneRepository extends ModelRepository<Gene> {
             return null;
         }
         return result.get(0);
+    }
+
+    public GeneEdit show(String primaryIdentifier) {
+        return null;
     }
 
     public GeneResponse show(Long id) {
@@ -110,18 +114,7 @@ public class GeneRepository extends ModelRepository<Gene> {
             responses.add(GeneResponse.create(gene));
         }
 
-        PageImpl<GeneResponse> page = new PageImpl<GeneResponse>(responses, request, total);
-
-        return page;
+        return new PageImpl<GeneResponse>(responses, request, total);
     }
 
-
-    public GeneEdit update(GeneEdit geneEdit) {
-        homologueRepository.update(geneEdit.getHomologueEditList());
-
-        geneHomologueRepository.update(geneEdit);
-
-        // TODO: update code
-        return geneEdit;
-    }
 }

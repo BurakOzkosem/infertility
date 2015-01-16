@@ -39,20 +39,34 @@ public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
         return result;
     }
 
+    public GeneHomologue findOne(Long geneId, Long homologueId) {
+        if(geneId == null || homologueId == null) {
+            throw new IllegalArgumentException();
+        }
+
+        Criteria c = getSession().createCriteria(getEntityClass(), "gh");
+        c.createAlias("gh.gene", "gn", JoinType.INNER_JOIN);
+        c.createAlias("gh.homologue", "hm", JoinType.INNER_JOIN);
+
+        Conjunction and = new Conjunction();
+
+        safeAddRestrictionEq(and, "gn.id", geneId);
+        safeAddRestrictionEq(and, "hm.id", homologueId);
+
+        c.add(and);
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        List<GeneHomologue> result = c.list();
+
+        if(result.size() == 0) {
+            return null;
+        }
+        return result.get(0);
+    }
 
     public void update(GeneEdit geneEdit) {
 
-        List<GeneHomologue> existingList = find(geneEdit.getId(), null);
-
-        outer:
-        for(GeneHomologue existing : existingList) {
-            for(HomologueEdit he : geneEdit.getHomologueEditList()) {
-                if(he.getId().equals(existing.getHomologue().getId())) {
-                    continue outer;
-                }
-            }
-
-        }
 
     }
 }

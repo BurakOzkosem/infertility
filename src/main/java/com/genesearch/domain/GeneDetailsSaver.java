@@ -65,7 +65,7 @@ public class GeneDetailsSaver implements DbSaver {
             gh.setGene(gene);
             gh.setHomologue(homologue);
 
-            GeneHomologue ghFromDb = geneHomologueRepository.find(gene.getId(), homologue.getId());
+            GeneHomologue ghFromDb = geneHomologueRepository.findOne(gene.getId(), homologue.getId());
             if(ghFromDb == null) {
                 geneHomologueRepository.save(gh);
             }

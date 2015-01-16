@@ -18,13 +18,13 @@ public class MainGeneEditor {
     private OntologyAnnotationRepository ontologyAnnotationRepository;
 
     @Autowired
-    private GeneRepository geneRepository;
+    private GeneDomain geneDomain;
 
     @Transactional(readOnly = false)
     public MainEdit update(MainEdit editObject) {
 
         OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationRepository.update(editObject.getOntologyAnnotationEdit());;
-        GeneEdit geneEdit = geneRepository.update(editObject.getGeneEdit());
+        GeneEdit geneEdit = geneDomain.update(editObject.getGeneEdit());
 
         return editObject;
     }

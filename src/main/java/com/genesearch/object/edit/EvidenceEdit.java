@@ -7,9 +7,19 @@ import com.genesearch.model.Evidence;
  */
 public class EvidenceEdit extends AbstractEditObject {
 
+    private Long id;
+
     private PublicationEdit publicationEdit;
     private String baseAnnotationsSubjectBackgroundName;
     private String baseAnnotationsSubjectZygosity;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public PublicationEdit getPublicationEdit() {
         return publicationEdit;

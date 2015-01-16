@@ -8,9 +8,19 @@ import com.genesearch.model.Subject;
  */
 public class SubjectEdit extends AbstractEditObject {
 
+    private String name;
     private String primaryIdentifier;
     private String symbol;
     private String chromosomeName;
+    private String dsc;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;
@@ -34,6 +44,14 @@ public class SubjectEdit extends AbstractEditObject {
 
     public void setChromosomeName(String chromosomeName) {
         this.chromosomeName = chromosomeName;
+    }
+
+    public String getDsc() {
+        return dsc;
+    }
+
+    public void setDsc(String dsc) {
+        this.dsc = dsc;
     }
 
     public static SubjectEdit create(Subject entity) {
