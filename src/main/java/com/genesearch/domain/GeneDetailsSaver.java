@@ -1,6 +1,7 @@
 package com.genesearch.domain;
 
 import com.genesearch.model.*;
+import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.HomologueRepository;
 import com.genesearch.webservice.WebServiceRetriever;
@@ -20,10 +21,12 @@ public class GeneDetailsSaver implements DbSaver {
     private HomologueRepository homologueRepository;
     @Autowired
     private GeneRepository geneRepository;
+    @Autowired
+    private GeneHomologueRepository geneHomologueRepository;
 
     @Transactional(readOnly = false)
     @Override
-    public void execute(WebServiceRetriever retriever) {
+    public void execute(WebServiceRetriever retriever) throws Exception {
         List<List<Object>> result = retriever.execute();
 
         for(List<Object> row : result) {
@@ -39,7 +42,6 @@ public class GeneDetailsSaver implements DbSaver {
             homologue.setType(safeString(row.get(6)));
             homologue.setDatasetsName(safeString(row.get(7)));
             gene.setNcbi(safeString(row.get(8)));
-            gene.setHomologue(homologue);
 
             Homologue homologueFromDb = homologueRepository.find(homologue.getPrimaryIdentifier(), homologue.getSymbol(),
                     homologue.getOrganismName(), homologue.getType(), homologue.getDatasetsName());
@@ -50,13 +52,24 @@ public class GeneDetailsSaver implements DbSaver {
                 homologue = homologueFromDb;
             }
 
-            Gene geneFromDb = geneRepository.find(gene.getPrimaryIdentifier(), gene.getSymbol(), gene.getOrganismName(), gene.getNcbi(), gene.getHomologue());
+
+            Gene geneFromDb = geneRepository.find(gene.getPrimaryIdentifier(), gene.getSymbol(), gene.getOrganismName(), gene.getNcbi());
             if(geneFromDb == null) {
                 geneRepository.save(gene);
             }
             else {
                 gene = geneFromDb;
             }
+
+            GeneHomologue gh = new GeneHomologue();
+            gh.setGene(gene);
+            gh.setHomologue(homologue);
+
+            GeneHomologue ghFromDb = geneHomologueRepository.find(gene.getId(), homologue.getId());
+            if(ghFromDb == null) {
+                geneHomologueRepository.save(gh);
+            }
+
         }
     }
 

@@ -7,6 +7,6 @@ import com.genesearch.webservice.WebServiceRetriever;
  */
 public interface DbSaver {
 
-    void execute(WebServiceRetriever retriever);
+    void execute(WebServiceRetriever retriever) throws Exception;
 
 }

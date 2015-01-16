@@ -109,7 +109,7 @@ public class MainController {
 
     @RequestMapping(value = "/gene/mm", method = RequestMethod.GET)
     @ResponseBody
-    public GeneResponse getFromMM() {
+    public GeneResponse getFromMM() throws Exception {
         GeneResponse response = new GeneResponse();
 
         geneSaver.execute(new GeneDetailsRetriever());

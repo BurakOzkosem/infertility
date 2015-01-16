@@ -24,10 +24,8 @@ import java.util.List;
 @Repository
 public class GeneRepository extends ModelRepository<Gene> {
 
-    public Gene find(String primaryIdentifier, String symbol, String organismName, String ncbi, Homologue homologue) {
+    public Gene find(String primaryIdentifier, String symbol, String organismName, String ncbi) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gn");
-        c.createAlias("gn.homologue", "hm", JoinType.LEFT_OUTER_JOIN);
-
 
         Conjunction and = new Conjunction();
 
@@ -35,7 +33,6 @@ public class GeneRepository extends ModelRepository<Gene> {
         safeAddRestrictionEqOrNull(and, "gn.symbol", symbol);
         safeAddRestrictionEqOrNull(and, "gn.organismName", organismName);
         safeAddRestrictionEqOrNull(and, "gn.ncbi", ncbi);
-        safeAddRestrictionEqOrNull(and, "hm.id", homologue != null ? homologue.getId() : null);
 
         c.add(and);
 

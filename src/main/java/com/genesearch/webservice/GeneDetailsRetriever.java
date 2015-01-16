@@ -38,6 +38,8 @@ public class GeneDetailsRetriever implements WebServiceRetriever {
         query.addOrderBy("Gene.primaryIdentifier", OrderDirection.ASC);
 
         // Filter the results with the following constraints:
+//        query.addConstraint(Constraints.eq("Gene.primaryIdentifier","MGI:101761"));
+
         query.addConstraint(Constraints.type("Gene.ontologyAnnotations.ontologyTerm.parents", "MPTerm"));
         query.addConstraint(Constraints.type("Gene.ontologyAnnotations.evidence.baseAnnotations.subject", "Genotype"));
         query.addConstraint(Constraints.type("Gene.ontologyAnnotations.ontologyTerm", "MPTerm"));

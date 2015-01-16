@@ -30,10 +30,6 @@ public class Gene extends AbstractEntity {
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
 
-    @ManyToOne
-    @JoinColumn(name = "homologue_id")
-    private Homologue homologue;
-
     @Override
     public Long getId() {
         return id;
@@ -66,14 +62,6 @@ public class Gene extends AbstractEntity {
 
     public void setOrganismName(String organismName) {
         this.organismName = organismName;
-    }
-
-    public Homologue getHomologue() {
-        return homologue;
-    }
-
-    public void setHomologue(Homologue homologue) {
-        this.homologue = homologue;
     }
 
     public String getNcbi() {
