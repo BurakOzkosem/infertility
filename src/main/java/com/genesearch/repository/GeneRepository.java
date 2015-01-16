@@ -2,6 +2,8 @@ package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
 import com.genesearch.model.Homologue;
+import com.genesearch.object.edit.GeneEdit;
+import com.genesearch.object.edit.HomologueEdit;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import org.hibernate.Criteria;
@@ -10,6 +12,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
@@ -23,6 +26,11 @@ import java.util.List;
  */
 @Repository
 public class GeneRepository extends ModelRepository<Gene> {
+
+    @Autowired
+    private HomologueRepository homologueRepository;
+    @Autowired
+    private GeneHomologueRepository geneHomologueRepository;
 
     public Gene find(String primaryIdentifier, String symbol, String organismName, String ncbi) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gn");
@@ -108,4 +116,12 @@ public class GeneRepository extends ModelRepository<Gene> {
     }
 
 
+    public GeneEdit update(GeneEdit geneEdit) {
+        homologueRepository.update(geneEdit.getHomologueEditList());
+
+        geneHomologueRepository.update(geneEdit);
+
+        // TODO: update code
+        return geneEdit;
+    }
 }

@@ -2,12 +2,15 @@ package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
 import com.genesearch.model.Homologue;
+import com.genesearch.object.edit.HomologueEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,4 +45,24 @@ public class HomologueRepository extends  ModelRepository<Homologue> {
         }
         return result.get(0);
     }
+
+    public void update(List<HomologueEdit> homologueEditList) {
+        for (HomologueEdit ed : homologueEditList) {
+
+            Homologue existing = find(ed.getPrimaryIdentifier(), ed.getSymbol(), ed.getOrganismName(), ed.getType(), ed.getDatasetsName());
+
+            if (existing == null) {
+                Homologue newEntity = new Homologue();
+                newEntity.setPrimaryIdentifier(ed.getPrimaryIdentifier());
+                newEntity.setSymbol(ed.getSymbol());
+                newEntity.setOrganismName(ed.getOrganismName());
+                newEntity.setDatasetsName(ed.getDatasetsName());
+                newEntity.setType(ed.getType());
+                save(newEntity);
+
+                ed.setId(newEntity.getId());
+            }
+        }
+    }
+
 }

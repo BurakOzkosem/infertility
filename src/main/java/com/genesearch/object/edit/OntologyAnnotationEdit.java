@@ -5,9 +5,7 @@ import com.genesearch.model.OntologyAnnotation;
 /**
  * Created by user on 07.01.2015.
  */
-public class OntologyAnnotationEdit {
-
-    private Long id;
+public class OntologyAnnotationEdit extends AbstractEditObject {
 
     private EvidenceEdit evidenceEdit;
     private OntologyTermEdit ontologyTermEdit;

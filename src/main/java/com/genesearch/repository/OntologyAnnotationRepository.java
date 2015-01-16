@@ -141,4 +141,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
     }
 
 
+    public OntologyAnnotationEdit update(OntologyAnnotationEdit ontologyAnnotationEdit) {
+        return null;
+    }
 }
