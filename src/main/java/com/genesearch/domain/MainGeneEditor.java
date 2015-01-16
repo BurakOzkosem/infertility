@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MainGeneEditor {
 
     @Autowired
-    private OntologyAnnotationRepository ontologyAnnotationRepository;
+    private OntologyAnnotationDomain ontologyAnnotationDomain;
 
     @Autowired
     private GeneDomain geneDomain;
@@ -23,7 +23,7 @@ public class MainGeneEditor {
     @Transactional(readOnly = false)
     public MainEdit update(MainEdit editObject) {
 
-        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationRepository.update(editObject.getOntologyAnnotationEdit());;
+        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationDomain.update(editObject.getOntologyAnnotationEdit());;
         GeneEdit geneEdit = geneDomain.update(editObject.getGeneEdit());
 
         return editObject;

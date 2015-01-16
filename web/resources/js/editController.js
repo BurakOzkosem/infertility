@@ -66,12 +66,18 @@ function EditCtrl($scope, $routeParams, Restangular) {
         });
     };
 
+    $scope.update = function() {
+        Restangular.all("details/update").post($scope.state.model).then(function(result) {
+            $scope.state.model = result;
+        });
+    };
+
     $scope.show($routeParams.id);
 
-    $scope.save = function(id) {
-        Restangular.one("gene", id).all("update").post($scope.state.model).then(function(result) {
-            $scope.state.model.id = result.id;
-            $scope.state.model.name = result.name;
-        });
-    }
+//    $scope.save = function(id) {
+//        Restangular.one("gene", id).all("update").post($scope.state.model).then(function(result) {
+//            $scope.state.model.id = result.id;
+//            $scope.state.model.name = result.name;
+//        });
+//    }
 }

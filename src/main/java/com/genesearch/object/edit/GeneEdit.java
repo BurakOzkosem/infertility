@@ -1,5 +1,9 @@
 package com.genesearch.object.edit;
 
+import com.genesearch.model.Gene;
+import com.genesearch.model.GeneHomologue;
+import com.genesearch.model.Homologue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,5 +57,19 @@ public class GeneEdit extends AbstractEditObject {
 
     public void setHomologueEditList(List<HomologueEdit> homologueEditList) {
         this.homologueEditList = homologueEditList;
+    }
+
+    public static GeneEdit create(Gene entity) {
+        GeneEdit result = new GeneEdit();
+        result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
+        result.setSymbol(entity.getSymbol());
+        result.setOrganismName(entity.getOrganismName());
+        result.setNcbi(entity.getNcbi());
+
+        for(GeneHomologue gh : entity.getGeneHomologueSet()) {
+            result.getHomologueEditList().add(HomologueEdit.create(gh.getHomologue()));
+        }
+
+        return  result;
     }
 }

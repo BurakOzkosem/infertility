@@ -1,8 +1,11 @@
 package com.genesearch.controller;
 
 import com.genesearch.domain.GeneDetailsSaver;
+import com.genesearch.domain.GeneDomain;
 import com.genesearch.domain.MouseMineSaver;
+import com.genesearch.domain.OntologyAnnotationDomain;
 import com.genesearch.model.Gene;
+import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.model.OntologyTerm;
 import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.edit.MainEdit;
@@ -43,6 +46,11 @@ public class MainController {
     @Autowired
     private GeneDetailsSaver geneSaver;
 
+    @Autowired
+    private OntologyAnnotationDomain ontologyAnnotationDomain;
+    @Autowired
+    private GeneDomain geneDomain;
+
 
     @Autowired
     private GeneRepository geneRepository;
@@ -69,15 +77,14 @@ public class MainController {
         return new MainEdit(ontologyAnnotationEdit, geneEdit);
     }
 
-//    @Transactional(readOnly = false)
-//    @RequestMapping(value = "/details/{id}/update", method = RequestMethod.POST)
-//    @ResponseBody
-//    public OntologyAnnotationEdit updateDetails(@PathVariable Long id, @RequestBody OntologyAnnotationEdit request) {
-//        OntologyAnnotation ontologyAnnotation = ontologyAnnotationRepository.findById(request.getId());
-//        ontologyAnnotationRepository.update(ontologyAnnotation, request);
-//        ontologyAnnotationRepository.save(ontologyAnnotation);
-//        return ontologyAnnotationRepository.show(request.getId());
-//    }
+    @Transactional(readOnly = false)
+    @RequestMapping(value = "/details/update", method = RequestMethod.POST)
+    @ResponseBody
+    public MainEdit updateDetails(@RequestBody MainEdit request) {
+        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationDomain.update(request.getOntologyAnnotationEdit());
+        GeneEdit geneEdit = geneDomain.update(request.getGeneEdit());
+        return new MainEdit(ontologyAnnotationEdit, geneEdit);
+    }
 
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/reference/ontologyterm", method = RequestMethod.GET)

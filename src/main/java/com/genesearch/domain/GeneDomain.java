@@ -1,16 +1,11 @@
 package com.genesearch.domain;
 
 import com.genesearch.model.Gene;
-import com.genesearch.model.GeneHomologue;
-import com.genesearch.model.Homologue;
 import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.GeneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by user on 16.01.2015.
@@ -31,21 +26,27 @@ public class GeneDomain {
 
         gene.update(geneEdit);
 
-        Set<Homologue> newHomologues = homologueDomain.update(geneEdit.getHomologueEditList());
 
-        Iterator<GeneHomologue> it = gene.getGeneHomologueSet().iterator();
+/**
+ * The code below needed in case of updating homologues of gene
+ *
+ * */
 
-        while(it.hasNext()) {
-            GeneHomologue existing = it.next();
-            if(!newHomologues.contains(existing.getHomologue())) {
-                it.remove();
-            }
-        }
-
-        for(Homologue hm : newHomologues) {
-            GeneHomologue existing = geneHomologueRepository.findOne(gene.getId(), hm.getId());
-            gene.getGeneHomologueSet().add(existing != null ? existing : new GeneHomologue(gene, hm));
-        }
+//        Set<Homologue> newHomologues = homologueDomain.update(geneEdit.getHomologueEditList());
+//
+//        Iterator<GeneHomologue> it = gene.getGeneHomologueSet().iterator();
+//
+//        while(it.hasNext()) {
+//            GeneHomologue existing = it.next();
+//            if(!newHomologues.contains(existing.getHomologue())) {
+//                it.remove();
+//            }
+//        }
+//
+//        for(Homologue hm : newHomologues) {
+//            GeneHomologue existing = geneHomologueRepository.findOne(gene.getId(), hm.getId());
+//            gene.getGeneHomologueSet().add(existing != null ? existing : new GeneHomologue(gene, hm));
+//        }
 
         geneRepository.save(gene);
 

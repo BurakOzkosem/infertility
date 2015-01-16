@@ -7,7 +7,16 @@ import com.genesearch.model.OntologyTerm;
  */
 public class OntologyTermEdit extends AbstractEditObject {
 
+    private String name;
     private String primaryIdentifier;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;

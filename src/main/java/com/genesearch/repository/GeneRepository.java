@@ -59,7 +59,18 @@ public class GeneRepository extends ModelRepository<Gene> {
     }
 
     public GeneEdit show(String primaryIdentifier) {
-        return null;
+        Criteria c = getSession().createCriteria(getEntityClass(), "gn");
+        Conjunction and = new Conjunction();
+        safeAddRestrictionEq(and, "gn.primaryIdentifier", primaryIdentifier);
+        c.add(and);
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        List<Gene> result = c.list();
+
+        if(result.size() == 0) {
+            return null;
+        }
+        return GeneEdit.create(result.get(0));
     }
 
     public GeneResponse show(Long id) {

@@ -32,4 +32,23 @@ public class SubjectRepository extends ModelRepository<Subject>{
         return result.get(0);
     }
 
+    public Subject find(String primaryIdentifier, String symbol, String name, String dsc, String chromosomeName) {
+        Criteria c = getSession().createCriteria(getEntityClass());
+
+        Conjunction and = new Conjunction();
+        safeAddRestrictionEq(and, "primaryIdentifier", primaryIdentifier);
+        safeAddRestrictionEq(and, "symbol", symbol);
+        safeAddRestrictionEq(and, "name", name);
+        safeAddRestrictionEq(and, "dsc", dsc);
+        safeAddRestrictionEq(and, "chromosomeName", chromosomeName);
+        c.add(and);
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Subject> result = c.list();
+
+        if(result.size() == 0) {
+            return null;
+        }
+        return result.get(0);
+    }
 }
