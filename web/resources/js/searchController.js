@@ -1,7 +1,7 @@
 /**
  * Created by user on 31.12.2014.
  */
-function SearchCtrl($scope, Restangular, localStorageService) {
+function SearchCtrl($scope, $modal, Restangular, localStorageService) {
 
     $scope.collapsed = false;
 
@@ -22,12 +22,12 @@ function SearchCtrl($scope, Restangular, localStorageService) {
 
     $scope.sorts = {direction: 'asc', property: 'id'};
 
-    $scope.filters = localStorageService.get('gene.filters.v1.1');
+    $scope.filters = localStorageService.get('gene.filters.v1.2');
 
     if (!angular.isDefined($scope.filters) || $scope.filters == null) {
         $scope.filters = {
             id: '',
-            ontologyId: '',
+            ontologyTermId: '',
 
             ontologyTermPrimaryIdentifier: '',
             ontologyTermName: '',
@@ -44,7 +44,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
     }
 
     $scope.load = function () {
-        localStorageService.set('gene.filters.v1.1', $scope.filters);
+        localStorageService.set('gene.filters.v1.2', $scope.filters);
 
         var sorts = [{
             'direction': $scope.sorts.direction ? 'asc' : 'desc',
@@ -53,7 +53,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
 
         var filters = {
             id: $scope.filters.id,
-            ontologyId: $scope.filters.ontologyId,
+            ontologyTermId: $scope.filters.ontologyTermId,
 
             ontologyTermPrimaryIdentifier: $scope.filters.ontologyTermPrimaryIdentifier,
             ontologyTermName: $scope.filters.ontologyTermName,
@@ -90,11 +90,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
             function() { });
     };
 
-    $scope.getMM = function() {
-        Restangular.oneUrl('gene/mm').get();
-    };
-
-    $scope.getDetailsUrl = function(item) {
+     $scope.getDetailsUrl = function(item) {
         return "#/edit/" + item.id;
     };
 
@@ -162,7 +158,7 @@ function SearchCtrl($scope, Restangular, localStorageService) {
     $scope.clearFilters = function() {
         $scope.filters = {
             id: '',
-            ontologyId: '',
+            ontologyTermId: '',
 
             ontologyTermPrimaryIdentifier: '',
             ontologyTermName: '',
@@ -177,9 +173,80 @@ function SearchCtrl($scope, Restangular, localStorageService) {
             publicationDoi: ''
         };
 
-        localStorageService.remove('gene.filters.v1.1');
+        localStorageService.remove('gene.filters.v1.2');
         $scope.sorts = {direction: 'asc', property: 'id'};
     };
 
+    $scope.showBrief = function() {
+        var modalInstance = $modal.open({
+            templateUrl: 'page/geneBrief.html',
+            controller: GeneBriefCtrl,
+            backdrop: false,
+            windowClass: 'modal-mini',
+            resolve: {
+                geneId: function () {
+                    return $scope.state.selected.subjectPrimaryIdentifier;
+                }
+            }
+        });
+
+        modalInstance.result.then(
+        function () {
+        },
+        function () {
+        });
+    };
+
+    $scope.loadReferences();
+
     $scope.load();
+
+    $scope.genePrimaryIdentifier = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.primaryIdentifier : '' };
+    $scope.geneSymbol = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.symbol : '' };
+    $scope.geneOrganismName = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.organismName : '' };
+    $scope.geneNcbi = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.ncbi : ''};
+
+    $scope.state.popoverTemplate =
+        '<div class="row vspace-top-10">' +
+'<div class="col-sm-12">' +
+'<div class="col-sm-1">' +
+'</div>' +
+'<div class="col-sm-10">' +
+'<div class="row">' +
+'<label class="control-label col-sm-4">Gene ID:</label>' +
+'<div class="col-sm-5">' +
+'<label class="control-label propertyDataText">' +
+            $scope.genePrimaryIdentifier()    +
+'</label>' +
+'</div>' +
+'</div>' +
+'<div class="row">' +
+'<label class="control-label col-sm-4">Gene Symbol:</label>' +
+'<div class="col-sm-5">' +
+'<label class="control-label propertyDataText">' +
+            $scope.geneSymbol()   +
+'</label>' +
+'</div>' +
+'</div>' +
+'<div class="row">' +
+'<label class="control-label col-sm-4">Organism name:</label>' +
+'<div class="col-sm-5">' +
+'<label class="control-label propertyDataText">' +
+            $scope.geneOrganismName()   +
+'</label>' +
+'</div>' +
+'</div>' +
+'<div class="row">' +
+'<label class="control-label col-sm-4">NCBI:</label>' +
+'<div class="col-sm-5">' +
+'<label class="control-label propertyDataText">' +
+            $scope.geneNcbi()    +
+'</label>' +
+'</div>' +
+'</div>' +
+'</div>' +
+'</div>' +
+'</div>';
+
+
 }

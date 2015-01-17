@@ -86,34 +86,34 @@ public class Gene extends AbstractEntity {
         this.geneHomologueSet = geneHomologueSet;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Gene gene = (Gene) o;
-
-        if (this.geneHomologueSet != null ? !this.geneHomologueSet.equals(gene.geneHomologueSet) : gene.geneHomologueSet != null)
-            return false;
-        if (this.ncbi != null ? !this.ncbi.equals(gene.ncbi) : gene.ncbi != null) return false;
-        if (this.organismName != null ? !this.organismName.equals(gene.organismName) : gene.organismName != null) return false;
-        if (this.primaryIdentifier != null ? !this.primaryIdentifier.equals(gene.primaryIdentifier) : gene.primaryIdentifier != null)
-            return false;
-        if (this.symbol != null ? !this.symbol.equals(gene.symbol) : gene.symbol != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = this.primaryIdentifier != null ? this.primaryIdentifier.hashCode() : 0;
-        result = 31 * result + (this.symbol != null ? this.symbol.hashCode() : 0);
-        result = 31 * result + (this.organismName != null ? this.organismName.hashCode() : 0);
-        result = 31 * result + (this.ncbi != null ? this.ncbi.hashCode() : 0);
-        result = 31 * result + (this.geneHomologueSet != null ? this.geneHomologueSet.hashCode() : 0);
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        if (!super.equals(o)) return false;
+//
+//        Gene gene = (Gene) o;
+//
+//        if (this.geneHomologueSet != null ? !this.geneHomologueSet.equals(gene.geneHomologueSet) : gene.geneHomologueSet != null)
+//            return false;
+//        if (this.ncbi != null ? !this.ncbi.equals(gene.ncbi) : gene.ncbi != null) return false;
+//        if (this.organismName != null ? !this.organismName.equals(gene.organismName) : gene.organismName != null) return false;
+//        if (this.primaryIdentifier != null ? !this.primaryIdentifier.equals(gene.primaryIdentifier) : gene.primaryIdentifier != null)
+//            return false;
+//        if (this.symbol != null ? !this.symbol.equals(gene.symbol) : gene.symbol != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = this.primaryIdentifier != null ? this.primaryIdentifier.hashCode() : 0;
+//        result = 31 * result + (this.symbol != null ? this.symbol.hashCode() : 0);
+//        result = 31 * result + (this.organismName != null ? this.organismName.hashCode() : 0);
+//        result = 31 * result + (this.ncbi != null ? this.ncbi.hashCode() : 0);
+//        result = 31 * result + (this.geneHomologueSet != null ? this.geneHomologueSet.hashCode() : 0);
+//        return result;
+//    }
 
     public void update(GeneEdit geneEdit) {
         this.setPrimaryIdentifier(geneEdit.getPrimaryIdentifier());

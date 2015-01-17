@@ -1,6 +1,8 @@
 package com.genesearch.repository;
 
+import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.response.SearchOntologyAnnotationResponse;
@@ -30,6 +32,8 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
     private SubjectRepository subjectRepository;
     @Autowired
     private EvidenceRepository evidenceRepository;
+    @Autowired
+    private GeneRepository geneRepository;
 
     public OntologyAnnotationEdit show(Long id) {
         return OntologyAnnotationEdit.create(findById(id));
@@ -67,6 +71,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         Conjunction and = new Conjunction();
 
         safeAddRestrictionEq(and, "oa.id", request.getId());
+        safeAddRestrictionEq(and, "t.id", request.getOntologyTermId());
         safeAddRestrictionIlikeAnyWhere(and, "e.baseAnnotationsSubjectBackgroundName", request.getEvidenceBaseAnnotationsSubjectBackgroundName());
         safeAddRestrictionEq(and, "e.baseAnnotationsSubjectZygosity", request.getEvidenceBaseAnnotationsSubjectZygosity());
         safeAddRestrictionIlikeAnyWhere(and, "t.name", request.getOntologyTermName());
@@ -132,7 +137,10 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
 
         List<SearchOntologyAnnotationResponse> responses = new ArrayList<SearchOntologyAnnotationResponse>();
         for(OntologyAnnotation ontologyAnnotation : results) {
-            responses.add(SearchOntologyAnnotationResponse.create(ontologyAnnotation));
+            SearchOntologyAnnotationResponse searchOntologyAnnotationResponse = SearchOntologyAnnotationResponse.create(ontologyAnnotation);
+            GeneEdit geneEdit = geneRepository.show(ontologyAnnotation.getSubject().getPrimaryIdentifier());
+            searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
+            responses.add(searchOntologyAnnotationResponse);
         }
 
         PageImpl<SearchOntologyAnnotationResponse> page = new PageImpl<SearchOntologyAnnotationResponse>(responses, request, total);

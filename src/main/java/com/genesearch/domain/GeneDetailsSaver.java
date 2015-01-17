@@ -24,7 +24,6 @@ public class GeneDetailsSaver implements DbSaver {
     @Autowired
     private GeneHomologueRepository geneHomologueRepository;
 
-    @Transactional(readOnly = false)
     @Override
     public void execute(WebServiceRetriever retriever) throws Exception {
         List<List<Object>> result = retriever.execute();

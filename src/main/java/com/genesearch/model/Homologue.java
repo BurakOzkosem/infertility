@@ -98,38 +98,38 @@ public class Homologue extends AbstractEntity {
 
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        Homologue homologue = (Homologue) o;
-
-        if (this.datasetsName != null ? !this.datasetsName.equals(homologue.datasetsName) : homologue.datasetsName != null)
-            return false;
-        if (this.geneHomologueSet != null ? !this.geneHomologueSet.equals(homologue.geneHomologueSet) : homologue.geneHomologueSet != null)
-            return false;
-        if (this.organismName != null ? !this.organismName.equals(homologue.organismName) : homologue.organismName != null)
-            return false;
-        if (this.primaryIdentifier != null ? !this.primaryIdentifier.equals(homologue.primaryIdentifier) : homologue.primaryIdentifier != null)
-            return false;
-        if (this.symbol != null ? !this.symbol.equals(homologue.symbol) : homologue.symbol != null) return false;
-        if (this.type != null ? !this.type.equals(homologue.type) : homologue.type != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = this.primaryIdentifier != null ? this.primaryIdentifier.hashCode() : 0;
-        result = 31 * result + (this.symbol != null ? this.symbol.hashCode() : 0);
-        result = 31 * result + (this.organismName != null ? this.organismName.hashCode() : 0);
-        result = 31 * result + (this.type != null ? this.type.hashCode() : 0);
-        result = 31 * result + (this.datasetsName != null ? this.datasetsName.hashCode() : 0);
-        result = 31 * result + (this.geneHomologueSet != null ? this.geneHomologueSet.hashCode() : 0);
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        if (!super.equals(o)) return false;
+//
+//        Homologue homologue = (Homologue) o;
+//
+//        if (this.datasetsName != null ? !this.datasetsName.equals(homologue.datasetsName) : homologue.datasetsName != null)
+//            return false;
+//        if (this.geneHomologueSet != null ? !this.geneHomologueSet.equals(homologue.geneHomologueSet) : homologue.geneHomologueSet != null)
+//            return false;
+//        if (this.organismName != null ? !this.organismName.equals(homologue.organismName) : homologue.organismName != null)
+//            return false;
+//        if (this.primaryIdentifier != null ? !this.primaryIdentifier.equals(homologue.primaryIdentifier) : homologue.primaryIdentifier != null)
+//            return false;
+//        if (this.symbol != null ? !this.symbol.equals(homologue.symbol) : homologue.symbol != null) return false;
+//        if (this.type != null ? !this.type.equals(homologue.type) : homologue.type != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = this.primaryIdentifier != null ? this.primaryIdentifier.hashCode() : 0;
+//        result = 31 * result + (this.symbol != null ? this.symbol.hashCode() : 0);
+//        result = 31 * result + (this.organismName != null ? this.organismName.hashCode() : 0);
+//        result = 31 * result + (this.type != null ? this.type.hashCode() : 0);
+//        result = 31 * result + (this.datasetsName != null ? this.datasetsName.hashCode() : 0);
+//        result = 31 * result + (this.geneHomologueSet != null ? this.geneHomologueSet.hashCode() : 0);
+//        return result;
+//    }
 
     public void update(HomologueEdit ed) {
         this.setPrimaryIdentifier(ed.getPrimaryIdentifier());

@@ -1,6 +1,7 @@
 package com.genesearch.object.response;
 
 import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.object.edit.GeneEdit;
 
 /**
  * Created by user on 07.01.2015.
@@ -24,6 +25,8 @@ public class SearchOntologyAnnotationResponse {
 
     private Long publicationId;
     private String publicationDoi;
+
+    private GeneEdit geneEdit;
 
     public Long getId() {
         return id;
@@ -121,6 +124,14 @@ public class SearchOntologyAnnotationResponse {
         this.publicationDoi = publicationDoi;
     }
 
+    public GeneEdit getGeneEdit() {
+        return geneEdit;
+    }
+
+    public void setGeneEdit(GeneEdit geneEdit) {
+        this.geneEdit = geneEdit;
+    }
+
     public UtilResponse getUtils() {
         return utils;
     }
@@ -155,6 +166,8 @@ public class SearchOntologyAnnotationResponse {
             response.setSubjectDsc(entity.getSubject().getDsc());
             response.setSubjectChromosomeName(entity.getSubject().getChromosomeName());
         }
+
+
 
         return response;
     }

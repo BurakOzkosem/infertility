@@ -34,7 +34,6 @@ public class MouseMineSaver implements DbSaver {
     @Autowired
     private GeneRepository geneRepository;
 
-    @Transactional(readOnly = false)
     @Override
     public void execute(WebServiceRetriever retriever) {
         List<List<Object>> result = retriever.execute();

@@ -1,199 +1,261 @@
 <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
 
-    <div class="row">
-        <a href="/genesearch/#/">Back to search</a>
+    <div class="col-sm-1" align="center">
+        <br>
+        <a href="/genesearch/#/">Search</a>
     </div>
 
-    <div class="row">
-        <label class="control-label col-sm-3"><h1>Details</h1></label>
+    <div class="col-sm-8">
+        <div class="border" style="padding: 10px;">
+
+        <!--<div class="row">-->
+            <!--<a href="/genesearch/#/">Back to search</a>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+            <!--<label class="control-label col-sm-3"><h1>Details</h1></label>-->
+        <!--</div>-->
+
+            <form class="form-horizontal" name="formEdit" novalidate>
+                <!--<div class="row vspace-top-10 vspace-bottom-20">-->
+                    <!--<div class="col-sm-5"/>-->
+                    <!--<div class="col-sm-2" align="right">-->
+                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="cancel()" ng-disabled="isReadOnly()">Cancel</button>-->
+                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="editOrSave()">{{getEditButtonText()}}</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Gene ID:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Gene Symbol:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.symbol" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.subjectEdit.symbol}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Gene name:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.name" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.subjectEdit.name}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Gene Description:</label>
+                            <div class="col-sm-7">
+                                <!--<textarea ng-model="state.model.ontologyAnnotationEdit.subjectEdit.dsc" ng-maxlength="2000" style="margin: 0px;width: 100%;min-height: 60px;max-height: 60px;height: 60px" class="form-control"></textarea>-->
+                                <label class="control-label propertyDataText" style="text-align: justify">
+                                    {{state.model.ontologyAnnotationEdit.subjectEdit.dsc}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Phenotype:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.ontologyTermEdit.name}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Chromosome:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">PubMed ID:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.publicationEdit.id" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.ontologyAnnotationEdit.evidenceEdit.publicationEdit.id}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">NCBI Gene Number:</label>
+                            <div class="col-sm-7">
+                                <!--<input type="text" ng-model="state.model.geneEdit.ncbi" style="width: 100%;">-->
+                                <label class="control-label propertyDataText">
+                                    {{state.model.geneEdit.ncbi}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row vspace-top-10" >
+                    <div class="col-sm-1"/>
+                    <div class="col-sm-10">
+                        <tabset>
+                            <tab heading="Function">
+                                <div class="col-sm-12 vspace-top-20">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">GO Term ID:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.primaryIdentifier" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{state.model.ontologyAnnotationEdit.ontologyTermEdit.primaryIdentifier}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">GO Term:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{state.model.ontologyAnnotationEdit.ontologyTermEdit.name}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Evidence link:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Phenotype:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="Genotype">
+                                <div class="col-sm-12 vspace-top-20">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Background:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectBackgroundName" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectBackgroundName}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Zygosity:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectZygosity" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText" >
+                                                {{state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectZygosity}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="Literature">
+                                <div class="col-sm-12 vspace-top-20">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2">Doi:</label>
+                                        <div class="col-sm-5">
+                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.publicationEdit.doi" style="width: 100%;">-->
+                                            <label class="control-label propertyDataText">
+                                                {{state.model.ontologyAnnotationEdit.publicationEdit.doi}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+                            <tab heading="Homologue">
+                                <div class="col-sm-12 vspace-top-20">
+                                    <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 20%;">
+                                                <div class="ng-binding" ng-click="sort('1')">ID
+                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                </div>
+                                            </th>
+                                            <th style="width: 20%;">
+                                                <div class="ng-binding" ng-click="sort('2')">Symbol
+                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                </div>
+                                            </th>
+                                            <th style="width: 20%;">
+                                                <div class="ng-binding" ng-click="sort('3')">Organism name
+                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('3', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                </div>
+                                            </th>
+                                            <th style="width: 20%;">
+                                                <div class="ng-binding" ng-click="sort('4')">Type
+                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('4', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                </div>
+                                            </th>
+                                            <th style="width: 20%;">
+                                                <div class="ng-binding" ng-click="sort('5')">Datasets
+                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('5', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="model in state.model.geneEdit.homologueEditList" gs-zebra-rows gs-index="{{$index}}">
+                                            <!--<tr ng-repeat="model in state.model.geneEdit.homologueEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                                <td>{{model.primaryIdentifier}}</td>
+                                                <td>{{model.symbol}}</td>
+                                                <td>{{model.organismName}}</td>
+                                                <td>{{model.type}}</td>
+                                                <td>{{model.datasetsName}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+
+                <!--<div class="row vspace-top-20">-->
+                    <!--<div class="col-sm-5"/>-->
+                    <!--<div class="col-sm-2" align="right">-->
+                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="cancel()" ng-disabled="isReadOnly()">Cancel</button>-->
+                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="editOrSave()">{{getEditButtonText()}}</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </form>
+        </div>
     </div>
 
-    <form class="form-horizontal" name="formEdit" novalidate>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Gene ID:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.subjectEdit.primaryIdentifier}}</b>-->
-                        <!--</label>-->
-                        <!--<input type="text" ng-model="state.model.id" ng-required="true" placeholder="Id" ng-maxlength="50" class="form-control">-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Gene Symbol:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.symbol" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.subjectEdit.symbol}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Gene name:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.name" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.subjectEdit.name}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Gene Description:</label>
-                    <div class="col-sm-3">
-                        <textarea ng-model="state.model.ontologyAnnotationEdit.subjectEdit.dsc" ng-maxlength="2000" style="margin: 0px;width: 100%;min-height: 60px;max-height: 60px;height: 60px" class="form-control"></textarea>
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.ontologyTermEdit.name}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Phenotype:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.subjectEdit.dsc}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Chromosome:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.evidenceEdit.publicationEdit.id}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">PubMed ID:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.publicationEdit.id" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.ontologyTermEdit.primaryIdentifier}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-sm-2">NCBI Gene Number:</label>
-                    <div class="col-sm-3">
-                        <input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">
-                        <!--<label class="control-label">-->
-                            <!--<b>{{state.model.evidenceEdit.baseAnnotationsSubjectBackgroundName}}</b>-->
-                        <!--</label>-->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row vspace-top-40" >
-            <div class="col-sm-1"/>
-            <div class="col-sm-6">
-                <tabset>
-                    <tab heading="Function">
-                        <div class="col-sm-12 vspace-top-20">
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">GO Term ID:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.primaryIdentifier" style="width: 100%;">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">GO Term:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">Evidence link:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" style="width: 100%;">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">Phenotype:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" style="width: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                    </tab>
-                    <tab heading="Genotype">
-                        <div class="col-sm-12 vspace-top-20">
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">Background:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectBackgroundName" style="width: 100%;">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">Zygosity:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectZygosity" style="width: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                    </tab>
-                    <tab heading="Literature">
-                        <div class="col-sm-12 vspace-top-20">
-                            <div class="form-group">
-                                <label class="control-label col-sm-1">Doi:</label>
-                                <div class="col-sm-5">
-                                    <input type="text" ng-model="state.model.ontologyAnnotationEdit.publicationEdit.doi" style="width: 100%;">
-                                </div>
-                            </div>
-                        </div>
-                    </tab>
-
-                    <tab heading="Homologue">
-                        <div class="col-sm-12 vspace-top-20">
-                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
-                                <thead>
-                                <tr>
-                                    <th style="width: 10%;">
-                                        ID
-                                    </th>
-                                    <th style="width: 10%;">
-                                        Symbol
-                                    </th>
-                                    <th style="width: 10%;">
-                                        Organism name
-                                    </th>
-                                    <th style="width: 10%;">
-                                        Type
-                                    </th>
-                                    <th style="width: 10%;">
-                                        Datasets
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="model in state.model.geneEdit.homologueEditList" gs-zebra-rows gs-index="{{$index}}">
-                                    <!--<tr ng-repeat="model in state.model.geneEdit.homologueEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
-                                        <td>{{model.primaryIdentifier}}</td>
-                                        <td>{{model.symbol}}</td>
-                                        <td>{{model.organismName}}</td>
-                                        <td>{{model.type}}</td>
-                                        <td>{{model.datasetsName}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </tab>
-                </tabset>
-            </div>
-        </div>
-    </form>
 </div>

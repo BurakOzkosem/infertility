@@ -1,25 +1,18 @@
 package com.genesearch.controller;
 
-import com.genesearch.domain.GeneDetailsSaver;
 import com.genesearch.domain.GeneDomain;
-import com.genesearch.domain.MouseMineSaver;
 import com.genesearch.domain.OntologyAnnotationDomain;
-import com.genesearch.model.Gene;
-import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.model.OntologyTerm;
 import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.edit.MainEdit;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
-import com.genesearch.object.request.GeneRequest;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
-import com.genesearch.object.response.GeneResponse;
-import com.genesearch.object.response.ReferenceResponse;
-import com.genesearch.object.response.SearchOntologyAnnotationResponse;
+import com.genesearch.object.request.SimpleStringRequest;
+import com.genesearch.object.response.*;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.OntologyAnnotationRepository;
 import com.genesearch.repository.OntologyTermRepository;
-import com.genesearch.webservice.GeneDetailsRetriever;
-import com.genesearch.webservice.MouseMineRetriever;
+import com.genesearch.scheduler.ScheduleInformator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +35,6 @@ public class MainController {
     private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    private MouseMineSaver dbSaver;
-    @Autowired
-    private GeneDetailsSaver geneSaver;
-
-    @Autowired
     private OntologyAnnotationDomain ontologyAnnotationDomain;
     @Autowired
     private GeneDomain geneDomain;
@@ -59,6 +47,15 @@ public class MainController {
     @Autowired
     private OntologyTermRepository ontologyTermRepository;
 
+    @Autowired
+    private ScheduleInformator scheduleInformator;
+
+    @Transactional(readOnly = true)
+    @RequestMapping(value = "/gene/short", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneEdit search(@RequestBody SimpleStringRequest request) {
+        return geneRepository.show(request.getValue());
+    }
 
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/search", method = RequestMethod.POST)
@@ -100,31 +97,33 @@ public class MainController {
         return response;
     }
 
-//=====================================================================================================================
     @Transactional(readOnly = true)
-    @RequestMapping(value = "/gene/show/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/downloader/nextStartTime", method = RequestMethod.GET)
     @ResponseBody
-    public GeneResponse showGene(@PathVariable Long id) {
-        return geneRepository.show(id);
+    public SimpleDateResponse getNextStartTime() {
+        return new SimpleDateResponse(scheduleInformator.getNextStartDate());
+    }
+
+    @Transactional(readOnly = true)
+    @RequestMapping(value = "/downloader/status", method = RequestMethod.GET)
+    @ResponseBody
+    public SimpleStringResponse getDownloadStatus() {
+        if(scheduleInformator.getStatus() == null) {
+            return new SimpleStringResponse("");
+        }
+        return new SimpleStringResponse(scheduleInformator.getStatus().name());
     }
 
     @Transactional(readOnly = false)
-    @RequestMapping(value = "/gene/{id}/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/downloader/startTask", method = RequestMethod.GET)
     @ResponseBody
-    public GeneResponse updateGene(@PathVariable Long id, @RequestBody GeneRequest request) {
-        Gene gene = geneRepository.findById(request.getId());
-//        gene.update(request);
-        geneRepository.save(gene);
-        return geneRepository.show(request.getId());
-    }
+    public SimpleStringResponse startTask() {
 
-    @RequestMapping(value = "/gene/mm", method = RequestMethod.GET)
-    @ResponseBody
-    public GeneResponse getFromMM() throws Exception {
-        GeneResponse response = new GeneResponse();
+        scheduleInformator.startTask();
 
-        geneSaver.execute(new GeneDetailsRetriever());
-
-        return response;
+        if(scheduleInformator.getStatus() == null) {
+            return new SimpleStringResponse("");
+        }
+        return new SimpleStringResponse(scheduleInformator.getStatus().name());
     }
 }

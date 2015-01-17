@@ -9,7 +9,7 @@ import com.genesearch.object.Page;
 public class SearchOntologyAnnotationRequest extends Page {
 
     private Long id;
-    private Long ontologyId;
+    private Long ontologyTermId;
     private String ontologyTermPrimaryIdentifier;
     private String ontologyTermName;
 
@@ -33,12 +33,12 @@ public class SearchOntologyAnnotationRequest extends Page {
         this.id = id;
     }
 
-    public Long getOntologyId() {
-        return ontologyId;
+    public Long getOntologyTermId() {
+        return ontologyTermId;
     }
 
-    public void setOntologyId(Long ontologyId) {
-        this.ontologyId = ontologyId;
+    public void setOntologyTermId(Long ontologyTermId) {
+        this.ontologyTermId = ontologyTermId;
     }
 
     public String getOntologyTermPrimaryIdentifier() {

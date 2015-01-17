@@ -295,6 +295,10 @@ table.table-pagination span.blank {
     width: 450px;
 }
 
+.modal-nano .modal-dialog {
+    width: 250px;
+}
+
 .modal-directive > .modal-dialog {
     width: 650px;
 }
@@ -630,6 +634,20 @@ ul.gs-header-ul > li {
     display: block;
 }
 
+ul.buttons li {
+    display: inline;
+    float: left;
+    padding: 0px 1px;
+}
+
+.propertyDataText {
+    font-weight: normal;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
 .vspace-top-5 {
     margin-top: 5px;
 }
@@ -652,4 +670,28 @@ ul.gs-header-ul > li {
 
 .vspace-top-40 {
     margin-top: 40px;
+}
+
+.vspace-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.vspace-bottom-10 {
+    margin-bottom: 10px;
+}
+
+.vspace-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.vspace-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.vspace-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.vspace-bottom-40 {
+    margin-bottom: 40px;
 }

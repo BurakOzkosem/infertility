@@ -4,6 +4,8 @@
 function EditCtrl($scope, $routeParams, Restangular) {
 
     $scope.state = {
+        rdOnly: true,
+        backup: {},
         model: {
             ontologyAnnotationEdit: {
                 id: null,
@@ -49,6 +51,11 @@ function EditCtrl($scope, $routeParams, Restangular) {
         }
     };
 
+    $scope.sorts = {
+        property: "id",
+        direction: true
+    };
+
     $scope.reference = {
         ontologyTerm: []
     };
@@ -72,7 +79,39 @@ function EditCtrl($scope, $routeParams, Restangular) {
         });
     };
 
-    $scope.show($routeParams.id);
+    $scope.editOrSave = function() {
+        if($scope.isReadOnly()) {
+            // Edit
+            $scope.state.rdOnly = false;
+            $scope.state.backup = angular.copy($scope.state.model);
+        }
+        else {
+            // Save
+            Restangular.all("details/save").post($scope.state.model).then(function(result) {
+                $scope.state.model = result;
+            });
+            $scope.state.backup = {};
+        }
+    };
+
+    $scope.cancel = function() {
+        $scope.state.rdOnly = true;
+        $scope.state.model = angular.copy($scope.state.backup);
+        $scope.state.backup = {};
+    };
+
+
+    $scope.getEditButtonText = function() {
+        return $scope.isReadOnly() ? "Edit" : "Save";
+    };
+
+    $scope.isReadOnly = function() {
+        return $scope.state.rdOnly != false;
+    };
+
+    $scope.canSort = function() {
+
+    };
 
 //    $scope.save = function(id) {
 //        Restangular.one("gene", id).all("update").post($scope.state.model).then(function(result) {
@@ -80,4 +119,6 @@ function EditCtrl($scope, $routeParams, Restangular) {
 //            $scope.state.model.name = result.name;
 //        });
 //    }
+
+    $scope.show($routeParams.id);
 }

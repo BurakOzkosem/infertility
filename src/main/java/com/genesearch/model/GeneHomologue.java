@@ -44,23 +44,23 @@ public class GeneHomologue {
         this.homologue = homologue;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GeneHomologue that = (GeneHomologue) o;
-
-        if (!gene.equals(that.gene)) return false;
-        if (!homologue.equals(that.homologue)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = gene.hashCode();
-        result = 31 * result + homologue.hashCode();
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        GeneHomologue that = (GeneHomologue) o;
+//
+//        if (!gene.equals(that.gene)) return false;
+//        if (!homologue.equals(that.homologue)) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = gene.hashCode();
+//        result = 31 * result + homologue.hashCode();
+//        return result;
+//    }
 }

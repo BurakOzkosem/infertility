@@ -61,16 +61,20 @@
     <%--<script src="<c:url value="/resources/new/angular-cookies.js"/>?v=<%=version%>"></script>--%>
     <script src="<c:url value="/resources/lib/angular-local-storage.min.js"/>?v=<%=version%>"></script>
 
+
     <% double key = 101d;//Math.random() * 100;%>
 
     <script src="<c:url value="/resources/js/loading.js"/>?v=<%=key%>"></script>
 
+    <script src="<c:url value="/resources/js/geneBriefCtrl.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/common.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>
+    <script src="<c:url value="/resources/js/downloader.js"/>?v=<%=key%>"></script>
 
     <link href='<c:url value="/resources/css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
     <link href='<c:url value="/resources/css/application.css"/>?v=<%=version%>' rel="stylesheet">
+
 
     <!--[if lte IE 9]>
         <script src='<c:url value="/resources/lib/respond.min.js"/>?v=<%=version%>'></script>
@@ -79,7 +83,24 @@
 </head>
 <body>
 
-<h2>    GENESEARCH PROJECT </h2>
+<div class="col-sm-5">
+</div>
+
+<div class="col-sm-1">
+    <h1>GENESEARCH</h1>
+</div>
+
+<div class="col-sm-3">
+</div>
+
+<div class="col-sm-2" style="padding-top: 20px;">
+    <a href="#/downloader">
+        <i class="pull-left glyphicon glyphicon-align-justify" style="font-size: 12px"></i>
+    </a>
+</div>
+
+<div class="col-sm-1">
+</div>
 
 <div class="container-fluid">
     <div class="row">
