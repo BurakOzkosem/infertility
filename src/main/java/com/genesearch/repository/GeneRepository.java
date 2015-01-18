@@ -58,7 +58,7 @@ public class GeneRepository extends ModelRepository<Gene> {
         return result.get(0);
     }
 
-    public GeneEdit show(String primaryIdentifier) {
+    public Gene find(String primaryIdentifier) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gn");
         Conjunction and = new Conjunction();
         safeAddRestrictionEq(and, "gn.primaryIdentifier", primaryIdentifier);
@@ -70,15 +70,12 @@ public class GeneRepository extends ModelRepository<Gene> {
         if(result.size() == 0) {
             return null;
         }
-        return GeneEdit.create(result.get(0));
+
+        return result.get(0);
     }
 
-    public GeneResponse show(Long id) {
-        return GeneResponse.create(findById(id));
-    }
 
-    public Page<GeneResponse> search(SearchGeneRequest request) {
-
+    public Page<Gene> search(SearchGeneRequest request) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gn");
 
         Conjunction and = new Conjunction();
@@ -118,14 +115,8 @@ public class GeneRepository extends ModelRepository<Gene> {
 
         c.setFirstResult(request.getOffset());
         c.setMaxResults(request.getPageSize());
-        List<Gene> results = c.list();
 
-        List<GeneResponse> responses = new ArrayList<GeneResponse>();
-        for(Gene gene : results) {
-            responses.add(GeneResponse.create(gene));
-        }
 
-        return new PageImpl<GeneResponse>(responses, request, total);
+        return new PageImpl<Gene>(c.list(), request, total);
     }
-
 }

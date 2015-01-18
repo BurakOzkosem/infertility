@@ -17,15 +17,13 @@ import java.util.List;
 public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
 
 
-    public List<GeneHomologue> find(Long geneId, Long homologueId) {
+    public List<GeneHomologue> find(Long geneId) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gh");
         c.createAlias("gh.gene", "gn", JoinType.INNER_JOIN);
-        c.createAlias("gh.homologue", "hm", JoinType.INNER_JOIN);
 
         Conjunction and = new Conjunction();
 
         safeAddRestrictionEq(and, "gn.id", geneId);
-        safeAddRestrictionEq(and, "hm.id", homologueId);
 
         c.add(and);
 

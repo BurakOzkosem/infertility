@@ -8,6 +8,8 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
     $scope.state = {
         geneList: [],
 
+        popoverTemplate: '',
+
         checkbox: false,
         allChecked: false,
         selected: false,
@@ -177,76 +179,75 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
         $scope.sorts = {direction: 'asc', property: 'id'};
     };
 
-    $scope.showBrief = function() {
-        var modalInstance = $modal.open({
-            templateUrl: 'page/geneBrief.html',
-            controller: GeneBriefCtrl,
-            backdrop: false,
-            windowClass: 'modal-mini',
-            resolve: {
-                geneId: function () {
-                    return $scope.state.selected.subjectPrimaryIdentifier;
-                }
-            }
-        });
-
-        modalInstance.result.then(
-        function () {
-        },
-        function () {
-        });
-    };
+//    $scope.showBrief = function() {
+//        var modalInstance = $modal.open({
+//            templateUrl: 'page/geneBrief.html',
+//            controller: GeneBriefCtrl,
+//            backdrop: false,
+//            windowClass: 'modal-mini',
+//            resolve: {
+//                geneId: function () {
+//                    return $scope.state.selected.subjectPrimaryIdentifier;
+//                }
+//            }
+//        });
+//
+//        modalInstance.result.then(
+//        function () {
+//        },
+//        function () {
+//        });
+//    };
 
     $scope.loadReferences();
 
     $scope.load();
 
-    $scope.genePrimaryIdentifier = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.primaryIdentifier : '' };
-    $scope.geneSymbol = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.symbol : '' };
-    $scope.geneOrganismName = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.organismName : '' };
-    $scope.geneNcbi = function() { return $scope.state.selected != false ? $scope.state.selected.geneEdit.ncbi : ''};
-
-    $scope.state.popoverTemplate =
-        '<div class="row vspace-top-10">' +
-'<div class="col-sm-12">' +
-'<div class="col-sm-1">' +
-'</div>' +
-'<div class="col-sm-10">' +
-'<div class="row">' +
-'<label class="control-label col-sm-4">Gene ID:</label>' +
-'<div class="col-sm-5">' +
-'<label class="control-label propertyDataText">' +
-            $scope.genePrimaryIdentifier()    +
-'</label>' +
-'</div>' +
-'</div>' +
-'<div class="row">' +
-'<label class="control-label col-sm-4">Gene Symbol:</label>' +
-'<div class="col-sm-5">' +
-'<label class="control-label propertyDataText">' +
-            $scope.geneSymbol()   +
-'</label>' +
-'</div>' +
-'</div>' +
-'<div class="row">' +
-'<label class="control-label col-sm-4">Organism name:</label>' +
-'<div class="col-sm-5">' +
-'<label class="control-label propertyDataText">' +
-            $scope.geneOrganismName()   +
-'</label>' +
-'</div>' +
-'</div>' +
-'<div class="row">' +
-'<label class="control-label col-sm-4">NCBI:</label>' +
-'<div class="col-sm-5">' +
-'<label class="control-label propertyDataText">' +
-            $scope.geneNcbi()    +
-'</label>' +
-'</div>' +
-'</div>' +
-'</div>' +
-'</div>' +
-'</div>';
+    $scope.genePrimaryIdentifier = function(item) { return item.geneEdit.primaryIdentifier };
+    $scope.geneSymbol = function(item) { return item.geneEdit.symbol };
+    $scope.geneOrganismName = function(item) { return item.geneEdit.organismName };
+    $scope.geneNcbi = function(item) { return item.geneEdit.ncbi };
 
 
+    $scope.createPopoverTemplate = function(model) {
+            $scope.state.popoverTemplate =
+        '<div class="row" style="width: 300px">' +
+            '<div class="col-sm-12">' +
+                '<div class="col-sm-11">' +
+                    '<div class="row">' +
+                        '<label class="control-label col-sm-5">Gene ID:</label>' +
+                        '<div class="col-sm-7">' +
+                            '<label class="control-label propertyDataText">' +
+                                        $scope.genePrimaryIdentifier(model)    +
+                            '</label>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="row  vspace-top-5">' +
+                        '<label class="control-label col-sm-5">Gene Symbol:</label>' +
+                        '<div class="col-sm-7">' +
+                            '<label class="control-label propertyDataText">' +
+                                        $scope.geneSymbol(model)   +
+                            '</label>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="row  vspace-top-5">' +
+                        '<label class="control-label col-sm-5">Organism name:</label>' +
+                        '<div class="col-sm-7">' +
+                            '<label class="control-label propertyDataText">' +
+                                        $scope.geneOrganismName(model)   +
+                            '</label>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="row  vspace-top-5">' +
+                        '<label class="control-label col-sm-5">NCBI:</label>' +
+                        '<div class="col-sm-7">' +
+                            '<label class="control-label propertyDataText">' +
+                                        $scope.geneNcbi(model)    +
+                            '</label>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+    };
 }

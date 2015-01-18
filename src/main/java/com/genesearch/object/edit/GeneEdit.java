@@ -65,11 +65,6 @@ public class GeneEdit extends AbstractEditObject {
         result.setSymbol(entity.getSymbol());
         result.setOrganismName(entity.getOrganismName());
         result.setNcbi(entity.getNcbi());
-
-        for(GeneHomologue gh : entity.getGeneHomologueSet()) {
-            result.getHomologueEditList().add(HomologueEdit.create(gh.getHomologue()));
-        }
-
         return  result;
     }
 }

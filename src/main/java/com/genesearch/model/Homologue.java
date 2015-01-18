@@ -35,8 +35,8 @@ public class Homologue extends AbstractEntity {
     @Column(name="datasets_name", length = 200)
     private String datasetsName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homologue", cascade = CascadeType.ALL)
-    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homologue", cascade = CascadeType.ALL)
+//    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
 
     @Override
     public Long getId() {
@@ -88,13 +88,13 @@ public class Homologue extends AbstractEntity {
         this.datasetsName = datasetsName;
     }
 
-    public Set<GeneHomologue> getGeneHomologueSet() {
-        return geneHomologueSet;
-    }
-
-    public void setGeneHomologueSet(Set<GeneHomologue> geneHomologueSet) {
-        this.geneHomologueSet = geneHomologueSet;
-    }
+//    public Set<GeneHomologue> getGeneHomologueSet() {
+//        return geneHomologueSet;
+//    }
+//
+//    public void setGeneHomologueSet(Set<GeneHomologue> geneHomologueSet) {
+//        this.geneHomologueSet = geneHomologueSet;
+//    }
 
 
 

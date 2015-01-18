@@ -1,17 +1,20 @@
 package com.genesearch.domain;
 
-import com.genesearch.model.Evidence;
-import com.genesearch.model.OntologyAnnotation;
-import com.genesearch.model.OntologyTerm;
-import com.genesearch.model.Subject;
+import com.genesearch.model.*;
+import com.genesearch.object.edit.GeneEdit;
+import com.genesearch.object.edit.HomologueEdit;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.edit.OntologyTermEdit;
-import com.genesearch.repository.EvidenceRepository;
-import com.genesearch.repository.OntologyAnnotationRepository;
-import com.genesearch.repository.OntologyTermRepository;
-import com.genesearch.repository.SubjectRepository;
+import com.genesearch.object.request.SearchOntologyAnnotationRequest;
+import com.genesearch.object.response.SearchOntologyAnnotationResponse;
+import com.genesearch.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by user on 16.01.2015.
@@ -26,7 +29,36 @@ public class OntologyAnnotationDomain {
     @Autowired
     private SubjectDomain subjectDomain;
     @Autowired
+    private GeneRepository geneRepository;
+    @Autowired
+    private HomologueDomain homologueDomain;
+    @Autowired
     private OntologyAnnotationRepository ontologyAnnotationRepository;
+
+    public Page<SearchOntologyAnnotationResponse> search(SearchOntologyAnnotationRequest request) {
+        List<SearchOntologyAnnotationResponse> responses = new ArrayList<SearchOntologyAnnotationResponse>();
+
+        Page<OntologyAnnotation> searchResult = ontologyAnnotationRepository.search(request);
+
+        for(OntologyAnnotation ontologyAnnotation : searchResult.getContent()) {
+            SearchOntologyAnnotationResponse searchOntologyAnnotationResponse = SearchOntologyAnnotationResponse.create(ontologyAnnotation);
+
+            Gene gene = geneRepository.find(ontologyAnnotation.getSubject().getPrimaryIdentifier());
+            GeneEdit geneEdit = GeneEdit.create(gene);
+
+            searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
+            responses.add(searchOntologyAnnotationResponse);
+        }
+
+        PageImpl<SearchOntologyAnnotationResponse> page = new PageImpl<SearchOntologyAnnotationResponse>(responses, request, searchResult.getTotalElements());
+
+        return page;
+    }
+
+    public OntologyAnnotationEdit show(Long id) {
+        OntologyAnnotation ontologyAnnotation = ontologyAnnotationRepository.findById(id);
+        return OntologyAnnotationEdit.create(ontologyAnnotation);
+    }
 
     public OntologyAnnotationEdit update(OntologyAnnotationEdit ontologyAnnotationEdit) {
 
@@ -41,4 +73,5 @@ public class OntologyAnnotationDomain {
 
         return OntologyAnnotationEdit.create(oa);
     }
+
 }

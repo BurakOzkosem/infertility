@@ -1,11 +1,14 @@
 package com.genesearch.domain;
 
+import com.genesearch.model.GeneHomologue;
 import com.genesearch.model.Homologue;
 import com.genesearch.object.edit.HomologueEdit;
+import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.HomologueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +21,24 @@ public class HomologueDomain {
 
     @Autowired
     private HomologueRepository homologueRepository;
+    @Autowired
+    private GeneHomologueRepository geneHomologueRepository;
+
+    public List<HomologueEdit> find(Long geneId) {
+
+        List<HomologueEdit> result = new ArrayList<HomologueEdit>();
+        List<Long> homologueIdList = new ArrayList<Long>();
+
+        List<GeneHomologue> geneHomologueList = geneHomologueRepository.find(geneId);
+        for(GeneHomologue geneHomologue : geneHomologueList) {
+            homologueIdList.add(geneHomologue.getHomologue().getId());
+        }
+
+        for(Homologue homologue : homologueRepository.find(homologueIdList)) {
+            result.add(HomologueEdit.create(homologue));
+        }
+        return result;
+    }
 
     public Set<Homologue> update(List<HomologueEdit> homologueEditList) {
         Set<Homologue> result = new HashSet<Homologue>();

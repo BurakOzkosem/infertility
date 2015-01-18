@@ -7,6 +7,7 @@ import com.genesearch.object.edit.HomologueEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,21 @@ public class HomologueRepository extends  ModelRepository<Homologue> {
             return null;
         }
         return result.get(0);
+    }
+
+    public List<Homologue> find(List<Long> homologueIdList) {
+        Criteria c = getSession().createCriteria(getEntityClass(), "hm");
+        Conjunction and = new Conjunction();
+        and.add(Restrictions.in("hm.id", homologueIdList));
+        c.add(and);
+
+        c.setProjection(Projections.countDistinct("hm.id"));
+        long total = (Long) c.uniqueResult();
+
+        c.setProjection(null);
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        return c.list();
     }
 
 

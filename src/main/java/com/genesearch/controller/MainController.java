@@ -35,15 +35,9 @@ public class MainController {
     private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
-    private OntologyAnnotationDomain ontologyAnnotationDomain;
-    @Autowired
     private GeneDomain geneDomain;
-
-
     @Autowired
-    private GeneRepository geneRepository;
-    @Autowired
-    private OntologyAnnotationRepository ontologyAnnotationRepository;
+    private OntologyAnnotationDomain ontologyAnnotationDomain;
     @Autowired
     private OntologyTermRepository ontologyTermRepository;
 
@@ -54,14 +48,14 @@ public class MainController {
     @RequestMapping(value = "/gene/short", method = RequestMethod.POST)
     @ResponseBody
     public GeneEdit search(@RequestBody SimpleStringRequest request) {
-        return geneRepository.show(request.getValue());
+        return geneDomain.show(request.getValue());
     }
 
     @Transactional(readOnly = true)
     @RequestMapping(value = "/gene/search", method = RequestMethod.POST)
     @ResponseBody
     public Page<SearchOntologyAnnotationResponse> search(@RequestBody SearchOntologyAnnotationRequest request) {
-        Page<SearchOntologyAnnotationResponse> responsePage = ontologyAnnotationRepository.search(request);
+        Page<SearchOntologyAnnotationResponse> responsePage = ontologyAnnotationDomain.search(request);
         return new PageImpl<SearchOntologyAnnotationResponse>(responsePage.getContent(), request, responsePage.getTotalElements());
     }
 
@@ -69,8 +63,8 @@ public class MainController {
     @RequestMapping(value = "/gene/showDetails/{id}", method = RequestMethod.GET)
     @ResponseBody
     public MainEdit showDetails(@PathVariable Long id) {
-        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationRepository.show(id);
-        GeneEdit geneEdit = geneRepository.show(ontologyAnnotationEdit.getSubjectEdit().getPrimaryIdentifier());
+        OntologyAnnotationEdit ontologyAnnotationEdit = ontologyAnnotationDomain.show(id);
+        GeneEdit geneEdit = geneDomain.showFull(ontologyAnnotationEdit.getSubjectEdit().getPrimaryIdentifier());
         return new MainEdit(ontologyAnnotationEdit, geneEdit);
     }
 

@@ -114,6 +114,23 @@ angular.module("template/popover/popover.html", []).run(["$templateCache", funct
             "");
 }]);
 
+geneSearchApp.directive('popOver', function($http) {
+    return {
+        restrict: 'C',
+        link: function(scope, element, attr) {
+            var i =0;
+            element.tooltip();
+            $(element).bind('mouseover',function(e) {
+
+                $http.get("test").success(function(){
+                    attr.$set('originalTitle', "Some text "+i++);
+                    element.tooltip('show');
+                });
+            });
+        }
+    }
+});
+
 //geneSearchApp.directive('customPopover', function($compile, $templateCache, $q, $http) {
 //
 //    var getTemplate = function(contentType) {

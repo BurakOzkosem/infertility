@@ -47,7 +47,7 @@
     <script src="<c:url value="/resources/lib/angular.js"/>?v=<%=version%>"></script>
     <%--<script src="<c:url value="/resources/new/angular-locale_ru-ru.js"/>?v=<%=version%>"></script>--%>
     <script src="<c:url value="/resources/lib/underscore-min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="/resources/lib/ui-bootstrap-tpls-0.9.0.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/ui-bootstrap-tpls.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/restangular.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-resource.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-route.min.js"/>?v=<%=version%>"></script>
@@ -66,7 +66,6 @@
 
     <script src="<c:url value="/resources/js/loading.js"/>?v=<%=key%>"></script>
 
-    <script src="<c:url value="/resources/js/geneBriefCtrl.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/common.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>

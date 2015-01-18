@@ -1,6 +1,7 @@
 package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
+import com.genesearch.model.Homologue;
 import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
@@ -59,7 +60,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return result.get(0);
     }
 
-    public Page<SearchOntologyAnnotationResponse> search(SearchOntologyAnnotationRequest request) {
+    public Page<OntologyAnnotation> search(SearchOntologyAnnotationRequest request) {
 
         Criteria c = getSession().createCriteria(getEntityClass(), "oa");
         c.createAlias("oa.subject", "s", JoinType.LEFT_OUTER_JOIN);
@@ -133,19 +134,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
 
         c.setFirstResult(request.getOffset());
         c.setMaxResults(request.getPageSize());
-        List<OntologyAnnotation> results = c.list();
-
-        List<SearchOntologyAnnotationResponse> responses = new ArrayList<SearchOntologyAnnotationResponse>();
-        for(OntologyAnnotation ontologyAnnotation : results) {
-            SearchOntologyAnnotationResponse searchOntologyAnnotationResponse = SearchOntologyAnnotationResponse.create(ontologyAnnotation);
-            GeneEdit geneEdit = geneRepository.show(ontologyAnnotation.getSubject().getPrimaryIdentifier());
-            searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
-            responses.add(searchOntologyAnnotationResponse);
-        }
-
-        PageImpl<SearchOntologyAnnotationResponse> page = new PageImpl<SearchOntologyAnnotationResponse>(responses, request, total);
-
-        return page;
+        return new PageImpl<OntologyAnnotation>(c.list(), request, total);
     }
 
 

@@ -33,8 +33,8 @@ public class Gene extends AbstractEntity {
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gene", cascade = CascadeType.ALL)
-    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gene", cascade = CascadeType.ALL)
+//    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
 
     @Override
     public Long getId() {
@@ -78,13 +78,13 @@ public class Gene extends AbstractEntity {
         this.ncbi = ncbi;
     }
 
-    public Set<GeneHomologue> getGeneHomologueSet() {
-        return geneHomologueSet;
-    }
-
-    public void setGeneHomologueSet(Set<GeneHomologue> geneHomologueSet) {
-        this.geneHomologueSet = geneHomologueSet;
-    }
+//    public Set<GeneHomologue> getGeneHomologueSet() {
+//        return geneHomologueSet;
+//    }
+//
+//    public void setGeneHomologueSet(Set<GeneHomologue> geneHomologueSet) {
+//        this.geneHomologueSet = geneHomologueSet;
+//    }
 
 //    @Override
 //    public boolean equals(Object o) {
