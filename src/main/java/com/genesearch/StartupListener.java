@@ -1,7 +1,8 @@
 package com.genesearch;
 
-import com.genesearch.domain.GeneDetailsSaver;
-import com.genesearch.domain.MouseMineSaver;
+import com.genesearch.webservice.GeneDetailsSaver;
+import com.genesearch.webservice.MainSaver;
+import com.genesearch.webservice.MouseMineSaver;
 import com.genesearch.repository.JobStatusRepository;
 import com.genesearch.scheduler.DownloaderJob;
 import org.quartz.*;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import sun.applet.Main;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
@@ -27,9 +29,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     private static final Logger log = LoggerFactory.getLogger(StartupListener.class);
 
     @Autowired
-    private GeneDetailsSaver geneDetailsSaver;
-    @Autowired
-    private MouseMineSaver mouseMineSaver;
+    private MainSaver mainSaver;
     @Autowired
     private JobStatusRepository jobStatusRepository;
 
@@ -48,8 +48,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
                     .storeDurably()
                     .build();
 
-            job.getJobDataMap().put("geneDetailsSaver", geneDetailsSaver);
-            job.getJobDataMap().put("mouseMineSaver", mouseMineSaver);
+            job.getJobDataMap().put("mainSaver", mainSaver);
             job.getJobDataMap().put("jobStatusRepository", jobStatusRepository);
 
             Trigger trigger = newTrigger()

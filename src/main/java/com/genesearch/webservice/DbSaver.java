@@ -1,4 +1,4 @@
-package com.genesearch.domain;
+package com.genesearch.webservice;
 
 import com.genesearch.webservice.WebServiceRetriever;
 

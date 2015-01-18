@@ -1,13 +1,11 @@
-package com.genesearch.domain;
+package com.genesearch.webservice;
 
 import com.genesearch.model.*;
 import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.HomologueRepository;
-import com.genesearch.webservice.WebServiceRetriever;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class GeneDetailsSaver implements DbSaver {
     private GeneHomologueRepository geneHomologueRepository;
 
     @Override
-    public void execute(WebServiceRetriever retriever) throws Exception {
+    public void execute(WebServiceRetriever retriever) {
         List<List<Object>> result = retriever.execute();
 
         for(List<Object> row : result) {

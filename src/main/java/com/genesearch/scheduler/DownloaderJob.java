@@ -4,11 +4,8 @@ package com.genesearch.scheduler;
  * Created by user on 17.01.2015.
  */
 
-import com.genesearch.domain.GeneDetailsSaver;
-import com.genesearch.domain.MouseMineSaver;
+import com.genesearch.webservice.*;
 import com.genesearch.repository.JobStatusRepository;
-import com.genesearch.webservice.GeneDetailsRetriever;
-import com.genesearch.webservice.MouseMineRetriever;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -31,13 +28,13 @@ public class DownloaderJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
-        GeneDetailsSaver geneDetailsSaver = (GeneDetailsSaver) jobExecutionContext.getJobDetail().getJobDataMap().get("geneDetailsSaver");
-        MouseMineSaver mouseMineSaver = (MouseMineSaver) jobExecutionContext.getJobDetail().getJobDataMap().get("mouseMineSaver");
+        MainSaver mainSaver = (MainSaver) jobExecutionContext.getJobDetail().getJobDataMap().get("mainSaver");
         JobStatusRepository jobStatusRepository = (JobStatusRepository) jobExecutionContext.getJobDetail().getJobDataMap().get("jobStatusRepository");
 
         try {
-            geneDetailsSaver.execute(new GeneDetailsRetriever());
-            mouseMineSaver.execute(new MouseMineRetriever());
+
+            mainSaver.execute();
+
         } catch (Exception e) {
             log.error(e.toString(), e);
             jobStatusRepository.setStatus(JobStatus.FAILED);
