@@ -44,9 +44,10 @@ public class OntologyAnnotationDomain {
             SearchOntologyAnnotationResponse searchOntologyAnnotationResponse = SearchOntologyAnnotationResponse.create(ontologyAnnotation);
 
             Gene gene = geneRepository.find(ontologyAnnotation.getSubject().getPrimaryIdentifier());
-            GeneEdit geneEdit = GeneEdit.create(gene);
-
-            searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
+            if(gene != null) {
+                GeneEdit geneEdit = GeneEdit.create(gene);
+                searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
+            }
             responses.add(searchOntologyAnnotationResponse);
         }
 

@@ -24,8 +24,6 @@ public class DownloaderJob implements Job {
     public static final String cron = "0 0 1 1 * ?";
 
 
-    @Transactional(readOnly = false)
-    @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
         MainSaver mainSaver = (MainSaver) jobExecutionContext.getJobDetail().getJobDataMap().get("mainSaver");

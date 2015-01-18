@@ -4,6 +4,7 @@ import com.genesearch.scheduler.JobStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class JobStatusRepository extends ModelRepository<com.genesearch.model.Jo
         return null;
     }
 
+    @Transactional(readOnly = false)
     public void setStatus(JobStatus newStatus) {
         List<com.genesearch.model.JobStatus> statuses = (List<com.genesearch.model.JobStatus>) getAll();
 
