@@ -114,22 +114,40 @@ angular.module("template/popover/popover.html", []).run(["$templateCache", funct
             "");
 }]);
 
-geneSearchApp.directive('popOver', function($http) {
-    return {
-        restrict: 'C',
-        link: function(scope, element, attr) {
-            var i =0;
-            element.tooltip();
-            $(element).bind('mouseover',function(e) {
-
-                $http.get("test").success(function(){
-                    attr.$set('originalTitle', "Some text "+i++);
-                    element.tooltip('show');
+geneSearchApp.directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown", function(event) {
+            if(angular.isDefined(event) && angular.isDefined(event.which) && event.which === 13) {
+                scope.$apply(function(){
+                    if (angular.isDefined(attrs) && angular.isDefined(attrs.ngEnter)) {
+                        scope.$eval(attrs.ngEnter, {'event': event});
+                    }
                 });
-            });
-        }
-    }
+
+                if (angular.isDefined(event.preventDefault)) {
+                    event.preventDefault();
+                }
+            }
+        });
+    };
 });
+
+//geneSearchApp.directive('popOver', function($http) {
+//    return {
+//        restrict: 'C',
+//        link: function(scope, element, attr) {
+//            var i =0;
+//            element.tooltip();
+//            $(element).bind('mouseover',function(e) {
+//
+//                $http.get("test").success(function(){
+//                    attr.$set('originalTitle', "Some text "+i++);
+//                    element.tooltip('show');
+//                });
+//            });
+//        }
+//    }
+//});
 
 //geneSearchApp.directive('customPopover', function($compile, $templateCache, $q, $http) {
 //

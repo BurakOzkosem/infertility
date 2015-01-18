@@ -177,6 +177,8 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
 
         localStorageService.remove('gene.filters.v1.2');
         $scope.sorts = {direction: 'asc', property: 'id'};
+
+        $scope.load();
     };
 
 //    $scope.showBrief = function() {
