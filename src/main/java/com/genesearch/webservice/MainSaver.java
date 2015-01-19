@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class MainSaver {
 
     @Autowired
-    private MouseMineSaver mouseMineSaver;
+    private OntologyAnnotationSaver ontologyAnnotationSaver;
     @Autowired
     private GeneDetailsSaver geneDetailsSaver;
 
 
     @Transactional(readOnly = false)
     public void execute() {
-        mouseMineSaver.execute(new MouseMineRetriever());
+        ontologyAnnotationSaver.execute(new OntologyAnnotationRetriever());
         geneDetailsSaver.execute(new GeneDetailsRetriever());
     }
 }

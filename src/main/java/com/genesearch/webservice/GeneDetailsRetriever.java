@@ -32,7 +32,11 @@ public class GeneDetailsRetriever implements WebServiceRetriever {
                 "Gene.homologues.homologue.organism.name",
                 "Gene.homologues.type",
                 "Gene.homologues.dataSets.name",
-                "Gene.ncbiGeneNumber");
+                "Gene.ncbiGeneNumber",
+
+                "Gene.ontologyAnnotations.ontologyTerm.identifier",
+                "Gene.ontologyAnnotations.ontologyTerm.name",
+                "Gene.ontologyAnnotations.evidence.withText");
 
         // Add orderby
         query.addOrderBy("Gene.primaryIdentifier", OrderDirection.ASC);

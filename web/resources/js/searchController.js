@@ -207,13 +207,16 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
 
     $scope.genePrimaryIdentifier = function(item) { return item.geneEdit.primaryIdentifier };
     $scope.geneSymbol = function(item) { return item.geneEdit.symbol };
-    $scope.geneOrganismName = function(item) { return item.geneEdit.organismName };
+    $scope.geneDescription = function(item) { return item.subjectDsc };
     $scope.geneNcbi = function(item) { return item.geneEdit.ncbi };
 
 
     $scope.createPopoverTemplate = function(model) {
+
+        // In order to change popover width you must change 'div[title~=' style in application.css
+
             $scope.state.popoverTemplate =
-        '<div class="row" style="width: 300px">' +
+        '<div class="row" style="width: 500px">' +
             '<div class="col-sm-12">' +
                 '<div class="col-sm-11">' +
                     '<div class="row">' +
@@ -233,10 +236,10 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
                         '</div>' +
                     '</div>' +
                     '<div class="row  vspace-top-5">' +
-                        '<label class="control-label col-sm-5">Organism name:</label>' +
+                        '<label class="control-label col-sm-5">Gene description:</label>' +
                         '<div class="col-sm-7">' +
                             '<label class="control-label propertyDataText">' +
-                                        $scope.geneOrganismName(model)   +
+                                        $scope.geneDescription(model)   +
                             '</label>' +
                         '</div>' +
                     '</div>' +

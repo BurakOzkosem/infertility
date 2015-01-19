@@ -1,10 +1,10 @@
 package com.genesearch.domain;
 
 import com.genesearch.model.GeneHomologue;
-import com.genesearch.model.Homologue;
-import com.genesearch.object.edit.HomologueEdit;
+import com.genesearch.model.Homology;
+import com.genesearch.object.edit.HomologyEdit;
 import com.genesearch.repository.GeneHomologueRepository;
-import com.genesearch.repository.HomologueRepository;
+import com.genesearch.repository.HomologyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +17,48 @@ import java.util.Set;
  * Created by user on 16.01.2015.
  */
 @Service
-public class HomologueDomain {
+public class HomologyDomain {
 
     @Autowired
-    private HomologueRepository homologueRepository;
+    private HomologyRepository homologyRepository;
     @Autowired
     private GeneHomologueRepository geneHomologueRepository;
 
-    public List<HomologueEdit> find(Long geneId) {
+    public List<HomologyEdit> find(Long geneId) {
 
-        List<HomologueEdit> result = new ArrayList<HomologueEdit>();
+        List<HomologyEdit> result = new ArrayList<HomologyEdit>();
         List<Long> homologueIdList = new ArrayList<Long>();
 
         List<GeneHomologue> geneHomologueList = geneHomologueRepository.find(geneId);
         for(GeneHomologue geneHomologue : geneHomologueList) {
-            homologueIdList.add(geneHomologue.getHomologue().getId());
+            homologueIdList.add(geneHomologue.getHomology().getId());
         }
 
-        for(Homologue homologue : homologueRepository.find(homologueIdList)) {
-            result.add(HomologueEdit.create(homologue));
+        for(Homology homology : homologyRepository.find(homologueIdList)) {
+            result.add(HomologyEdit.create(homology));
         }
         return result;
     }
 
-    public Set<Homologue> update(List<HomologueEdit> homologueEditList) {
-        Set<Homologue> result = new HashSet<Homologue>();
+    public Set<Homology> update(List<HomologyEdit> homologyEditList) {
+        Set<Homology> result = new HashSet<Homology>();
 
-        for (HomologueEdit ed : homologueEditList) {
+        for (HomologyEdit ed : homologyEditList) {
 
-            Homologue forAddEntity = null;
+            Homology forAddEntity = null;
 
 //            Homologue existing = homologueRepository.find(ed.getPrimaryIdentifier(), ed.getSymbol(), ed.getOrganismName(), ed.getType(), ed.getDatasetsName());
-            Homologue existing = homologueRepository.findById(ed.getId());
+            Homology existing = homologyRepository.findById(ed.getId());
 
             if (existing == null) {
-                Homologue newEntity = new Homologue();
+                Homology newEntity = new Homology();
                 newEntity.setPrimaryIdentifier(ed.getPrimaryIdentifier());
                 newEntity.setSymbol(ed.getSymbol());
                 newEntity.setOrganismName(ed.getOrganismName());
                 newEntity.setDatasetsName(ed.getDatasetsName());
                 newEntity.setType(ed.getType());
 
-                homologueRepository.save(newEntity);
+                homologyRepository.save(newEntity);
 
                 forAddEntity = newEntity;
             }

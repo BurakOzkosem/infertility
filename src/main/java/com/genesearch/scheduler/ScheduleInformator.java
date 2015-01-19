@@ -11,10 +11,6 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.util.Date;
 
-import static org.quartz.CronScheduleBuilder.cronSchedule;
-import static org.quartz.JobBuilder.newJob;
-import static org.quartz.TriggerBuilder.newTrigger;
-
 /**
  * Created by user on 17.01.2015.
  */

@@ -1,8 +1,6 @@
 package com.genesearch;
 
-import com.genesearch.webservice.GeneDetailsSaver;
 import com.genesearch.webservice.MainSaver;
-import com.genesearch.webservice.MouseMineSaver;
 import com.genesearch.repository.JobStatusRepository;
 import com.genesearch.scheduler.DownloaderJob;
 import org.quartz.*;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import sun.applet.Main;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;

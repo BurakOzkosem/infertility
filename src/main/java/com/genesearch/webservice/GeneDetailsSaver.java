@@ -3,7 +3,8 @@ package com.genesearch.webservice;
 import com.genesearch.model.*;
 import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.GeneRepository;
-import com.genesearch.repository.HomologueRepository;
+import com.genesearch.repository.HomologyRepository;
+import com.genesearch.repository.SequenceFeatureRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,13 @@ import java.util.List;
 public class GeneDetailsSaver implements DbSaver {
 
     @Autowired
-    private HomologueRepository homologueRepository;
+    private HomologyRepository homologyRepository;
     @Autowired
     private GeneRepository geneRepository;
     @Autowired
     private GeneHomologueRepository geneHomologueRepository;
+    @Autowired
+    private SequenceFeatureRepositoty sequenceFeatureRepositoty;
 
     @Override
     public void execute(WebServiceRetriever retriever) {
@@ -28,25 +31,30 @@ public class GeneDetailsSaver implements DbSaver {
 
         for(List<Object> row : result) {
             Gene gene = new Gene();
-            Homologue homologue = new Homologue();
+            Homology homology = new Homology();
+            SequenceFeature sequenceFeature = new SequenceFeature();
 
             gene.setPrimaryIdentifier(safeString(row.get(0)));
             gene.setSymbol(safeString(row.get(1)));
             gene.setOrganismName(safeString(row.get(2)));
-            homologue.setPrimaryIdentifier(safeString(row.get(3)));
-            homologue.setSymbol(safeString(row.get(4)));
-            homologue.setOrganismName(safeString(row.get(5)));
-            homologue.setType(safeString(row.get(6)));
-            homologue.setDatasetsName(safeString(row.get(7)));
+            homology.setPrimaryIdentifier(safeString(row.get(3)));
+            homology.setSymbol(safeString(row.get(4)));
+            homology.setOrganismName(safeString(row.get(5)));
+            homology.setType(safeString(row.get(6)));
+            homology.setDatasetsName(safeString(row.get(7)));
             gene.setNcbi(safeString(row.get(8)));
 
-            Homologue homologueFromDb = homologueRepository.find(homologue.getPrimaryIdentifier(), homologue.getSymbol(),
-                    homologue.getOrganismName(), homologue.getType(), homologue.getDatasetsName());
-            if(homologueFromDb == null) {
-                homologueRepository.save(homologue);
+            sequenceFeature.setOntologyTermId(safeString(row.get(9)));
+            sequenceFeature.setOntologyTermName(safeString(row.get(10)));
+            sequenceFeature.setEvidenceWithText(safeString(row.get(11)));
+
+            Homology homologyFromDb = homologyRepository.find(homology.getPrimaryIdentifier(), homology.getSymbol(),
+                    homology.getOrganismName(), homology.getType(), homology.getDatasetsName());
+            if(homologyFromDb == null) {
+                homologyRepository.save(homology);
             }
             else {
-                homologue = homologueFromDb;
+                homology = homologyFromDb;
             }
 
 
@@ -58,11 +66,17 @@ public class GeneDetailsSaver implements DbSaver {
                 gene = geneFromDb;
             }
 
+            SequenceFeature sequenceFeatureFromDb = sequenceFeatureRepositoty.find(gene.getId(), sequenceFeature.getOntologyTermId(), sequenceFeature.getOntologyTermName(), sequenceFeature.getEvidenceWithText());
+            if(sequenceFeatureFromDb == null) {
+                sequenceFeature.setGene(gene);
+                sequenceFeatureRepositoty.save(sequenceFeature);
+            }
+
             GeneHomologue gh = new GeneHomologue();
             gh.setGene(gene);
-            gh.setHomologue(homologue);
+            gh.setHomology(homology);
 
-            GeneHomologue ghFromDb = geneHomologueRepository.findOne(gene.getId(), homologue.getId());
+            GeneHomologue ghFromDb = geneHomologueRepository.findOne(gene.getId(), homology.getId());
             if(ghFromDb == null) {
                 geneHomologueRepository.save(gh);
             }

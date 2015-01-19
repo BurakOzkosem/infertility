@@ -33,6 +33,7 @@ public class Gene extends AbstractEntity {
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
 
+
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gene", cascade = CascadeType.ALL)
 //    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
 

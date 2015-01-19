@@ -1,18 +1,16 @@
 package com.genesearch.model;
 
-import com.genesearch.object.edit.HomologueEdit;
+import com.genesearch.object.edit.HomologyEdit;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by user on 14.01.2015.
  */
 @Entity
 @Table(name="Homologue")
-public class Homologue extends AbstractEntity {
+public class Homology extends AbstractEntity {
 
     @Id
     @GenericGenerator(name="homologue_generator",strategy="increment")
@@ -131,7 +129,7 @@ public class Homologue extends AbstractEntity {
 //        return result;
 //    }
 
-    public void update(HomologueEdit ed) {
+    public void update(HomologyEdit ed) {
         this.setPrimaryIdentifier(ed.getPrimaryIdentifier());
         this.setSymbol(ed.getSymbol());
         this.setOrganismName(ed.getOrganismName());

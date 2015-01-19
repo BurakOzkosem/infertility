@@ -6,6 +6,7 @@ function EditCtrl($scope, $routeParams, Restangular) {
     $scope.state = {
         rdOnly: true,
         backup: {},
+        functionAccordeon: { isFirstOpen: true },
         model: {
             ontologyAnnotationEdit: {
                 id: null,
@@ -37,7 +38,7 @@ function EditCtrl($scope, $routeParams, Restangular) {
                 symbol: '',
                 organismName: '',
                 ncbi: '',
-                homologueEditList: [
+                homologyEditList: [
                     {
                         id: null,
                         primaryIdentifier: '',
@@ -45,6 +46,14 @@ function EditCtrl($scope, $routeParams, Restangular) {
                         organismName: '',
                         type: '',
                         datasetsName: ''
+                    }
+                ],
+                sequenceFeatureEditList: [
+                    {
+                        id: null,
+                        ontologyTermId: '',
+                        ontologyTermName: '',
+                        evidenceWithText: ''
                     }
                 ]
             }

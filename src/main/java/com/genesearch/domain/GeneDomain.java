@@ -1,24 +1,25 @@
 package com.genesearch.domain;
 
 import com.genesearch.model.Gene;
+import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.model.SequenceFeature;
 import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.edit.HomologueEdit;
+import com.genesearch.object.edit.HomologyEdit;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.GeneResponse;
 import com.genesearch.repository.GeneHomologueRepository;
 import com.genesearch.repository.GeneRepository;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Conjunction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+import com.genesearch.repository.OntologyAnnotationRepository;
+import com.genesearch.repository.SequenceFeatureRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 16.01.2015.
@@ -27,24 +28,33 @@ import java.util.List;
 public class GeneDomain {
 
     @Autowired
-    private HomologueDomain homologueDomain;
+    private HomologyDomain homologyDomain;
     @Autowired
     private GeneRepository geneRepository;
     @Autowired
-    private GeneHomologueRepository geneHomologueRepository;
+    private OntologyAnnotationRepository ontologyAnnotationRepository;
+    @Autowired
+    private SequenceFeatureRepositoty sequenceFeatureRepositoty;
 
     public GeneEdit show(String primaryIdentifier) {
         Gene gene = geneRepository.find(primaryIdentifier);
-        return gene != null ? GeneEdit.create(gene) : new GeneEdit();
+        GeneEdit geneEdit = GeneEdit.createBrief(gene);
+        return gene != null ? geneEdit : new GeneEdit();
     }
 
     public GeneEdit showFull(String primaryIdentifier) {
         Gene gene = geneRepository.find(primaryIdentifier);
+        List<OntologyAnnotation> ontologyAnnotationList = ontologyAnnotationRepository.find(gene.getPrimaryIdentifier());
+        Set<String> phenoTypes = new HashSet<String>();
+        for(OntologyAnnotation ontologyAnnotation : ontologyAnnotationList) {
+            phenoTypes.add(ontologyAnnotation.getOntologyTerm().getName());
+        }
 
-        List<HomologueEdit> homologueEditList = homologueDomain.find(gene.getId());
+        List<HomologyEdit> homologyEditList = homologyDomain.find(gene.getId());
+        List<SequenceFeature> sequenceFeatureList = sequenceFeatureRepositoty.find(gene.getId());
 
-        GeneEdit geneEdit = GeneEdit.create(gene);
-        geneEdit.setHomologueEditList(homologueEditList);
+        GeneEdit geneEdit = GeneEdit.create(gene, sequenceFeatureList, phenoTypes);
+        geneEdit.setHomologyEditList(homologyEditList);
 
         return geneEdit;
     }

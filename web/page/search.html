@@ -1,6 +1,6 @@
 <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
 
-    <div class="col-sm-1" align="center">
+    <div class="col-sm-1" align="left" style="padding-left: 25px;">
         <br>
         <button class="btn btn-link" ng-click="collapsed = !collapsed" style="text-align:left">Filter</button>
     </div>
@@ -58,7 +58,7 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label class="control-label col-sm-4">Chromosome</label>
+                        <label class="control-label col-sm-4">Phenotype</label>
                         <div class="col-sm-8">
                             <select class="form-control" ng-model="filters.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
                                 <option value=""></option>
@@ -66,10 +66,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row vspace-top-10">
-                <div class="col-sm-1"></div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label col-sm-4">PubMed ID</label>
@@ -78,15 +74,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">doi</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="filters.publicationDoi" placeholder="doi" ng-maxlength="200" class="form-control" ng-enter="load()">
-                        </div>
-                    </div>
-                </div>
             </div>
+
+            <!--<div class="row vspace-top-10">-->
+                <!--<div class="col-sm-4">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label col-sm-4">doi</label>-->
+                        <!--<div class="col-sm-8">-->
+                            <!--<input type="text" ng-model="filters.publicationDoi" placeholder="doi" ng-maxlength="200" class="form-control" ng-enter="load()">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
 
         <div class="row" style="margin-top: 15px">
@@ -163,13 +162,13 @@
                                    ng-class="{'glyphicon glyphicon-chevron-down': canSort('evidenceBaseAnnotationsSubjectZygosity', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('evidenceBaseAnnotationsSubjectZygosity', 'desc')}"></i>
                             </div>
                         </th>
-                        <th style="width: 7%;">
-                            <div class="ng-binding" ng-click="setSort('ontologyTermPrimaryIdentifier')">
-                                Phenotype ID
-                                <i class="pull-right"
-                                   ng-class="{'glyphicon glyphicon-chevron-down': canSort('ontologyTermPrimaryIdentifier', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('ontologyTermPrimaryIdentifier', 'desc')}"></i>
-                            </div>
-                        </th>
+                        <!--<th style="width: 7%;">-->
+                            <!--<div class="ng-binding" ng-click="setSort('ontologyTermPrimaryIdentifier')">-->
+                                <!--Phenotype ID-->
+                                <!--<i class="pull-right"-->
+                                   <!--ng-class="{'glyphicon glyphicon-chevron-down': canSort('ontologyTermPrimaryIdentifier', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('ontologyTermPrimaryIdentifier', 'desc')}"></i>-->
+                            <!--</div>-->
+                        <!--</th>-->
                         <th style="width: 10%;">
                             <div class="ng-binding" ng-click="setSort('subjectChromosomeName')">
                                 Chromosome
@@ -187,28 +186,83 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <!--
+                        NB!
+                        After changing 'popover-title' attribute of <td> you MUST change 'div[title~=...' style in application.css,
+                        because popover width depends on 'popover-title' attribute
+                    -->
+
                     <tr ng-repeat="model in state.geneList"
                         ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}"
                         gs-zebra-rows gs-index="{{$index}}"
-                        ng-click="setSelected(model)"
-                        ng-mouseover="createPopoverTemplate(model)"
-                        popover-title="<b>Gene brief details</b>"
-                        popover-placement="auto"
-                        popover="{{state.popoverTemplate}}"
-                        popover-popup-delay="1000"
-                        popover-trigger="mouseenter"
-                        popover-append-to-body="true"
-                        data-container="body">
+                        ng-click="setSelected(model)">
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">
 
-                        <td><a href="{{getDetailsUrl(model)}}">{{model.subjectPrimaryIdentifier}}</a></td>
-                        <td>{{model.subjectSymbol}}</td>
-                        <td>{{model.subjectName}}</td>
-                        <td>{{model.ontologyTermName}}</td>
-                        <td>{{model.publicationId}}</td>
-                        <td>{{model.evidenceBaseAnnotationsSubjectBackgroundName}}</td>
-                        <td>{{model.evidenceBaseAnnotationsSubjectZygosity}}</td>
-                        <td>{{model.ontologyTermPrimaryIdentifier}}</td>
-                        <td>{{model.subjectChromosomeName}}</td>
+                            <a href="{{getDetailsUrl(model)}}">{{model.subjectPrimaryIdentifier}}</a>
+                        </td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.subjectSymbol}}</td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.subjectName}}</td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.ontologyTermName}}</td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.publicationId}}</td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.evidenceBaseAnnotationsSubjectBackgroundName}}</td>
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.evidenceBaseAnnotationsSubjectZygosity}}</td>
+                        <!--<td ng-mouseover="createPopoverTemplate(model)"-->
+                            <!--popover-title="<b>Gene brief details</b>"-->
+                            <!--popover-placement="auto"-->
+                            <!--popover="{{state.popoverTemplate}}"-->
+                            <!--popover-popup-delay="1000"-->
+                            <!--popover-trigger="mouseenter"-->
+                            <!--popover-append-to-body="true">{{model.ontologyTermPrimaryIdentifier}}</td>-->
+                        <td ng-mouseover="createPopoverTemplate(model)"
+                            popover-title="<b>Gene brief details</b>"
+                            popover-placement="auto"
+                            popover="{{state.popoverTemplate}}"
+                            popover-popup-delay="1000"
+                            popover-trigger="mouseenter"
+                            popover-append-to-body="true">{{model.subjectChromosomeName}}</td>
                         <td>{{model.publicationDoi}}</td>
                     </tr>
                     </tbody>

@@ -18,14 +18,14 @@ public class GeneHomologue {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "homologue_id", nullable = false)
-    private Homologue homologue;
+    private Homology homology;
 
     public GeneHomologue() {
     }
 
-    public GeneHomologue(Gene gene, Homologue homologue) {
+    public GeneHomologue(Gene gene, Homology homology) {
         this.gene = gene;
-        this.homologue = homologue;
+        this.homology = homology;
     }
 
     public Gene getGene() {
@@ -36,12 +36,12 @@ public class GeneHomologue {
         this.gene = gene;
     }
 
-    public Homologue getHomologue() {
-        return homologue;
+    public Homology getHomology() {
+        return homology;
     }
 
-    public void setHomologue(Homologue homologue) {
-        this.homologue = homologue;
+    public void setHomology(Homology homology) {
+        this.homology = homology;
     }
 
 //    @Override

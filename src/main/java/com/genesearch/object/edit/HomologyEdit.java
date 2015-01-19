@@ -1,11 +1,11 @@
 package com.genesearch.object.edit;
 
-import com.genesearch.model.Homologue;
+import com.genesearch.model.Homology;
 
 /**
  * Created by kmorozov on 16.01.2015.
  */
-public class HomologueEdit extends AbstractEditObject {
+public class HomologyEdit extends AbstractEditObject {
 
     private String primaryIdentifier;
     private String symbol;
@@ -13,8 +13,8 @@ public class HomologueEdit extends AbstractEditObject {
     private String type;
     private String datasetsName;
 
-    public static HomologueEdit create(Homologue entity) {
-        HomologueEdit result = new HomologueEdit();
+    public static HomologyEdit create(Homology entity) {
+        HomologyEdit result = new HomologyEdit();
         result.setId(entity.getId());
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());

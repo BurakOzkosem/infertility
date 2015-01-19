@@ -2,7 +2,6 @@ package com.genesearch.repository;
 
 import com.genesearch.model.GeneHomologue;
 import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.edit.HomologueEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.sql.JoinType;

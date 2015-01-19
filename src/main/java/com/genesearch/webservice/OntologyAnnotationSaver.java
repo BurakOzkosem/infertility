@@ -13,9 +13,9 @@ import java.util.List;
  * Created by user on 06.01.2015.
  */
 @Service
-public class MouseMineSaver implements DbSaver {
+public class OntologyAnnotationSaver implements DbSaver {
 
-    private static final Logger log = LoggerFactory.getLogger(MouseMineSaver.class);
+    private static final Logger log = LoggerFactory.getLogger(OntologyAnnotationSaver.class);
 
     @Autowired
     private SubjectRepository subjectRepository;
@@ -28,7 +28,7 @@ public class MouseMineSaver implements DbSaver {
     @Autowired
     private OntologyAnnotationRepository ontologyAnnotationRepository;
     @Autowired
-    private HomologueRepository homologueRepository;
+    private HomologyRepository homologyRepository;
     @Autowired
     private GeneRepository geneRepository;
 
@@ -45,7 +45,7 @@ public class MouseMineSaver implements DbSaver {
             Evidence evidence = new Evidence();
 
             Gene gene = new Gene();
-            Homologue homologue = new Homologue();
+            Homology homology = new Homology();
 
             subject.setPrimaryIdentifier(safeString(row.get(0)));
             subject.setSymbol(safeString(row.get(1)));

@@ -1,12 +1,9 @@
 package com.genesearch.repository;
 
 import com.genesearch.model.Gene;
-import com.genesearch.model.Homologue;
 import com.genesearch.model.OntologyAnnotation;
-import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
-import com.genesearch.object.response.SearchOntologyAnnotationResponse;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Order;
@@ -18,7 +15,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -137,8 +133,21 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return new PageImpl<OntologyAnnotation>(c.list(), request, total);
     }
 
+    public List<OntologyAnnotation> find(String primaryIdentifier) {
+        Criteria c = getSession().createCriteria(getEntityClass(), "oa");
+        c.createAlias("oa.subject", "s", JoinType.INNER_JOIN);
+
+        Conjunction and = new Conjunction();
+        safeAddRestrictionEq(and, "s.primaryIdentifier", primaryIdentifier);
+        c.add(and);
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        return c.list();
+    }
 
     public OntologyAnnotationEdit update(OntologyAnnotationEdit ontologyAnnotationEdit) {
         return null;
     }
+
 }

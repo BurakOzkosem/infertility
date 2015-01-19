@@ -1,6 +1,5 @@
 package com.genesearch.model;
 
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ public class GeneHomologueKey implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "homologue_id", nullable = false)
-    private Homologue homologue;
+    private Homology homology;
 
     public Gene getGene() {
         return gene;
@@ -26,11 +25,11 @@ public class GeneHomologueKey implements Serializable {
         this.gene = gene;
     }
 
-    public Homologue getHomologue() {
-        return homologue;
+    public Homology getHomology() {
+        return homology;
     }
 
-    public void setHomologue(Homologue homologue) {
-        this.homologue = homologue;
+    public void setHomology(Homology homology) {
+        this.homology = homology;
     }
 }

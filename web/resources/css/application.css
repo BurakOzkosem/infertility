@@ -644,6 +644,29 @@ ul.buttons li {
     font-weight: normal;
 }
 
+.boldFont {
+    font-weight: bold;
+}
+
+.font-11 {
+    font-size: 11px;
+}
+
+.accordion-heading {
+    line-height: 0.8
+}
+/*
+  Be sure, that title attribute selector points on the same string in this style and in popover-title attribute value
+  because popover width depends on 'popover-title' attribute
+*/
+div[title='<b>Gene brief details</b>'] {
+    max-width: 500px;
+}
+
+div[title] {
+    max-width: 500px;
+}
+
 .font-14 {
     font-size: 14px;
 }

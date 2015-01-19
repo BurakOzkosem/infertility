@@ -14,7 +14,7 @@ import java.util.List;
  * Created by user on 04.01.2015.
  */
 @Service
-public class MouseMineRetriever implements WebServiceRetriever {
+public class OntologyAnnotationRetriever implements WebServiceRetriever {
 
     @Override
     public List<List<Object>> execute() {

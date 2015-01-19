@@ -1,11 +1,11 @@
 package com.genesearch.object.edit;
 
 import com.genesearch.model.Gene;
-import com.genesearch.model.GeneHomologue;
-import com.genesearch.model.Homologue;
+import com.genesearch.model.SequenceFeature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kmorozov on 16.01.2015.
@@ -16,8 +16,11 @@ public class GeneEdit extends AbstractEditObject {
     private String symbol;
     private String organismName;
     private String ncbi;
+    private String phenoTypes;
 
-    private List<HomologueEdit> homologueEditList = new ArrayList<HomologueEdit>();
+    private List<HomologyEdit> homologyEditList = new ArrayList<HomologyEdit>();
+
+    private List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;
@@ -51,20 +54,64 @@ public class GeneEdit extends AbstractEditObject {
         this.ncbi = ncbi;
     }
 
-    public List<HomologueEdit> getHomologueEditList() {
-        return homologueEditList;
+    public List<HomologyEdit> getHomologyEditList() {
+        return homologyEditList;
     }
 
-    public void setHomologueEditList(List<HomologueEdit> homologueEditList) {
-        this.homologueEditList = homologueEditList;
+    public void setHomologyEditList(List<HomologyEdit> homologyEditList) {
+        this.homologyEditList = homologyEditList;
     }
 
-    public static GeneEdit create(Gene entity) {
+    public List<SequenceFeatureEdit> getSequenceFeatureEditList() {
+        return sequenceFeatureEditList;
+    }
+
+    public void setSequenceFeatureEditList(List<SequenceFeatureEdit> sequenceFeatureEditList) {
+        this.sequenceFeatureEditList = sequenceFeatureEditList;
+    }
+
+    public String getPhenoTypes() {
+        return phenoTypes;
+    }
+
+    public void setPhenoTypes(String phenoTypes) {
+        this.phenoTypes = phenoTypes;
+    }
+
+    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes) {
+        GeneEdit result = new GeneEdit();
+        result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
+        result.setSymbol(entity.getSymbol());
+        result.setOrganismName(entity.getOrganismName());
+        result.setNcbi(entity.getNcbi());
+
+        result.setPhenoTypes(concatenateWithComma(phenoTypes));
+
+        List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
+        for(SequenceFeature sf : sequenceFeatureList) {
+            sequenceFeatureEditList.add(SequenceFeatureEdit.create(sf));
+        }
+        result.setSequenceFeatureEditList(sequenceFeatureEditList);
+        return  result;
+    }
+
+    public static GeneEdit createBrief(Gene entity) {
         GeneEdit result = new GeneEdit();
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());
         result.setOrganismName(entity.getOrganismName());
         result.setNcbi(entity.getNcbi());
         return  result;
+    }
+
+    private static String concatenateWithComma(Set<String> strings) {
+        StringBuilder sb = new StringBuilder();
+        for(String s : strings) {
+            sb.append(s.trim()).append(", ");
+        }
+        if(sb.length() > 1) {
+            sb.delete(sb.length() - 2, sb.length());
+        }
+        return sb.toString();
     }
 }

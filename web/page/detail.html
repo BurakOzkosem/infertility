@@ -1,8 +1,8 @@
 <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
 
-    <div class="col-sm-1" align="center">
+    <div class="col-sm-1" align="left" style="padding-left: 25px;">
         <br>
-        <a href="/genesearch/#/">Search</a>
+        <a href="/genesearch/#/">Back to search</a>
     </div>
 
     <div class="col-sm-8">
@@ -102,9 +102,11 @@
                             <label class="control-label col-sm-2">NCBI Gene Number:</label>
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.geneEdit.ncbi" style="width: 100%;">-->
-                                <label class="control-label propertyDataText">
-                                    {{state.model.geneEdit.ncbi}}
-                                </label>
+                                <a href="http://www.ncbi.nlm.nih.gov/gene/?term={{state.model.geneEdit.ncbi}}" target="_blank">
+                                    <!--<label class="control-label propertyDataText">-->
+                                        {{state.model.geneEdit.ncbi}}
+                                    <!--</label>-->
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -113,6 +115,50 @@
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
                         <tabset>
+                            <tab heading="Literature">
+                                <div class="col-sm-12 vspace-top-20">
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-5">
+                                            <accordion close-others="false">
+                                                <accordion-group is-open="state.functionAccordeon.isFirstOpen">
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading">GO Term Id:</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.ontologyTermId}}</div>
+                                                </accordion-group>
+                                                <accordion-group>
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading">GO Term</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.ontologyTermName}}</div>
+                                                </accordion-group>
+                                                <accordion-group>
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading">Evidence Link:</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.evidenceWithText}}</div>
+                                                </accordion-group>
+                                            </accordion>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-sm-1"></div>
+                                            <label class="control-label col-sm-1">Phenotype:</label>
+                                            <div class="col-sm-5">
+                                                <!--<input type="text" style="width: 100%;">-->
+                                                <label class="control-label propertyDataText" >
+                                                    {{ state.model.geneEdit.phenotypes }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+
+
                             <tab heading="Function">
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="form-group">
@@ -193,7 +239,7 @@
                                 </div>
                             </tab>
 
-                            <tab heading="Homologue">
+                            <tab heading="Homology">
                                 <div class="col-sm-12 vspace-top-20">
                                     <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
                                         <thead>
@@ -231,8 +277,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="model in state.model.geneEdit.homologueEditList" gs-zebra-rows gs-index="{{$index}}">
-                                            <!--<tr ng-repeat="model in state.model.geneEdit.homologueEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                            <tr ng-repeat="model in state.model.geneEdit.homologyEditList" gs-zebra-rows gs-index="{{$index}}">
+                                            <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
                                                 <td>{{model.primaryIdentifier}}</td>
                                                 <td>{{model.symbol}}</td>
                                                 <td>{{model.organismName}}</td>
@@ -259,3 +305,4 @@
     </div>
 
 </div>
+

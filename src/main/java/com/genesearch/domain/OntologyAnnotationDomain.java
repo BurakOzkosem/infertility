@@ -2,9 +2,7 @@ package com.genesearch.domain;
 
 import com.genesearch.model.*;
 import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.edit.HomologueEdit;
 import com.genesearch.object.edit.OntologyAnnotationEdit;
-import com.genesearch.object.edit.OntologyTermEdit;
 import com.genesearch.object.request.SearchOntologyAnnotationRequest;
 import com.genesearch.object.response.SearchOntologyAnnotationResponse;
 import com.genesearch.repository.*;
@@ -31,9 +29,12 @@ public class OntologyAnnotationDomain {
     @Autowired
     private GeneRepository geneRepository;
     @Autowired
-    private HomologueDomain homologueDomain;
+    private HomologyDomain homologyDomain;
     @Autowired
     private OntologyAnnotationRepository ontologyAnnotationRepository;
+    @Autowired
+    private SequenceFeatureRepositoty sequenceFeatureRepositoty;
+
 
     public Page<SearchOntologyAnnotationResponse> search(SearchOntologyAnnotationRequest request) {
         List<SearchOntologyAnnotationResponse> responses = new ArrayList<SearchOntologyAnnotationResponse>();
@@ -45,7 +46,7 @@ public class OntologyAnnotationDomain {
 
             Gene gene = geneRepository.find(ontologyAnnotation.getSubject().getPrimaryIdentifier());
             if(gene != null) {
-                GeneEdit geneEdit = GeneEdit.create(gene);
+                GeneEdit geneEdit = GeneEdit.createBrief(gene);
                 searchOntologyAnnotationResponse.setGeneEdit(geneEdit);
             }
             responses.add(searchOntologyAnnotationResponse);
