@@ -14,7 +14,13 @@ import java.util.List;
  */
 public class GeneDetailsRetriever implements WebServiceRetriever {
 
+    private String geneId;
+
     public GeneDetailsRetriever() {
+    }
+
+    public void setGeneId(String geneId) {
+        this.geneId = geneId;
     }
 
     @Override
@@ -42,15 +48,11 @@ public class GeneDetailsRetriever implements WebServiceRetriever {
         query.addOrderBy("Gene.primaryIdentifier", OrderDirection.ASC);
 
         // Filter the results with the following constraints:
+        query.addConstraint(Constraints.equalsExactly("Gene.primaryIdentifier", geneId));
 //        query.addConstraint(Constraints.eq("Gene.primaryIdentifier","MGI:101761"));
 
-        query.addConstraint(Constraints.type("Gene.ontologyAnnotations.ontologyTerm.parents", "MPTerm"));
-        query.addConstraint(Constraints.type("Gene.ontologyAnnotations.evidence.baseAnnotations.subject", "Genotype"));
-        query.addConstraint(Constraints.type("Gene.ontologyAnnotations.ontologyTerm", "MPTerm"));
-        query.addConstraint(Constraints.lookup("Gene.ontologyAnnotations.ontologyTerm.parents", "MP:0001924", null), "A");
-        query.addConstraint(Constraints.equalToLoop("Gene", "Gene.ontologyAnnotations.subject"), "B");
         // Specify how these constraints should be combined.
-        query.setConstraintLogic("A and B");
+//        query.setConstraintLogic("A and B");
 
         QueryService service = factory.getQueryService();
         return service.getRowsAsLists(query);

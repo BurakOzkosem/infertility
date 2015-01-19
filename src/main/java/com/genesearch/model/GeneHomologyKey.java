@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by kmorozov on 16.01.2015.
  */
-public class GeneHomologueKey implements Serializable {
+public class GeneHomologyKey implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "gene_id", nullable = false)

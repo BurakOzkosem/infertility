@@ -42,10 +42,10 @@ public class HomologyRepository extends  ModelRepository<Homology> {
         return result.get(0);
     }
 
-    public List<Homology> find(List<Long> homologueIdList) {
+    public List<Homology> find(List<Long> homologyIdList) {
         Criteria c = getSession().createCriteria(getEntityClass(), "hm");
         Conjunction and = new Conjunction();
-        and.add(Restrictions.in("hm.id", homologueIdList));
+        and.add(Restrictions.in("hm.id", homologyIdList));
         c.add(and);
 
         c.setProjection(Projections.countDistinct("hm.id"));

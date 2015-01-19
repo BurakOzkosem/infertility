@@ -27,11 +27,25 @@ public class Gene extends AbstractEntity {
     @Column(name="symbol", length = 200)
     private String symbol;
 
+    @Column(name="name", length = 200) //
+    private String name;
+
+    @Column(name="dsc", length = 2000) //
+    private String dsc;
+
     @Column(name="organism_name", length = 200)
     private String organismName;
 
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
+
+    @ManyToOne
+    @JoinColumn(name = "phenotype_id")
+    private Phenotype phenotype;
+
+    @Column(name="chromosome", length = 200)
+    private String chromosome;
+
 
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gene", cascade = CascadeType.ALL)
@@ -77,6 +91,38 @@ public class Gene extends AbstractEntity {
 
     public void setNcbi(String ncbi) {
         this.ncbi = ncbi;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDsc() {
+        return dsc;
+    }
+
+    public void setDsc(String dsc) {
+        this.dsc = dsc;
+    }
+
+    public Phenotype getPhenotype() {
+        return phenotype;
+    }
+
+    public void setPhenotype(Phenotype phenotype) {
+        this.phenotype = phenotype;
+    }
+
+    public String getChromosome() {
+        return chromosome;
+    }
+
+    public void setChromosome(String chromosome) {
+        this.chromosome = chromosome;
     }
 
 //    public Set<GeneHomologue> getGeneHomologueSet() {

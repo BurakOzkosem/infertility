@@ -1,9 +1,9 @@
 package com.genesearch.domain;
 
-import com.genesearch.model.GeneHomologue;
+import com.genesearch.model.GeneHomology;
 import com.genesearch.model.Homology;
 import com.genesearch.object.edit.HomologyEdit;
-import com.genesearch.repository.GeneHomologueRepository;
+import com.genesearch.repository.GeneHomologyRepository;
 import com.genesearch.repository.HomologyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,16 @@ public class HomologyDomain {
     @Autowired
     private HomologyRepository homologyRepository;
     @Autowired
-    private GeneHomologueRepository geneHomologueRepository;
+    private GeneHomologyRepository geneHomologyRepository;
 
     public List<HomologyEdit> find(Long geneId) {
 
         List<HomologyEdit> result = new ArrayList<HomologyEdit>();
         List<Long> homologueIdList = new ArrayList<Long>();
 
-        List<GeneHomologue> geneHomologueList = geneHomologueRepository.find(geneId);
-        for(GeneHomologue geneHomologue : geneHomologueList) {
-            homologueIdList.add(geneHomologue.getHomology().getId());
+        List<GeneHomology> geneHomologyList = geneHomologyRepository.find(geneId);
+        for(GeneHomology geneHomology : geneHomologyList) {
+            homologueIdList.add(geneHomology.getHomology().getId());
         }
 
         for(Homology homology : homologyRepository.find(homologueIdList)) {

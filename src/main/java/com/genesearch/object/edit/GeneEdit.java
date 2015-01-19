@@ -89,7 +89,7 @@ public class GeneEdit extends AbstractEditObject {
         this.phenoTypes = phenoTypes;
     }
 
-    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes, List<Publication> publicationList) {
+    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes, Set<Publication> publicationList) {
         GeneEdit result = new GeneEdit();
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());

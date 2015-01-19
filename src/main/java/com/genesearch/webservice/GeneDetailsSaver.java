@@ -1,7 +1,7 @@
 package com.genesearch.webservice;
 
 import com.genesearch.model.*;
-import com.genesearch.repository.GeneHomologueRepository;
+import com.genesearch.repository.GeneHomologyRepository;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.HomologyRepository;
 import com.genesearch.repository.SequenceFeatureRepositoty;
@@ -21,7 +21,7 @@ public class GeneDetailsSaver implements DbSaver {
     @Autowired
     private GeneRepository geneRepository;
     @Autowired
-    private GeneHomologueRepository geneHomologueRepository;
+    private GeneHomologyRepository geneHomologyRepository;
     @Autowired
     private SequenceFeatureRepositoty sequenceFeatureRepositoty;
 
@@ -72,13 +72,13 @@ public class GeneDetailsSaver implements DbSaver {
                 sequenceFeatureRepositoty.save(sequenceFeature);
             }
 
-            GeneHomologue gh = new GeneHomologue();
+            GeneHomology gh = new GeneHomology();
             gh.setGene(gene);
             gh.setHomology(homology);
 
-            GeneHomologue ghFromDb = geneHomologueRepository.findOne(gene.getId(), homology.getId());
+            GeneHomology ghFromDb = geneHomologyRepository.findOne(gene.getId(), homology.getId());
             if(ghFromDb == null) {
-                geneHomologueRepository.save(gh);
+                geneHomologyRepository.save(gh);
             }
 
         }

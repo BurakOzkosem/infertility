@@ -7,8 +7,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="Gene_homologue")
-@IdClass(GeneHomologueKey.class)
-public class GeneHomologue {
+@IdClass(GeneHomologyKey.class)
+public class GeneHomology {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,10 +20,10 @@ public class GeneHomologue {
     @JoinColumn(name = "homologue_id", nullable = false)
     private Homology homology;
 
-    public GeneHomologue() {
+    public GeneHomology() {
     }
 
-    public GeneHomologue(Gene gene, Homology homology) {
+    public GeneHomology(Gene gene, Homology homology) {
         this.gene = gene;
         this.homology = homology;
     }

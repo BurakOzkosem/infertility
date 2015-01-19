@@ -23,7 +23,7 @@ public class GeneRepository extends ModelRepository<Gene> {
     @Autowired
     private HomologyRepository homologyRepository;
     @Autowired
-    private GeneHomologueRepository geneHomologueRepository;
+    private GeneHomologyRepository geneHomologyRepository;
 
     public Gene find(String primaryIdentifier, String symbol, String organismName, String ncbi) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gn");

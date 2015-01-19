@@ -1,6 +1,6 @@
 package com.genesearch.repository;
 
-import com.genesearch.model.GeneHomologue;
+import com.genesearch.model.GeneHomology;
 import com.genesearch.object.edit.GeneEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
@@ -13,10 +13,10 @@ import java.util.List;
  * Created by kmorozov on 16.01.2015.
  */
 @Repository
-public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
+public class GeneHomologyRepository extends ModelRepository<GeneHomology> {
 
 
-    public List<GeneHomologue> find(Long geneId) {
+    public List<GeneHomology> find(Long geneId) {
         Criteria c = getSession().createCriteria(getEntityClass(), "gh");
         c.createAlias("gh.gene", "gn", JoinType.INNER_JOIN);
 
@@ -28,7 +28,7 @@ public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
 
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-        List<GeneHomologue> result = c.list();
+        List<GeneHomology> result = c.list();
 
         if(result.size() == 0) {
             return null;
@@ -36,14 +36,14 @@ public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
         return result;
     }
 
-    public GeneHomologue findOne(Long geneId, Long homologueId) {
+    public GeneHomology findOne(Long geneId, Long homologueId) {
         if(geneId == null || homologueId == null) {
             throw new IllegalArgumentException();
         }
 
         Criteria c = getSession().createCriteria(getEntityClass(), "gh");
         c.createAlias("gh.gene", "gn", JoinType.INNER_JOIN);
-        c.createAlias("gh.homologue", "hm", JoinType.INNER_JOIN);
+        c.createAlias("gh.homology", "hm", JoinType.INNER_JOIN);
 
         Conjunction and = new Conjunction();
 
@@ -54,7 +54,7 @@ public class GeneHomologueRepository extends ModelRepository<GeneHomologue> {
 
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-        List<GeneHomologue> result = c.list();
+        List<GeneHomology> result = c.list();
 
         if(result.size() == 0) {
             return null;

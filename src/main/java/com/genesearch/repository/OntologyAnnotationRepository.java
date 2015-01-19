@@ -15,7 +15,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 06.01.2015.
@@ -150,4 +152,15 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return null;
     }
 
+    public Set<String> findAllGenes() {
+        Set<String> result = new HashSet<String>();
+
+        Criteria c = getSession().createCriteria(getEntityClass(), "oa");
+
+        c.setProjection(Projections.distinct(Projections.property("s2Taxper")));
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+        return null;
+    }
 }

@@ -17,15 +17,17 @@ public class Evidence extends AbstractEntity {
     @Column(name = "evidence_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "pubmed_id")
-    private Publication publication;
+    @Column(name = "pubmed_id")
+    private Long pubmedId;
 
     @Column(name = "b_annot_subj_bckground_name", length = 200)
     private String baseAnnotationsSubjectBackgroundName;
 
     @Column(name = "b_annot_subj_zygocity", length = 200)
     private String baseAnnotationsSubjectZygosity;
+
+    @Column(name = "doi", length = 200)
+    private String doi;
 
     @Override
     public Long getId() {
@@ -35,14 +37,6 @@ public class Evidence extends AbstractEntity {
     @Override
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Publication getPublication() {
-        return publication;
-    }
-
-    public void setPublication(Publication publication) {
-        this.publication = publication;
     }
 
     public String getBaseAnnotationsSubjectBackgroundName() {
@@ -61,4 +55,19 @@ public class Evidence extends AbstractEntity {
         this.baseAnnotationsSubjectZygosity = baseAnnotationsSubjectZygosity;
     }
 
+    public Long getPubmedId() {
+        return pubmedId;
+    }
+
+    public void setPubmedId(Long pubmedId) {
+        this.pubmedId = pubmedId;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
+    }
 }
