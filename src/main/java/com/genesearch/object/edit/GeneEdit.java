@@ -1,6 +1,7 @@
 package com.genesearch.object.edit;
 
 import com.genesearch.model.Gene;
+import com.genesearch.model.Publication;
 import com.genesearch.model.SequenceFeature;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class GeneEdit extends AbstractEditObject {
     private List<HomologyEdit> homologyEditList = new ArrayList<HomologyEdit>();
 
     private List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
+
+    private List<PublicationEdit> publicationEditList = new ArrayList<PublicationEdit>();
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;
@@ -70,6 +73,14 @@ public class GeneEdit extends AbstractEditObject {
         this.sequenceFeatureEditList = sequenceFeatureEditList;
     }
 
+    public List<PublicationEdit> getPublicationEditList() {
+        return publicationEditList;
+    }
+
+    public void setPublicationEditList(List<PublicationEdit> publicationEditList) {
+        this.publicationEditList = publicationEditList;
+    }
+
     public String getPhenoTypes() {
         return phenoTypes;
     }
@@ -78,7 +89,7 @@ public class GeneEdit extends AbstractEditObject {
         this.phenoTypes = phenoTypes;
     }
 
-    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes) {
+    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes, List<Publication> publicationList) {
         GeneEdit result = new GeneEdit();
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());
@@ -92,6 +103,13 @@ public class GeneEdit extends AbstractEditObject {
             sequenceFeatureEditList.add(SequenceFeatureEdit.create(sf));
         }
         result.setSequenceFeatureEditList(sequenceFeatureEditList);
+
+        List<PublicationEdit> publicationEditList = new ArrayList<PublicationEdit>();
+        for(Publication publication : publicationList) {
+            publicationEditList.add(PublicationEdit.create(publication));
+        }
+        result.setPublicationEditList(publicationEditList);
+
         return  result;
     }
 

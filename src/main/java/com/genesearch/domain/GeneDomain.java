@@ -2,6 +2,7 @@ package com.genesearch.domain;
 
 import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.model.Publication;
 import com.genesearch.model.SequenceFeature;
 import com.genesearch.object.edit.GeneEdit;
 import com.genesearch.object.edit.HomologyEdit;
@@ -46,14 +47,20 @@ public class GeneDomain {
         Gene gene = geneRepository.find(primaryIdentifier);
         List<OntologyAnnotation> ontologyAnnotationList = ontologyAnnotationRepository.find(gene.getPrimaryIdentifier());
         Set<String> phenoTypes = new HashSet<String>();
+        List<Publication> publicationList = new ArrayList<Publication>();
         for(OntologyAnnotation ontologyAnnotation : ontologyAnnotationList) {
-            phenoTypes.add(ontologyAnnotation.getOntologyTerm().getName());
+            if(ontologyAnnotation.getOntologyTerm() != null) {
+                phenoTypes.add(ontologyAnnotation.getOntologyTerm().getName());
+            }
+            if(ontologyAnnotation.getEvidence() != null) {
+                publicationList.add(ontologyAnnotation.getEvidence().getPublication());
+            }
         }
 
         List<HomologyEdit> homologyEditList = homologyDomain.find(gene.getId());
         List<SequenceFeature> sequenceFeatureList = sequenceFeatureRepositoty.find(gene.getId());
 
-        GeneEdit geneEdit = GeneEdit.create(gene, sequenceFeatureList, phenoTypes);
+        GeneEdit geneEdit = GeneEdit.create(gene, sequenceFeatureList, phenoTypes, publicationList);
         geneEdit.setHomologyEditList(homologyEditList);
 
         return geneEdit;
