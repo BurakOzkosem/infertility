@@ -25,9 +25,14 @@ public class HomologySaver implements DbSaver {
     public void execute(WebServiceRetriever retriever) {
         List<List<Object>> result = retriever.execute();
 
+        if(result.size() == 0) {
+            return;
+        }
+
         Gene gene = geneRepository.find(Util.safeString(result.get(0).get(0)));
 
-        gene.setNcbi(Util.safeString(result.get(0).get(7)));        gene.setOrganismName(Util.safeString(result.get(0).get(1)));
+        gene.setNcbi(Util.safeString(result.get(0).get(7)));
+        gene.setOrganismName(Util.safeString(result.get(0).get(1)));
         geneRepository.save(gene);
 
         for (List<Object> row : result) {
