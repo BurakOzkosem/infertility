@@ -17,14 +17,6 @@
         <!--</div>-->
 
             <form class="form-horizontal" name="formEdit" novalidate>
-                <!--<div class="row vspace-top-10 vspace-bottom-20">-->
-                    <!--<div class="col-sm-5"/>-->
-                    <!--<div class="col-sm-2" align="right">-->
-                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="cancel()" ng-disabled="isReadOnly()">Cancel</button>-->
-                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="editOrSave()">{{getEditButtonText()}}</button>-->
-                    <!--</div>-->
-                <!--</div>-->
-
                 <div class="row">
                     <div class="col-sm-12">
 
@@ -33,7 +25,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier}}
+                                    {{state.model.primaryIdentifier}}
                                 </label>
                             </div>
                         </div>
@@ -43,7 +35,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.symbol" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.subjectEdit.symbol}}
+                                    {{state.model.symbol}}
                                 </label>
                             </div>
                         </div>
@@ -53,7 +45,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.name" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.subjectEdit.name}}
+                                    {{state.model.name}}
                                 </label>
                             </div>
                         </div>
@@ -63,7 +55,7 @@
                             <div class="col-sm-7">
                                 <!--<textarea ng-model="state.model.ontologyAnnotationEdit.subjectEdit.dsc" ng-maxlength="2000" style="margin: 0px;width: 100%;min-height: 60px;max-height: 60px;height: 60px" class="form-control"></textarea>-->
                                 <label class="control-label propertyDataText" style="text-align: justify">
-                                    {{state.model.ontologyAnnotationEdit.subjectEdit.dsc}}
+                                    {{state.model.dsc}}
                                 </label>
                             </div>
                         </div>
@@ -73,7 +65,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.ontologyTermEdit.name}}
+                                    {{state.model.name}}
                                 </label>
                             </div>
                         </div>
@@ -83,7 +75,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName}}
+                                    {{state.model.chromosome}}
                                 </label>
                             </div>
                         </div>
@@ -102,15 +94,16 @@
                             <label class="control-label col-sm-2">NCBI Gene Number:</label>
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.geneEdit.ncbi" style="width: 100%;">-->
-                                <a href="http://www.ncbi.nlm.nih.gov/gene/?term={{state.model.geneEdit.ncbi}}" target="_blank">
+                                <a href="http://www.ncbi.nlm.nih.gov/gene/?term={{state.model.ncbi}}" target="_blank">
                                     <!--<label class="control-label propertyDataText">-->
-                                        {{state.model.geneEdit.ncbi}}
+                                        {{state.model.ncbi}}
                                     <!--</label>-->
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="row vspace-top-10" >
                     <div class="col-sm-1"/>
                     <div class="col-sm-10">
@@ -120,107 +113,56 @@
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-5">
-                                            <accordion close-others="false">
+                                            <accordion close-others="true">
                                                 <accordion-group is-open="state.functionAccordeon.isFirstOpen">
                                                     <accordion-heading>
                                                         <div class="boldFont font-11 accordion-heading">GO Term Id:</div>
                                                     </accordion-heading>
-                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.ontologyTermId}}</div>
+                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermId}}</div>
                                                 </accordion-group>
-                                                <accordion-group is-open="true">
+                                                <accordion-group is-open="false">
                                                     <accordion-heading>
                                                         <div class="boldFont font-11 accordion-heading">GO Term</div>
                                                     </accordion-heading>
-                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.ontologyTermName}}</div>
+                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermName}}</div>
                                                 </accordion-group>
-                                                <accordion-group is-open="true">
+                                                <accordion-group is-open="false">
                                                     <accordion-heading>
                                                         <div class="boldFont font-11 accordion-heading">Evidence Link:</div>
                                                     </accordion-heading>
-                                                    <div ng-repeat="item in state.model.geneEdit.sequenceFeatureEditList">{{item.evidenceWithText}}</div>
+                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.evidenceWithText}}</div>
+                                                </accordion-group>
+                                                <accordion-group is-open="false">
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading">Phenotype:</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.ontologyTermName}}</div>
                                                 </accordion-group>
                                             </accordion>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <div class="col-sm-1"></div>
-                                            <label class="control-label col-sm-1">Phenotype:</label>
-                                            <div class="col-sm-5">
-                                                <!--<input type="text" style="width: 100%;">-->
-                                                <label class="control-label propertyDataText" >
-                                                    {{ state.model.geneEdit.phenotypes }}
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </tab>
 
-
-
-                            <tab heading="Function">
-                                <div class="col-sm-12 vspace-top-20">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">GO Term ID:</label>
-                                        <div class="col-sm-5">
-                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.primaryIdentifier" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{state.model.ontologyAnnotationEdit.ontologyTermEdit.primaryIdentifier}}
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">GO Term:</label>
-                                        <div class="col-sm-5">
-                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{state.model.ontologyAnnotationEdit.ontologyTermEdit.name}}
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">Evidence link:</label>
-                                        <div class="col-sm-5">
-                                            <!--<input type="text" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{}}
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">Phenotype:</label>
-                                        <div class="col-sm-5">
-                                            <!--<input type="text" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </tab>
                             <tab heading="Genotype">
                                 <div class="col-sm-12 vspace-top-20">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">Background:</label>
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
                                         <div class="col-sm-5">
-                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectBackgroundName" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectBackgroundName}}
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-2">Zygosity:</label>
-                                        <div class="col-sm-5">
-                                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectZygosity" style="width: 100%;">-->
-                                            <label class="control-label propertyDataText" >
-                                                {{state.model.ontologyAnnotationEdit.evidenceEdit.baseAnnotationsSubjectZygosity}}
-                                            </label>
+                                            <accordion close-others="true">
+                                                <accordion-group is-open="state.functionAccordeon.isFirstOpen">
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading" style="{cursor:pointer;}">Background:</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectBackgroundName}}</div>
+                                                </accordion-group>
+                                                <accordion-group is-open="false">
+                                                    <accordion-heading>
+                                                        <div class="boldFont font-11 accordion-heading">Zygosity:</div>
+                                                    </accordion-heading>
+                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectZygosity}}</div>
+                                                </accordion-group>
+                                            </accordion>
                                         </div>
                                     </div>
                                 </div>
@@ -230,18 +172,18 @@
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-5">
-                                            <accordion close-others="false">
+                                            <accordion close-others="true">
                                                 <accordion-group is-open="state.functionAccordeon.isFirstOpen">
                                                     <accordion-heading>
                                                         <div class="boldFont font-11 accordion-heading">Pubmed Id:</div>
                                                     </accordion-heading>
-                                                    <div ng-repeat="item in state.model.geneEdit.publicationEditList">{{item.id}}</div>
+                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationId}}</div>
                                                 </accordion-group>
-                                                <accordion-group is-open="true">
+                                                <accordion-group is-open="false">
                                                     <accordion-heading>
                                                         <div class="boldFont font-11 accordion-heading">Doi</div>
                                                     </accordion-heading>
-                                                    <div ng-repeat="item in state.model.geneEdit.publicationEditList">{{item.doi}}</div>
+                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationDoi}}</div>
                                                 </accordion-group>
                                             </accordion>
                                         </div>
@@ -287,7 +229,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="model in state.model.geneEdit.homologyEditList" gs-zebra-rows gs-index="{{$index}}">
+                                            <tr ng-repeat="model in state.model.homologyEditList" gs-zebra-rows gs-index="{{$index}}">
                                             <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
                                                 <td>{{model.primaryIdentifier}}</td>
                                                 <td>{{model.symbol}}</td>
@@ -302,36 +244,8 @@
                         </tabset>
                     </div>
                 </div>
-
-                <!--<div class="row vspace-top-20">-->
-                    <!--<div class="col-sm-5"/>-->
-                    <!--<div class="col-sm-2" align="right">-->
-                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="cancel()" ng-disabled="isReadOnly()">Cancel</button>-->
-                        <!--<button class="btn btn-default gs-btn" type="button" ng-click="editOrSave()">{{getEditButtonText()}}</button>-->
-                    <!--</div>-->
-                <!--</div>-->
             </form>
         </div>
     </div>
 
 </div>
-
-
-<!--<div class="form-group">-->
-    <!--<label class="control-label col-sm-2">Pubmed ID:</label>-->
-    <!--<div class="col-sm-5">-->
-        <!--&lt;!&ndash;<input type="text" ng-model="state.model.ontologyAnnotationEdit.publicationEdit.doi" style="width: 100%;">&ndash;&gt;-->
-        <!--<label class="control-label propertyDataText">-->
-            <!--{{state.model.ontologyAnnotationEdit.publicationEdit.id}}-->
-        <!--</label>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-    <!--<label class="control-label col-sm-2">Doi:</label>-->
-    <!--<div class="col-sm-5">-->
-        <!--&lt;!&ndash;<input type="text" ng-model="state.model.ontologyAnnotationEdit.publicationEdit.doi" style="width: 100%;">&ndash;&gt;-->
-        <!--<label class="control-label propertyDataText">-->
-            <!--{{state.model.ontologyAnnotationEdit.publicationEdit.doi}}-->
-        <!--</label>-->
-    <!--</div>-->
-<!--</div>-->

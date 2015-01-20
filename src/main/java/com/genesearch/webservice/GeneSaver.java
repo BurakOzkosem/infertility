@@ -1,5 +1,6 @@
 package com.genesearch.webservice;
 
+import com.genesearch.Util;
 import com.genesearch.model.*;
 import com.genesearch.repository.*;
 import org.slf4j.Logger;
@@ -18,11 +19,11 @@ public class GeneSaver implements DbSaver {
     private static final Logger log = LoggerFactory.getLogger(GeneSaver.class);
 
     @Autowired
-    private EvidenceRepository evidenceRepository;
-    @Autowired
     private GeneRepository geneRepository;
     @Autowired
     private PhenotypeRepository phenotypeRepository;
+    @Autowired
+    private OntologyAnnotationRepository ontologyAnnotationRepository;
 
     @Override
     public void execute(WebServiceRetriever retriever) {
@@ -30,34 +31,23 @@ public class GeneSaver implements DbSaver {
 
         for(List<Object> row : result) {
 
+            OntologyAnnotation ontologyAnnotation = new OntologyAnnotation();
             Gene gene = new Gene();
-            Evidence evidence = new Evidence();
-            Phenotype phenotype = new Phenotype();
 
-            gene.setPrimaryIdentifier(safeString(row.get(0)));
-            gene.setSymbol(safeString(row.get(1)));
-            gene.setName(safeString(row.get(2)));
-            gene.setDsc(safeString(row.get(4)));
-            gene.setChromosome(safeString(row.get(10)));
+            Phenotype phenotype = new Phenotype("GENE");
 
-            evidence.setBaseAnnotationsSubjectBackgroundName(safeString(row.get(7)));
-            evidence.setBaseAnnotationsSubjectZygosity(safeString(row.get(8)));
-            evidence.setDoi(safeString(row.get(9)));
-            Long pubmedId = null;
+            gene.setPrimaryIdentifier(Util.safeString(row.get(0)));
+            gene.setSymbol(Util.safeString(row.get(1)));
+            gene.setName(Util.safeString(row.get(2)));
+            gene.setDsc(Util.safeString(row.get(4)));
+            gene.setChromosome(Util.safeString(row.get(10)));
 
-            try {
-                pubmedId = Long.parseLong(safeString(row.get(5)));
-                evidence.setPubmedId(pubmedId);
-            }
-            catch(NumberFormatException ex) {
-                    log.warn("Pubmed not found");
-            }
 
             //phenotype
-            phenotype.setPhenotypeId(safeString(row.get(6)));
-            phenotype.setName(safeString(row.get(3)));
+            phenotype.setPhenotypeId(Util.safeString(row.get(6)));
+            phenotype.setName(Util.safeString(row.get(3)));
 
-            Phenotype phenotypeFromDb = phenotypeRepository.find(phenotype.getPhenotypeId(), phenotype.getName());
+            Phenotype phenotypeFromDb = phenotypeRepository.find(phenotype.getPhenotypeId(), phenotype.getName(), phenotype.getType());
             if(phenotypeFromDb == null) {
                 phenotypeRepository.save(phenotype);
             }
@@ -65,9 +55,7 @@ public class GeneSaver implements DbSaver {
                 phenotype = phenotypeFromDb;
             }
 
-            gene.setPhenotype(phenotype);
-
-            Gene geneFromDb  = geneRepository.find(gene.getPrimaryIdentifier());
+            Gene geneFromDb  = geneRepository.find(gene.getPrimaryIdentifier(), gene.getSymbol(), gene.getName(), gene.getDsc(), gene.getChromosome());
             if(geneFromDb == null) {
                 geneRepository.save(gene);
             }
@@ -75,37 +63,30 @@ public class GeneSaver implements DbSaver {
                 gene = geneFromDb;
             }
 
-            Evidence evidenceFromDb  = evidenceRepository.find(evidence.getBaseAnnotationsSubjectBackgroundName(), evidence.getBaseAnnotationsSubjectZygosity(), evidence.getPubmedId(), evidence.getDoi());
-            evidence = evidenceFromDb == null ? evidence : evidenceFromDb;
-            if(evidenceFromDb == null) {
-                evidenceRepository.save(evidence);
+            ontologyAnnotation.setPhenotype(phenotype);
+            ontologyAnnotation.setGene(gene);
+            ontologyAnnotation.setBaseAnnotationsSubjectBackgroundName(Util.safeString(row.get(7)));
+            ontologyAnnotation.setBaseAnnotationsSubjectZygosity(Util.safeString(row.get(8)));
+            ontologyAnnotation.setDoi(Util.safeString(row.get(9)));
+
+            Long pubmedId = null;
+
+            try {
+                pubmedId = Long.parseLong(Util.safeString(row.get(5)));
+                ontologyAnnotation.setPubmedId(pubmedId);
             }
-            else {
-                evidence = evidenceFromDb;
+            catch(NumberFormatException ex) {
+                    log.warn("Pubmed not found");
             }
 
+            OntologyAnnotation ontologyAnnotationFromDb  = ontologyAnnotationRepository.find(gene.getId(), phenotype.getId(), ontologyAnnotation.getBaseAnnotationsSubjectBackgroundName(),
+                    ontologyAnnotation.getBaseAnnotationsSubjectZygosity(), ontologyAnnotation.getPubmedId(), ontologyAnnotation.getDoi());
 
+            if(ontologyAnnotationFromDb == null) {
+                ontologyAnnotationRepository.save(ontologyAnnotation);
+            }
+
+//            break;
         }
     }
-
-    private String safeString(Object object) {
-        String result = null;
-
-        if(object == null) {
-            return null;
-        }
-
-        if(object instanceof String) {
-            result = (String) object;
-            if(result.trim().equalsIgnoreCase("null")) {
-                result = null;
-            }
-        }
-        else {
-            result = object.toString();
-        }
-
-        return object.toString();
-    }
-
 }

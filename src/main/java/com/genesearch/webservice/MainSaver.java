@@ -1,6 +1,6 @@
 package com.genesearch.webservice;
 
-import com.genesearch.repository.OntologyAnnotationRepository;
+import com.genesearch.repository.GeneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +16,27 @@ public class MainSaver {
     @Autowired
     private GeneSaver geneSaver;
     @Autowired
-    private GeneDetailsSaver geneDetailsSaver;
+    private HomologySaver homologySaver;
+    @Autowired
+    private SequenceFeatureSaver sequenceFeatureSaver;
 
     @Autowired
-    private OntologyAnnotationRepository ontologyAnnotationRepository;
+    private GeneRepository geneRepository;
 
 
     @Transactional(readOnly = false)
     public void execute() {
-        geneSaver.execute(new OntologyAnnotationRetriever());
-        Set<String> geneIdList = ontologyAnnotationRepository.findAllGenes();
+        geneSaver.execute(new GeneRetriever());
+        Set<String> geneIdList = geneRepository.findAllGenes();
 
-        GeneDetailsRetriever geneDetailsRetriever = new GeneDetailsRetriever();
+        HomologyRetriever homologyRetriever = new HomologyRetriever();
+        SequenceFeatureRetriever sequenceFeatureRetriever = new SequenceFeatureRetriever();
         for(String geneId : geneIdList) {
-            geneDetailsRetriever.setGeneId(geneId);
-            geneDetailsSaver.execute(geneDetailsRetriever);
+            homologyRetriever.setGeneId(geneId);
+            sequenceFeatureRetriever.setGeneId(geneId);
+
+            homologySaver.execute(homologyRetriever);
+            sequenceFeatureSaver.execute(sequenceFeatureRetriever);
         }
     }
 }

@@ -181,34 +181,14 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
         $scope.load();
     };
 
-//    $scope.showBrief = function() {
-//        var modalInstance = $modal.open({
-//            templateUrl: 'page/geneBrief.html',
-//            controller: GeneBriefCtrl,
-//            backdrop: false,
-//            windowClass: 'modal-mini',
-//            resolve: {
-//                geneId: function () {
-//                    return $scope.state.selected.subjectPrimaryIdentifier;
-//                }
-//            }
-//        });
-//
-//        modalInstance.result.then(
-//        function () {
-//        },
-//        function () {
-//        });
-//    };
-
     $scope.loadReferences();
 
     $scope.load();
 
-    $scope.genePrimaryIdentifier = function(item) { return item.geneEdit.primaryIdentifier };
-    $scope.geneSymbol = function(item) { return item.geneEdit.symbol };
+    $scope.genePrimaryIdentifier = function(item) { return item.subjectPrimaryIdentifier };
+    $scope.geneSymbol = function(item) { return item.subjectSymbol };
     $scope.geneDescription = function(item) { return item.subjectDsc };
-    $scope.geneNcbi = function(item) { return item.geneEdit.ncbi };
+    $scope.geneNcbi = function(item) { return item.ncbi };
 
 
     $scope.createPopoverTemplate = function(model) {

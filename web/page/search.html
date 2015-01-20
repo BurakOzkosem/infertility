@@ -176,13 +176,13 @@
                                    ng-class="{'glyphicon glyphicon-chevron-down': canSort('subjectChromosomeName', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('subjectChromosomeName', 'desc')}"></i>
                             </div>
                         </th>
-                        <th style="width: 10%;">
-                            <div class="ng-binding" ng-click="setSort('publicationDoi')">
-                                doi
-                                <i class="pull-right"
-                                   ng-class="{'glyphicon glyphicon-chevron-down': canSort('publicationDoi', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('publicationDoi', 'desc')}"></i>
-                            </div>
-                        </th>
+                        <!--<th style="width: 10%;">-->
+                            <!--<div class="ng-binding" ng-click="setSort('publicationDoi')">-->
+                                <!--doi-->
+                                <!--<i class="pull-right"-->
+                                   <!--ng-class="{'glyphicon glyphicon-chevron-down': canSort('publicationDoi', 'asc'), 'glyphicon glyphicon-chevron-up':canSort('publicationDoi', 'desc')}"></i>-->
+                            <!--</div>-->
+                        <!--</th>-->
                     </tr>
                     </thead>
                     <tbody>
@@ -263,7 +263,7 @@
                             popover-popup-delay="1000"
                             popover-trigger="mouseenter"
                             popover-append-to-body="true">{{model.subjectChromosomeName}}</td>
-                        <td>{{model.publicationDoi}}</td>
+                        <!--<td>{{model.publicationDoi}}</td>-->
                     </tr>
                     </tbody>
                 </table>

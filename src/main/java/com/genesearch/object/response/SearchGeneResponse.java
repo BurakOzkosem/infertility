@@ -1,12 +1,12 @@
 package com.genesearch.object.response;
 
+import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
-import com.genesearch.object.edit.GeneEdit;
 
 /**
  * Created by user on 07.01.2015.
  */
-public class SearchOntologyAnnotationResponse {
+public class SearchGeneResponse {
 
     private UtilResponse utils = new UtilResponse();
 
@@ -26,7 +26,9 @@ public class SearchOntologyAnnotationResponse {
     private Long publicationId;
     private String publicationDoi;
 
-    private GeneEdit geneEdit;
+    private String ncbi;
+
+//    private GeneEdit geneEdit;
 
     public Long getId() {
         return id;
@@ -124,12 +126,12 @@ public class SearchOntologyAnnotationResponse {
         this.publicationDoi = publicationDoi;
     }
 
-    public GeneEdit getGeneEdit() {
-        return geneEdit;
+    public String getNcbi() {
+        return ncbi;
     }
 
-    public void setGeneEdit(GeneEdit geneEdit) {
-        this.geneEdit = geneEdit;
+    public void setNcbi(String ncbi) {
+        this.ncbi = ncbi;
     }
 
     public UtilResponse getUtils() {
@@ -140,34 +142,27 @@ public class SearchOntologyAnnotationResponse {
         this.utils = utils;
     }
 
-    public static SearchOntologyAnnotationResponse create(OntologyAnnotation entity) {
-        SearchOntologyAnnotationResponse response = new SearchOntologyAnnotationResponse();
+    public static SearchGeneResponse create(OntologyAnnotation entity) {
+        SearchGeneResponse response = new SearchGeneResponse();
 
         response.setId(entity.getId());
 
-        if(entity.getEvidence() != null) {
-            response.setEvidenceBaseAnnotationsSubjectBackgroundName(entity.getEvidence().getBaseAnnotationsSubjectBackgroundName());
-            response.setEvidenceBaseAnnotationsSubjectZygosity(entity.getEvidence().getBaseAnnotationsSubjectZygosity());
+        response.setSubjectPrimaryIdentifier(entity.getGene().getPrimaryIdentifier());
+        response.setSubjectSymbol(entity.getGene().getSymbol());
+        response.setSubjectName(entity.getGene().getName());
+        response.setSubjectDsc(entity.getGene().getDsc());
+        response.setSubjectChromosomeName(entity.getGene().getChromosome());
+        response.setNcbi(entity.getGene().getNcbi());
 
-            if(entity.getEvidence().getPublication() != null) {
-                response.setPublicationId(entity.getEvidence().getPublication().getId());
-                response.setPublicationDoi(entity.getEvidence().getPublication().getDoi());
-            }
-        }
-        if(entity.getOntologyTerm() != null) {
-            response.setOntologyTermName(entity.getOntologyTerm().getName());
-            response.setOntologyTermPrimaryIdentifier(entity.getOntologyTerm().getPrimaryIdentifier());
+        if(entity.getPhenotype() != null) {
+            response.setOntologyTermName(entity.getPhenotype().getName());
+            response.setOntologyTermPrimaryIdentifier(entity.getPhenotype().getPhenotypeId());
         }
 
-        if(entity.getSubject() != null) {
-            response.setSubjectPrimaryIdentifier(entity.getSubject().getPrimaryIdentifier());
-            response.setSubjectSymbol(entity.getSubject().getSymbol());
-            response.setSubjectName(entity.getSubject().getName());
-            response.setSubjectDsc(entity.getSubject().getDsc());
-            response.setSubjectChromosomeName(entity.getSubject().getChromosomeName());
-        }
-
-
+        response.setEvidenceBaseAnnotationsSubjectBackgroundName(entity.getBaseAnnotationsSubjectBackgroundName());
+        response.setEvidenceBaseAnnotationsSubjectZygosity(entity.getBaseAnnotationsSubjectZygosity());
+        response.setPublicationId(entity.getPubmedId());
+        response.setPublicationDoi(entity.getDoi());
 
         return response;
     }

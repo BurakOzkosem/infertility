@@ -10,13 +10,13 @@ import org.intermine.webservice.client.services.QueryService;
 import java.util.List;
 
 /**
- * Created by user on 14.01.2015.
+ * Created by user on 19.01.2015.
  */
-public class GeneDetailsRetriever implements WebServiceRetriever {
+public class HomologyRetriever implements WebServiceRetriever{
 
     private String geneId;
 
-    public GeneDetailsRetriever() {
+    public HomologyRetriever() {
     }
 
     public void setGeneId(String geneId) {
@@ -31,31 +31,21 @@ public class GeneDetailsRetriever implements WebServiceRetriever {
 
         // Select the output columns:
         query.addViews("Gene.primaryIdentifier",
-                "Gene.symbol",
                 "Gene.organism.name",
                 "Gene.homologues.homologue.primaryIdentifier",
                 "Gene.homologues.homologue.symbol",
                 "Gene.homologues.homologue.organism.name",
                 "Gene.homologues.type",
                 "Gene.homologues.dataSets.name",
-                "Gene.ncbiGeneNumber",
-
-                "Gene.ontologyAnnotations.ontologyTerm.identifier",
-                "Gene.ontologyAnnotations.ontologyTerm.name",
-                "Gene.ontologyAnnotations.evidence.withText");
+                "Gene.ncbiGeneNumber");
 
         // Add orderby
         query.addOrderBy("Gene.primaryIdentifier", OrderDirection.ASC);
 
         // Filter the results with the following constraints:
         query.addConstraint(Constraints.equalsExactly("Gene.primaryIdentifier", geneId));
-//        query.addConstraint(Constraints.eq("Gene.primaryIdentifier","MGI:101761"));
-
-        // Specify how these constraints should be combined.
-//        query.setConstraintLogic("A and B");
 
         QueryService service = factory.getQueryService();
         return service.getRowsAsLists(query);
     }
-
 }

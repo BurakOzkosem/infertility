@@ -653,7 +653,8 @@ ul.buttons li {
 }
 
 .accordion-heading {
-    line-height: 0.8
+    line-height: 0.8;
+    cursor: pointer;
 }
 /*
   Be sure, that title attribute selector points on the same string in this style and in popover-title attribute value

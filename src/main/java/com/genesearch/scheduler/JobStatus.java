@@ -5,9 +5,9 @@ package com.genesearch.scheduler;
  */
 public enum JobStatus {
 
-    SUCCESS(0),
-    FAILED(1),
-    WORKING(2);
+    SUCCESS(1),
+    FAILED(2),
+    WORKING(3);
 
     private int code;
 

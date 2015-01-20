@@ -8,55 +8,33 @@ function EditCtrl($scope, $routeParams, Restangular) {
         backup: {},
         functionAccordeon: { isFirstOpen: true },
         model: {
-            ontologyAnnotationEdit: {
-                id: null,
-                evidenceEdit: {
-                    id: null,
-                    publicationEdit: {
-                        id: null,
-                        doi: ''
-                    },
-                    baseAnnotationsSubjectBackgroundName: '',
-                    baseAnnotationsSubjectZygosity: ''
-                },
-                ontologyTermEdit: {
-                    id: null,
-                    primaryIdentifier: ''
-                },
-                subjectEdit: {
+            id: null,
+            primaryIdentifier: '',
+            symbol: '',
+            name: '',
+            dsc: '',
+            chromosome: '',
+            ncbi: '',
+            organismName: '',
+            homologyEditList: [
+                {
                     id: null,
                     primaryIdentifier: '',
                     symbol: '',
-                    chromosomeName: '',
-                    name: '',
-                    dsc: ''
+                    organismName: '',
+                    type: '',
+                    datasetsName: ''
                 }
-            },
-            geneEdit: {
-                id: null,
-                primaryIdentifier: '',
-                symbol: '',
-                organismName: '',
-                ncbi: '',
-                homologyEditList: [
-                    {
-                        id: null,
-                        primaryIdentifier: '',
-                        symbol: '',
-                        organismName: '',
-                        type: '',
-                        datasetsName: ''
-                    }
-                ],
-                sequenceFeatureEditList: [
-                    {
-                        id: null,
-                        ontologyTermId: '',
-                        ontologyTermName: '',
-                        evidenceWithText: ''
-                    }
-                ]
-            }
+            ],
+            sequenceFeatureEditList: [
+                {
+                    id: null,
+                    ontologyTermId: '',
+                    ontologyTermName: '',
+                    evidenceWithText: ''
+                }
+            ],
+            searchGeneResponseList: []
         }
     };
 
@@ -76,9 +54,77 @@ function EditCtrl($scope, $routeParams, Restangular) {
             function() { });
     };
 
+    Array.prototype.contains = function(obj) {
+        var i = this.length;
+        while (i--) {
+            if (this[i] == obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     $scope.show = function(id) {
         Restangular.one("gene/showDetails", id).get().then(function(result) {
             $scope.state.model = result;
+
+//            var sfPhenotypeIdList = [];
+//            var sfPhenotypeList = [];
+//            var sfWithTextList = [];
+//
+//            var phenotypeIdList = [];
+//            var phenotypeList = [];
+//
+//            var bckgroundList = [];
+//            var zygosityList = [];
+//            var pubmedIdList = [];
+//            var doiList = [];
+//
+//            for(var i=0; i < $scope.state.model.sequenceFeatureEditList.length; i++) {
+//                if(!sfPhenotypeIdList.contains($scope.state.model.sequenceFeatureEditList[i].ontologyTermId)) {
+//                    sfPhenotypeIdList.push($scope.state.model.sequenceFeatureEditList[i].ontologyTermId)
+//                    sfPhenotypeList.push({
+//                        id: $scope.state.model.sequenceFeatureEditList[i].ontologyTermId,
+//                        name: $scope.state.model.sequenceFeatureEditList[i].ontologyTermName
+//                    });
+//                }
+//
+//                if(!sfWithTextList.contains($scope.state.model.sequenceFeatureEditList[i].evidenceWithText)) {
+//                    sfWithTextList.push($scope.state.model.sequenceFeatureEditList[i].evidenceWithText);
+//                }
+//            }
+//
+//            $scope.state.model.sfPhenotypeList = sfPhenotypeList;
+//
+//            for(var i=0; i < $scope.state.model.searchGeneResponseList.length; i++) {
+//                if(!phenotypeIdList.contains($scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier)) {
+//                    phenotypeIdList.push($scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier)
+//                    phenotypeList.push({
+//                        id: $scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier,
+//                        name: $scope.state.model.searchGeneResponseList[i].ontologyTermName
+//                    });
+//                    phenotypes
+//                }
+//
+//                if(!bckgroundList.contains($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectBackgroundName)) {
+//                    bckgroundList.push($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectBackgroundName);
+//                }
+//                if(!zygosityList.contains($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectZygosity)) {
+//                    zygosityList.push($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectZygosity);
+//                }
+//                if(!pubmedIdList.contains($scope.state.model.searchGeneResponseList[i].publicationId)) {
+//                    pubmedIdList.push($scope.state.model.searchGeneResponseList[i].publicationId);
+//                }
+//                if(!doiList.contains($scope.state.model.searchGeneResponseList[i].publicationDoi)) {
+//                    doiList.push($scope.state.model.searchGeneResponseList[i].publicationDoi);
+//                }
+//
+//                $scope.state.model.phenotypeList = phenotypeList;
+//                $scope.state.model.bckgroundList = bckgroundList;
+//                $scope.state.model.zygosityList = zygosityList;
+//                $scope.state.model.pubmedIdList = pubmedIdList;
+//                $scope.state.model.doiList = doiList;
+//            }
         });
     };
 

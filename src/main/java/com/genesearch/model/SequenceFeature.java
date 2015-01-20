@@ -1,5 +1,6 @@
 package com.genesearch.model;
 
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,15 +18,14 @@ public class SequenceFeature extends AbstractEntity{
     @Column(name = "sequence_feature_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gene_id")
     private Gene gene;
 
-    @Column(name="ontology_term_id", length = 200)
-    private String ontologyTermId;
-
-    @Column(name="ontology_term_name", length = 200)
-    private String ontologyTermName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "phenotype_id")
+    @Filter(name="phenotype_sequence_feature",condition="type = 'SEQUENCE_FEATURE'")
+    private Phenotype phenotype;
 
     @Column(name="evidence_with_text", length = 200)
     private String evidenceWithText;
@@ -46,22 +46,6 @@ public class SequenceFeature extends AbstractEntity{
         this.gene = gene;
     }
 
-    public String getOntologyTermId() {
-        return ontologyTermId;
-    }
-
-    public void setOntologyTermId(String ontologyTermId) {
-        this.ontologyTermId = ontologyTermId;
-    }
-
-    public String getOntologyTermName() {
-        return ontologyTermName;
-    }
-
-    public void setOntologyTermName(String ontologyTermName) {
-        this.ontologyTermName = ontologyTermName;
-    }
-
     public String getEvidenceWithText() {
         return evidenceWithText;
     }
@@ -69,4 +53,13 @@ public class SequenceFeature extends AbstractEntity{
     public void setEvidenceWithText(String evidenceWithText) {
         this.evidenceWithText = evidenceWithText;
     }
+
+    public Phenotype getPhenotype() {
+        return phenotype;
+    }
+
+    public void setPhenotype(Phenotype phenotype) {
+        this.phenotype = phenotype;
+    }
+
 }

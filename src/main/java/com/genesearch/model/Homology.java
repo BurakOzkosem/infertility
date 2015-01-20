@@ -33,6 +33,10 @@ public class Homology extends AbstractEntity {
     @Column(name="datasets_name", length = 200)
     private String datasetsName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gene_id")
+    private Gene gene;
+
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homologue", cascade = CascadeType.ALL)
 //    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
 
@@ -84,6 +88,14 @@ public class Homology extends AbstractEntity {
 
     public void setDatasetsName(String datasetsName) {
         this.datasetsName = datasetsName;
+    }
+
+    public Gene getGene() {
+        return gene;
+    }
+
+    public void setGene(Gene gene) {
+        this.gene = gene;
     }
 
 //    public Set<GeneHomologue> getGeneHomologueSet() {

@@ -1,6 +1,5 @@
 package com.genesearch.repository;
 
-import com.genesearch.model.OntologyTerm;
 import com.genesearch.model.Phenotype;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
@@ -15,11 +14,13 @@ import java.util.List;
 public class PhenotypeRepository extends  ModelRepository<Phenotype>  {
 
 
-    public Phenotype find(String phenotypeId, String name) {
+    public Phenotype find(String phenotypeId, String name, String type) {
         Criteria c = getSession().createCriteria(getEntityClass());
 
         Conjunction and = new Conjunction();
-        safeAddRestrictionEq(and, "primaryIdentifier", phenotypeId);
+        safeAddRestrictionEq(and, "phenotypeId", phenotypeId);
+        safeAddRestrictionEq(and, "name", name);
+        safeAddRestrictionEq(and, "type", type);
         c.add(and);
 
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -29,5 +30,16 @@ public class PhenotypeRepository extends  ModelRepository<Phenotype>  {
             return null;
         }
         return result.get(0);
+    }
+
+    public List<Phenotype> find(String type) {
+        Criteria c = getSession().createCriteria(getEntityClass());
+
+        Conjunction and = new Conjunction();
+        safeAddRestrictionEq(and, "type", type);
+        c.add(and);
+
+        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        return c.list();
     }
 }

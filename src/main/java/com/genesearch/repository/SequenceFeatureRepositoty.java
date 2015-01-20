@@ -1,7 +1,5 @@
 package com.genesearch.repository;
 
-import com.genesearch.model.Gene;
-import com.genesearch.model.OntologyTerm;
 import com.genesearch.model.SequenceFeature;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
@@ -28,14 +26,14 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
         return c.list();
     }
 
-    public SequenceFeature find(Long geneId, String ontologyTermId, String ontologyTermName, String evidenceWithText) {
+    public SequenceFeature find(Long geneId, Long phenotypeId, String evidenceWithText) {
         Criteria c = getSession().createCriteria(getEntityClass(), "sf");
         c.createAlias("sf.gene", "g", JoinType.INNER_JOIN);
+        c.createAlias("sf.phenotype", "ph", JoinType.INNER_JOIN);
 
         Conjunction and = new Conjunction();
         safeAddRestrictionEq(and, "g.id", geneId);
-        safeAddRestrictionEq(and, "ontologyTermId", ontologyTermId);
-        safeAddRestrictionEq(and, "ontologyTermName", ontologyTermName);
+        safeAddRestrictionEq(and, "ph.id", phenotypeId);
         safeAddRestrictionEq(and, "evidenceWithText", evidenceWithText);
         c.add(and);
 
@@ -49,4 +47,27 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
 
         return result.get(0);
     }
+
+//    public SequenceFeature find(Long geneId, String ontologyTermId, String ontologyTermName, String evidenceWithText) {
+//        Criteria c = getSession().createCriteria(getEntityClass(), "sf");
+//        c.createAlias("sf.gene", "g", JoinType.INNER_JOIN);
+//
+//        Conjunction and = new Conjunction();
+//        safeAddRestrictionEq(and, "g.id", geneId);
+//        safeAddRestrictionEq(and, "ontologyTermId", ontologyTermId);
+//        safeAddRestrictionEq(and, "ontologyTermName", ontologyTermName);
+//        safeAddRestrictionEq(and, "evidenceWithText", evidenceWithText);
+//        c.add(and);
+//
+//        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//
+//        List<SequenceFeature> result = c.list();
+//
+//        if(result.size() == 0) {
+//            return null;
+//        }
+//
+//        return result.get(0);
+//    }
+
 }

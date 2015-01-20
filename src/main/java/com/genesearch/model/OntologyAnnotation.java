@@ -1,16 +1,16 @@
 package com.genesearch.model;
 
-import com.genesearch.object.edit.OntologyAnnotationEdit;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * Created by user on 06.01.2015.
+ * Created by user on 20.01.2015.
  */
 @Entity
 @Table(name="Ontology_annotation")
-public class OntologyAnnotation  extends AbstractEntity {
+public class OntologyAnnotation extends  AbstractEntity {
 
     @Id
     @GenericGenerator(name="ontology_annotation_generator",strategy="increment")
@@ -18,17 +18,26 @@ public class OntologyAnnotation  extends AbstractEntity {
     @Column(name = "ontology_annotation_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "gene_id")
+    private Gene gene;
 
-    @ManyToOne
-    @JoinColumn(name = "ontology_term_id")
-    private OntologyTerm ontologyTerm;
+    @Column(name = "pubmed_id")
+    private Long pubmedId;
 
-    @ManyToOne
-    @JoinColumn(name = "evidence_id")
-    private Evidence evidence;
+    @Column(name = "b_annot_subj_bckground_name", length = 200)
+    private String baseAnnotationsSubjectBackgroundName;
+
+    @Column(name = "b_annot_subj_zygocity", length = 200)
+    private String baseAnnotationsSubjectZygosity;
+
+    @Column(name = "doi", length = 200)
+    private String doi;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "phenotype_id")
+    @Filter(name="phenotype_gene",condition="type = 'GENE'")
+    private Phenotype phenotype;
 
     @Override
     public Long getId() {
@@ -40,28 +49,51 @@ public class OntologyAnnotation  extends AbstractEntity {
         this.id = id;
     }
 
-    public Subject getSubject() {
-        return subject;
+    public Gene getGene() {
+        return gene;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setGene(Gene gene) {
+        this.gene = gene;
     }
 
-    public OntologyTerm getOntologyTerm() {
-        return ontologyTerm;
+    public Long getPubmedId() {
+        return pubmedId;
     }
 
-    public void setOntologyTerm(OntologyTerm ontologyTerm) {
-        this.ontologyTerm = ontologyTerm;
+    public void setPubmedId(Long pubmedId) {
+        this.pubmedId = pubmedId;
     }
 
-    public Evidence getEvidence() {
-        return evidence;
+    public String getBaseAnnotationsSubjectBackgroundName() {
+        return baseAnnotationsSubjectBackgroundName;
     }
 
-    public void setEvidence(Evidence evidence) {
-        this.evidence = evidence;
+    public void setBaseAnnotationsSubjectBackgroundName(String baseAnnotationsSubjectBackgroundName) {
+        this.baseAnnotationsSubjectBackgroundName = baseAnnotationsSubjectBackgroundName;
     }
 
+    public String getBaseAnnotationsSubjectZygosity() {
+        return baseAnnotationsSubjectZygosity;
+    }
+
+    public void setBaseAnnotationsSubjectZygosity(String baseAnnotationsSubjectZygosity) {
+        this.baseAnnotationsSubjectZygosity = baseAnnotationsSubjectZygosity;
+    }
+
+    public String getDoi() {
+        return doi;
+    }
+
+    public void setDoi(String doi) {
+        this.doi = doi;
+    }
+
+    public Phenotype getPhenotype() {
+        return phenotype;
+    }
+
+    public void setPhenotype(Phenotype phenotype) {
+        this.phenotype = phenotype;
+    }
 }

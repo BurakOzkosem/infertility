@@ -1,12 +1,10 @@
 package com.genesearch.model;
 
 import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.request.GeneRequest;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by user on 02.01.2015.
@@ -39,12 +37,9 @@ public class Gene extends AbstractEntity {
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
 
-    @ManyToOne
-    @JoinColumn(name = "phenotype_id")
-    private Phenotype phenotype;
-
     @Column(name="chromosome", length = 200)
     private String chromosome;
+
 
 
 
@@ -109,14 +104,6 @@ public class Gene extends AbstractEntity {
         this.dsc = dsc;
     }
 
-    public Phenotype getPhenotype() {
-        return phenotype;
-    }
-
-    public void setPhenotype(Phenotype phenotype) {
-        this.phenotype = phenotype;
-    }
-
     public String getChromosome() {
         return chromosome;
     }
@@ -124,6 +111,7 @@ public class Gene extends AbstractEntity {
     public void setChromosome(String chromosome) {
         this.chromosome = chromosome;
     }
+
 
 //    public Set<GeneHomologue> getGeneHomologueSet() {
 //        return geneHomologueSet;

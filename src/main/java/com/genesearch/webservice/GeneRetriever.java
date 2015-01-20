@@ -6,15 +6,13 @@ import org.intermine.pathquery.OrderDirection;
 import org.intermine.pathquery.PathQuery;
 import org.intermine.webservice.client.core.ServiceFactory;
 import org.intermine.webservice.client.services.QueryService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * Created by user on 04.01.2015.
+ * Created by user on 14.01.2015.
  */
-@Service
-public class OntologyAnnotationRetriever implements WebServiceRetriever {
+public class GeneRetriever implements WebServiceRetriever {
 
     @Override
     public List<List<Object>> execute() {

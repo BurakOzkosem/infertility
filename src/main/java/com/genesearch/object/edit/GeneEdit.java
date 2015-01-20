@@ -1,8 +1,7 @@
 package com.genesearch.object.edit;
 
 import com.genesearch.model.Gene;
-import com.genesearch.model.Publication;
-import com.genesearch.model.SequenceFeature;
+import com.genesearch.object.response.SearchGeneResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +14,18 @@ public class GeneEdit extends AbstractEditObject {
 
     private String primaryIdentifier;
     private String symbol;
-    private String organismName;
+    private String name;
+    private String dsc;
+    private String chromosome;
     private String ncbi;
-    private String phenoTypes;
+
+    private String organismName;
 
     private List<HomologyEdit> homologyEditList = new ArrayList<HomologyEdit>();
 
     private List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
 
-    private List<PublicationEdit> publicationEditList = new ArrayList<PublicationEdit>();
+    private List<SearchGeneResponse> searchGeneResponseList = new ArrayList<SearchGeneResponse>();
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;
@@ -39,6 +41,30 @@ public class GeneEdit extends AbstractEditObject {
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDsc() {
+        return dsc;
+    }
+
+    public void setDsc(String dsc) {
+        this.dsc = dsc;
+    }
+
+    public String getChromosome() {
+        return chromosome;
+    }
+
+    public void setChromosome(String chromosome) {
+        this.chromosome = chromosome;
     }
 
     public String getOrganismName() {
@@ -73,54 +99,36 @@ public class GeneEdit extends AbstractEditObject {
         this.sequenceFeatureEditList = sequenceFeatureEditList;
     }
 
-    public List<PublicationEdit> getPublicationEditList() {
-        return publicationEditList;
+    public List<SearchGeneResponse> getSearchGeneResponseList() {
+        return searchGeneResponseList;
     }
 
-    public void setPublicationEditList(List<PublicationEdit> publicationEditList) {
-        this.publicationEditList = publicationEditList;
+    public void setSearchGeneResponseList(List<SearchGeneResponse> searchGeneResponseList) {
+        this.searchGeneResponseList = searchGeneResponseList;
     }
 
-    public String getPhenoTypes() {
-        return phenoTypes;
-    }
-
-    public void setPhenoTypes(String phenoTypes) {
-        this.phenoTypes = phenoTypes;
-    }
-
-    public static GeneEdit create(Gene entity, List<SequenceFeature> sequenceFeatureList, Set<String> phenoTypes, Set<Publication> publicationList) {
+    public static GeneEdit create(Gene entity) {
         GeneEdit result = new GeneEdit();
+
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());
-        result.setOrganismName(entity.getOrganismName());
+        result.setName(entity.getName());
+        result.setDsc(entity.getDsc());
+        result.setChromosome(entity.getChromosome());
         result.setNcbi(entity.getNcbi());
-
-        result.setPhenoTypes(concatenateWithComma(phenoTypes));
-
-        List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
-        for(SequenceFeature sf : sequenceFeatureList) {
-            sequenceFeatureEditList.add(SequenceFeatureEdit.create(sf));
-        }
-        result.setSequenceFeatureEditList(sequenceFeatureEditList);
-
-        List<PublicationEdit> publicationEditList = new ArrayList<PublicationEdit>();
-        for(Publication publication : publicationList) {
-            publicationEditList.add(PublicationEdit.create(publication));
-        }
-        result.setPublicationEditList(publicationEditList);
+        result.setOrganismName(entity.getOrganismName());
 
         return  result;
     }
 
-    public static GeneEdit createBrief(Gene entity) {
-        GeneEdit result = new GeneEdit();
-        result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
-        result.setSymbol(entity.getSymbol());
-        result.setOrganismName(entity.getOrganismName());
-        result.setNcbi(entity.getNcbi());
-        return  result;
-    }
+//    public static GeneEdit createBrief(Gene entity) {
+//        GeneEdit result = new GeneEdit();
+//        result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
+//        result.setSymbol(entity.getSymbol());
+//        result.setOrganismName(entity.getOrganismName());
+//        result.setNcbi(entity.getNcbi());
+//        return  result;
+//    }
 
     private static String concatenateWithComma(Set<String> strings) {
         StringBuilder sb = new StringBuilder();

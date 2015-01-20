@@ -23,6 +23,16 @@ public class Phenotype extends AbstractEntity{
     @Column(name="name")
     private String name;
 
+    @Column(name="type")
+    private String type;
+
+    public Phenotype() {
+    }
+
+    public Phenotype(String type) {
+        this.type = type;
+    }
+
     @Override
     public Long getId() {
         return id;
@@ -47,5 +57,13 @@ public class Phenotype extends AbstractEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
