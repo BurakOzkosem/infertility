@@ -112,33 +112,75 @@
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-5">
-                                            <accordion close-others="true">
-                                                <accordion-group is-open="state.functionAccordeon.isFirstOpen">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">GO Term Id:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermId}}</div>
-                                                </accordion-group>
-                                                <accordion-group is-open="false">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">GO Term</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermName}}</div>
-                                                </accordion-group>
-                                                <accordion-group is-open="false">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">Evidence Link:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.evidenceWithText}}</div>
-                                                </accordion-group>
-                                                <accordion-group is-open="false">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">Phenotype:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.ontologyTermName}}</div>
-                                                </accordion-group>
-                                            </accordion>
+                                        <div class="col-sm-9">
+                                            <!--<accordion close-others="true">-->
+                                                <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">GO Term Id:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermId}}</div>-->
+                                                <!--</accordion-group>-->
+                                                <!--<accordion-group is-open="false">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">GO Term:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.ontologyTermName}}</div>-->
+                                                <!--</accordion-group>-->
+                                                <!--<accordion-group is-open="false">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">Evidence Link:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.sequenceFeatureEditList">{{item.evidenceWithText}}</div>-->
+                                                <!--</accordion-group>-->
+                                                <!--<accordion-group is-open="false">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">Phenotype:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.searchGeneResponseList">{{item.ontologyTermName}}</div>-->
+                                                <!--</accordion-group>-->
+                                            <!--</accordion>-->
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-1">Phenotype:</label>
+                                                <div class="col-sm-7">
+                                                    <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">-->
+                                                    <label class="control-label propertyDataText">
+                                                        {{state.model.phenotypes}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered tablesorter-bootstrap tablesorter vspace-bottom-10" style="min-width:95%;">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('1')">GO Term Id:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('2')">GO Term:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('3')">Evidence Link:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('3', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="model in state.model.sequenceFeatureEditList" gs-zebra-rows gs-index="{{$index}}">
+                                                    <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                                    <td>{{model.ontologyTermId}}</td>
+                                                    <td>{{model.ontologyTermName}}</td>
+                                                    <td>{{model.evidenceWithText}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -148,21 +190,47 @@
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-5">
-                                            <accordion close-others="true">
-                                                <accordion-group is-open="state.functionAccordeon.isFirstOpen">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading" style="{cursor:pointer;}">Background:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectBackgroundName}}</div>
-                                                </accordion-group>
-                                                <accordion-group is-open="false">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">Zygosity:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectZygosity}}</div>
-                                                </accordion-group>
-                                            </accordion>
+                                        <div class="col-sm-9">
+                                            <!--<accordion close-others="true">-->
+                                                <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading" style="{cursor:pointer;}">Background:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectBackgroundName}}</div>-->
+                                                <!--</accordion-group>-->
+                                                <!--<accordion-group is-open="false">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">Zygosity:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.searchGeneResponseList">{{item.evidenceBaseAnnotationsSubjectZygosity}}</div>-->
+                                                <!--</accordion-group>-->
+                                            <!--</accordion>-->
+
+                                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('1')">Background:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('2')">Zygosity:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="model in state.model.searchGeneResponseList" gs-zebra-rows gs-index="{{$index}}">
+                                                    <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                                    <td>{{model.evidenceBaseAnnotationsSubjectBackgroundName}}</td>
+                                                    <td>{{model.evidenceBaseAnnotationsSubjectZygosity}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -171,21 +239,47 @@
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-5">
-                                            <accordion close-others="true">
-                                                <accordion-group is-open="state.functionAccordeon.isFirstOpen">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">Pubmed Id:</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationId}}</div>
-                                                </accordion-group>
-                                                <accordion-group is-open="false">
-                                                    <accordion-heading>
-                                                        <div class="boldFont font-11 accordion-heading">Doi</div>
-                                                    </accordion-heading>
-                                                    <div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationDoi}}</div>
-                                                </accordion-group>
-                                            </accordion>
+                                        <div class="col-sm-9">
+                                            <!--<accordion close-others="true">-->
+                                                <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">Pubmed Id:</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationId}}</div>-->
+                                                <!--</accordion-group>-->
+                                                <!--<accordion-group is-open="false">-->
+                                                    <!--<accordion-heading>-->
+                                                        <!--<div class="boldFont font-11 accordion-heading">Doi</div>-->
+                                                    <!--</accordion-heading>-->
+                                                    <!--<div ng-repeat="item in state.model.searchGeneResponseList">{{item.publicationDoi}}</div>-->
+                                                <!--</accordion-group>-->
+                                            <!--</accordion>-->
+
+                                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('1')">Pubmed Id:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        <div class="ng-binding" ng-click="sort('2')">Doi:
+                                                            <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
+                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="model in state.model.searchGeneResponseList" gs-zebra-rows gs-index="{{$index}}">
+                                                    <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                                    <td>{{model.publicationId}}</td>
+                                                    <td>{{model.publicationDoi}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -193,52 +287,55 @@
 
                             <tab heading="Homology">
                                 <div class="col-sm-12 vspace-top-20">
-                                    <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
-                                        <thead>
-                                        <tr>
-                                            <th style="width: 20%;">
-                                                <div class="ng-binding" ng-click="sort('1')">ID
-                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
-                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
-                                                </div>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <div class="ng-binding" ng-click="sort('2')">Symbol
-                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
-                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
-                                                </div>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <div class="ng-binding" ng-click="sort('3')">Organism name
-                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('3', 'asc'),
-                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
-                                                </div>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <div class="ng-binding" ng-click="sort('4')">Type
-                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('4', 'asc'),
-                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
-                                                </div>
-                                            </th>
-                                            <th style="width: 20%;">
-                                                <div class="ng-binding" ng-click="sort('5')">Datasets
-                                                    <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('5', 'asc'),
-                                                    'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="model in state.model.homologyEditList" gs-zebra-rows gs-index="{{$index}}">
-                                            <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
-                                                <td>{{model.primaryIdentifier}}</td>
-                                                <td>{{model.symbol}}</td>
-                                                <td>{{model.organismName}}</td>
-                                                <td>{{model.type}}</td>
-                                                <td>{{model.datasetsName}}</td>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-9">
+                                        <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 20%;">
+                                                    <div class="ng-binding" ng-click="sort('1')">ID
+                                                        <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
+                                                        'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="width: 20%;">
+                                                    <div class="ng-binding" ng-click="sort('2')">Symbol
+                                                        <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
+                                                        'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="width: 20%;">
+                                                    <div class="ng-binding" ng-click="sort('3')">Organism name
+                                                        <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('3', 'asc'),
+                                                        'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="width: 20%;">
+                                                    <div class="ng-binding" ng-click="sort('4')">Type
+                                                        <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('4', 'asc'),
+                                                        'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                    </div>
+                                                </th>
+                                                <th style="width: 20%;">
+                                                    <div class="ng-binding" ng-click="sort('5')">Datasets
+                                                        <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('5', 'asc'),
+                                                        'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
+                                                    </div>
+                                                </th>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="model in state.model.homologyEditList" gs-zebra-rows gs-index="{{$index}}">
+                                                <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
+                                                    <td>{{model.primaryIdentifier}}</td>
+                                                    <td>{{model.symbol}}</td>
+                                                    <td>{{model.organismName}}</td>
+                                                    <td>{{model.type}}</td>
+                                                    <td>{{model.datasetsName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </tab>
                         </tabset>

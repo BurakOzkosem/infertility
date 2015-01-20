@@ -34,7 +34,8 @@ function EditCtrl($scope, $routeParams, Restangular) {
                     evidenceWithText: ''
                 }
             ],
-            searchGeneResponseList: []
+            searchGeneResponseList: [],
+            phenotypes: ''
         }
     };
 
@@ -62,69 +63,23 @@ function EditCtrl($scope, $routeParams, Restangular) {
             }
         }
         return false;
-    }
+    };
 
     $scope.show = function(id) {
         Restangular.one("gene/showDetails", id).get().then(function(result) {
             $scope.state.model = result;
 
-//            var sfPhenotypeIdList = [];
-//            var sfPhenotypeList = [];
-//            var sfWithTextList = [];
-//
-//            var phenotypeIdList = [];
-//            var phenotypeList = [];
-//
-//            var bckgroundList = [];
-//            var zygosityList = [];
-//            var pubmedIdList = [];
-//            var doiList = [];
-//
-//            for(var i=0; i < $scope.state.model.sequenceFeatureEditList.length; i++) {
-//                if(!sfPhenotypeIdList.contains($scope.state.model.sequenceFeatureEditList[i].ontologyTermId)) {
-//                    sfPhenotypeIdList.push($scope.state.model.sequenceFeatureEditList[i].ontologyTermId)
-//                    sfPhenotypeList.push({
-//                        id: $scope.state.model.sequenceFeatureEditList[i].ontologyTermId,
-//                        name: $scope.state.model.sequenceFeatureEditList[i].ontologyTermName
-//                    });
-//                }
-//
-//                if(!sfWithTextList.contains($scope.state.model.sequenceFeatureEditList[i].evidenceWithText)) {
-//                    sfWithTextList.push($scope.state.model.sequenceFeatureEditList[i].evidenceWithText);
-//                }
-//            }
-//
-//            $scope.state.model.sfPhenotypeList = sfPhenotypeList;
-//
-//            for(var i=0; i < $scope.state.model.searchGeneResponseList.length; i++) {
-//                if(!phenotypeIdList.contains($scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier)) {
-//                    phenotypeIdList.push($scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier)
-//                    phenotypeList.push({
-//                        id: $scope.state.model.searchGeneResponseList[i].ontologyTermPrimaryIdentifier,
-//                        name: $scope.state.model.searchGeneResponseList[i].ontologyTermName
-//                    });
-//                    phenotypes
-//                }
-//
-//                if(!bckgroundList.contains($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectBackgroundName)) {
-//                    bckgroundList.push($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectBackgroundName);
-//                }
-//                if(!zygosityList.contains($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectZygosity)) {
-//                    zygosityList.push($scope.state.model.searchGeneResponseList[i].evidenceBaseAnnotationsSubjectZygosity);
-//                }
-//                if(!pubmedIdList.contains($scope.state.model.searchGeneResponseList[i].publicationId)) {
-//                    pubmedIdList.push($scope.state.model.searchGeneResponseList[i].publicationId);
-//                }
-//                if(!doiList.contains($scope.state.model.searchGeneResponseList[i].publicationDoi)) {
-//                    doiList.push($scope.state.model.searchGeneResponseList[i].publicationDoi);
-//                }
-//
-//                $scope.state.model.phenotypeList = phenotypeList;
-//                $scope.state.model.bckgroundList = bckgroundList;
-//                $scope.state.model.zygosityList = zygosityList;
-//                $scope.state.model.pubmedIdList = pubmedIdList;
-//                $scope.state.model.doiList = doiList;
-//            }
+            var phenotypes = '';
+            for(var i=0; i < $scope.state.model.searchGeneResponseList.length; i++) {
+                if($scope.state.model.searchGeneResponseList[i].ontologyTermName != null
+                    && $scope.state.model.searchGeneResponseList[i].ontologyTermName.length > 0) {
+
+                    phenotypes = phenotypes + $scope.state.model.searchGeneResponseList[i].ontologyTermName + ", ";
+                }
+            }
+
+            $scope.state.model.phenotypes = phenotypes.substring(0, phenotypes.length - 2);
+
         });
     };
 
