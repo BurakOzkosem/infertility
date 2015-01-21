@@ -68,16 +68,7 @@ public class GeneSaver implements DbSaver {
             ontologyAnnotation.setBaseAnnotationsSubjectBackgroundName(Util.safeString(row.get(7)));
             ontologyAnnotation.setBaseAnnotationsSubjectZygosity(Util.safeString(row.get(8)));
             ontologyAnnotation.setDoi(Util.safeString(row.get(9)));
-
-            Long pubmedId = null;
-
-            try {
-                pubmedId = Long.parseLong(Util.safeString(row.get(5)));
-                ontologyAnnotation.setPubmedId(pubmedId);
-            }
-            catch(NumberFormatException ex) {
-                    log.warn("Pubmed not found");
-            }
+            ontologyAnnotation.setPubmedId(Util.safeString(row.get(5)));
 
             OntologyAnnotation ontologyAnnotationFromDb  = ontologyAnnotationRepository.find(gene.getId(), phenotype.getId(), ontologyAnnotation.getBaseAnnotationsSubjectBackgroundName(),
                     ontologyAnnotation.getBaseAnnotationsSubjectZygosity(), ontologyAnnotation.getPubmedId(), ontologyAnnotation.getDoi());

@@ -35,7 +35,8 @@ function EditCtrl($scope, $routeParams, Restangular) {
                 }
             ],
             searchGeneResponseList: [],
-            phenotypes: ''
+            phenotypes: '',
+            chromosomes: ''
         }
     };
 
@@ -69,15 +70,18 @@ function EditCtrl($scope, $routeParams, Restangular) {
         Restangular.one("gene/showDetails", id).get().then(function(result) {
             $scope.state.model = result;
 
-            var phenotypes = '';
+            var phenotypeArray = [];
             for(var i=0; i < $scope.state.model.searchGeneResponseList.length; i++) {
                 if($scope.state.model.searchGeneResponseList[i].ontologyTermName != null
-                    && $scope.state.model.searchGeneResponseList[i].ontologyTermName.length > 0) {
-
-                    phenotypes = phenotypes + $scope.state.model.searchGeneResponseList[i].ontologyTermName + ", ";
+                    && $scope.state.model.searchGeneResponseList[i].ontologyTermName.length > 0
+                    && !phenotypeArray.contains($scope.state.model.searchGeneResponseList[i].ontologyTermName)) {
+                    phenotypeArray.push($scope.state.model.searchGeneResponseList[i].ontologyTermName);
                 }
             }
-
+            var phenotypes = '';
+            for(var i=0; i < phenotypeArray.length; i++) {
+                phenotypes = phenotypes + phenotypeArray[i] + ", ";
+            }
             $scope.state.model.phenotypes = phenotypes.substring(0, phenotypes.length - 2);
 
         });
@@ -122,13 +126,6 @@ function EditCtrl($scope, $routeParams, Restangular) {
     $scope.canSort = function() {
 
     };
-
-//    $scope.save = function(id) {
-//        Restangular.one("gene", id).all("update").post($scope.state.model).then(function(result) {
-//            $scope.state.model.id = result.id;
-//            $scope.state.model.name = result.name;
-//        });
-//    }
 
     $scope.show($routeParams.id);
 }

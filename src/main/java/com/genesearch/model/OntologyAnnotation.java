@@ -23,7 +23,7 @@ public class OntologyAnnotation extends  AbstractEntity {
     private Gene gene;
 
     @Column(name = "pubmed_id")
-    private Long pubmedId;
+    private String pubmedId;
 
     @Column(name = "b_annot_subj_bckground_name", length = 200)
     private String baseAnnotationsSubjectBackgroundName;
@@ -57,11 +57,11 @@ public class OntologyAnnotation extends  AbstractEntity {
         this.gene = gene;
     }
 
-    public Long getPubmedId() {
+    public String getPubmedId() {
         return pubmedId;
     }
 
-    public void setPubmedId(Long pubmedId) {
+    public void setPubmedId(String pubmedId) {
         this.pubmedId = pubmedId;
     }
 

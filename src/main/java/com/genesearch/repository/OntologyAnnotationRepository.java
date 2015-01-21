@@ -1,6 +1,5 @@
 package com.genesearch.repository;
 
-import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.object.request.SearchGeneRequest;
 import org.hibernate.Criteria;
@@ -13,9 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by user on 20.01.2015.
@@ -35,13 +32,13 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         safeAddRestrictionIlikeAnyWhere(and, "gn.symbol", request.getSubjectSymbol());
         safeAddRestrictionIlikeAnyWhere(and, "gn.name", request.getSubjectName());
         safeAddRestrictionIlikeAnyWhere(and, "gn.dsc", request.getSubjectDsc());
-        safeAddRestrictionIlikeAnyWhere(and, "gn.chromosomeName", request.getSubjectChromosomeName());
+        safeAddRestrictionIlikeAnyWhere(and, "gn.chromosome", request.getSubjectChromosomeName());
 
         safeAddRestrictionEq(and, "ph.id", request.getOntologyTermId());
         safeAddRestrictionIlikeAnyWhere(and, "ph.phenotypeId", request.getOntologyTermPrimaryIdentifier());
         safeAddRestrictionIlikeAnyWhere(and, "ph.name", request.getOntologyTermName());
 
-        safeAddRestrictionEq(and, "oa.pubmedId", request.getPublicationId());
+        safeAddRestrictionIlikeAnyWhere(and, "oa.pubmedId", request.getPublicationId());
         safeAddRestrictionIlikeAnyWhere(and, "oa.baseAnnotationsSubjectBackgroundName", request.getEvidenceBaseAnnotationsSubjectBackgroundName());
         safeAddRestrictionEq(and, "oa.baseAnnotationsSubjectZygosity", request.getEvidenceBaseAnnotationsSubjectZygosity());
         safeAddRestrictionIlikeAnyWhere(and, "oa.doi", request.getPublicationDoi());
@@ -112,7 +109,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
     }
 
     public OntologyAnnotation find(Long geneId, Long phenotypeId, String baseAnnotationsSubjectBackgroundName,
-                                   String baseAnnotationsSubjectZygosity, Long pubmedId, String doi) {
+                                   String baseAnnotationsSubjectZygosity, String pubmedId, String doi) {
         Criteria c = getSession().createCriteria(getEntityClass(), "oa");
         c.createAlias("oa.phenotype", "ph", JoinType.LEFT_OUTER_JOIN);
         c.createAlias("oa.gene", "gn", JoinType.INNER_JOIN);

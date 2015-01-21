@@ -5,7 +5,7 @@
         <a href="/genesearch/#/">Back to search</a>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="border" style="padding: 10px;">
 
         <!--<div class="row">-->
@@ -65,7 +65,7 @@
                             <div class="col-sm-7">
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.ontologyTermEdit.name" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
-                                    {{state.model.name}}
+                                    {{state.model.phenotypes}}
                                 </label>
                             </div>
                         </div>
@@ -76,16 +76,6 @@
                                 <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">-->
                                 <label class="control-label propertyDataText">
                                     {{state.model.chromosome}}
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">PubMed ID:</label>
-                            <div class="col-sm-7">
-                                <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.evidenceEdit.publicationEdit.id" style="width: 100%;">-->
-                                <label class="control-label propertyDataText">
-                                    {{state.model.ontologyAnnotationEdit.evidenceEdit.publicationEdit.id}}
                                 </label>
                             </div>
                         </div>
@@ -106,13 +96,13 @@
 
                 <div class="row vspace-top-10" >
                     <div class="col-sm-1"/>
-                    <div class="col-sm-10">
+                    <div class="col-sm-11">
                         <tabset>
                             <tab heading="Function">
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-10">
                                             <!--<accordion close-others="true">-->
                                                 <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
                                                     <!--<accordion-heading>-->
@@ -141,7 +131,7 @@
                                             <!--</accordion>-->
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-1">Phenotype:</label>
+                                                <label class="control-label col-sm-2" style="text-align: left;">Phenotype:</label>
                                                 <div class="col-sm-7">
                                                     <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.chromosomeName" style="width: 100%;">-->
                                                     <label class="control-label propertyDataText">
@@ -149,7 +139,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <table class="table table-bordered tablesorter-bootstrap tablesorter vspace-bottom-10" style="min-width:95%;">
+                                            <table class="table table-bordered tablesorter-bootstrap tablesorter vspace-bottom-10" style="min-width:95%; table-layout:fixed;">
                                                 <thead>
                                                 <tr>
                                                     <th style="width: 20%;">
@@ -158,7 +148,7 @@
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
                                                         </div>
                                                     </th>
-                                                    <th style="width: 20%;">
+                                                    <th style="width: 60%;">
                                                         <div class="ng-binding" ng-click="sort('2')">GO Term:
                                                             <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
@@ -177,7 +167,7 @@
                                                     <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
                                                     <td>{{model.ontologyTermId}}</td>
                                                     <td>{{model.ontologyTermName}}</td>
-                                                    <td>{{model.evidenceWithText}}</td>
+                                                    <td style="word-wrap: break-word;">{{model.evidenceWithText}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -190,7 +180,7 @@
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-10">
                                             <!--<accordion close-others="true">-->
                                                 <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
                                                     <!--<accordion-heading>-->
@@ -206,16 +196,16 @@
                                                 <!--</accordion-group>-->
                                             <!--</accordion>-->
 
-                                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%; table-layout:fixed">
                                                 <thead>
                                                 <tr>
-                                                    <th style="width: 20%;">
+                                                    <th style="width: 50%;">
                                                         <div class="ng-binding" ng-click="sort('1')">Background:
                                                             <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
                                                         </div>
                                                     </th>
-                                                    <th style="width: 20%;">
+                                                    <th style="width: 50%;">
                                                         <div class="ng-binding" ng-click="sort('2')">Zygosity:
                                                             <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
@@ -224,10 +214,10 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr ng-repeat="model in state.model.searchGeneResponseList" gs-zebra-rows gs-index="{{$index}}">
+                                                <tr ng-repeat="model in state.model.genotypeEditList" gs-zebra-rows gs-index="{{$index}}">
                                                     <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
-                                                    <td>{{model.evidenceBaseAnnotationsSubjectBackgroundName}}</td>
-                                                    <td>{{model.evidenceBaseAnnotationsSubjectZygosity}}</td>
+                                                    <td>{{model.background}}</td>
+                                                    <td>{{model.zygosity}}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -239,7 +229,7 @@
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="row">
                                         <div class="col-sm-1"></div>
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-10">
                                             <!--<accordion close-others="true">-->
                                                 <!--<accordion-group is-open="state.functionAccordeon.isFirstOpen">-->
                                                     <!--<accordion-heading>-->
@@ -258,13 +248,13 @@
                                             <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
                                                 <thead>
                                                 <tr>
-                                                    <th style="width: 20%;">
+                                                    <th style="width: 50%;">
                                                         <div class="ng-binding" ng-click="sort('1')">Pubmed Id:
                                                             <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('1', 'asc'),
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
                                                         </div>
                                                     </th>
-                                                    <th style="width: 20%;">
+                                                    <th style="width: 50%;">
                                                         <div class="ng-binding" ng-click="sort('2')">Doi:
                                                             <i class="pull-right" ng-class="{'glyphicon glyphicon-chevron-down': canSort('2', 'asc'),
                                                     'glyphicon glyphicon-chevron-up':canSort('subjectName', 'desc')}"></i>
@@ -273,11 +263,13 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr ng-repeat="model in state.model.searchGeneResponseList" gs-zebra-rows gs-index="{{$index}}">
+                                                <tr ng-repeat="model in state.model.literatureEditList" gs-zebra-rows gs-index="{{$index}}">
                                                     <!--<tr ng-repeat="model in state.model.geneEdit.homologyEditList" ng-click="setSelected(model)" ngDblclick="show(model)" ng-class="{'active':isSelected(model), 'gs-deleted': model.deleted}" ng-dblclick="openShow(model)" gs-zebra-rows gs-index="{{$index}}">-->
-                                                    <td>{{model.publicationId}}</td>
+                                                    <td>
+                                                        <a href="http://www.ncbi.nlm.nih.gov/pubmed/?term={{model.publicationId}}" target="_blank">{{model.publicationId}}</a>
+                                                    </td>
                                                     <td>{{model.publicationDoi}}</td>
-                                                </tr>
+                                                </tr>s
                                                 </tbody>
                                             </table>
                                         </div>
@@ -288,8 +280,8 @@
                             <tab heading="Homology">
                                 <div class="col-sm-12 vspace-top-20">
                                     <div class="col-sm-1"></div>
-                                    <div class="col-sm-9">
-                                        <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%">
+                                    <div class="col-sm-10   ">
+                                        <table class="table table-bordered tablesorter-bootstrap tablesorter" style="min-width:95%; table-layout:fixed;">
                                             <thead>
                                             <tr>
                                                 <th style="width: 20%;">

@@ -2,20 +2,17 @@ package com.genesearch.domain;
 
 import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
-import com.genesearch.object.edit.GeneEdit;
-import com.genesearch.object.edit.HomologyEdit;
-import com.genesearch.object.edit.SequenceFeatureEdit;
-import com.genesearch.object.request.SearchGeneRequest;
+import com.genesearch.object.edit.*;
 import com.genesearch.object.response.SearchGeneResponse;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.OntologyAnnotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 16.01.2015.
@@ -40,7 +37,13 @@ public class GeneDomain {
         List<SearchGeneResponse> searchGeneResponseList = new ArrayList<SearchGeneResponse>();
 
         List<OntologyAnnotation> ontologyAnnotationList = ontologyAnnotationRepository.find(geneId);
+
+        Set<GenotypeEdit> genotypeEditList = new HashSet<GenotypeEdit>();
+        Set<LiteratureEdit> literatureEditList = new HashSet<LiteratureEdit>();
+
         for(OntologyAnnotation g : ontologyAnnotationList) {
+            genotypeEditList.add(new GenotypeEdit(g.getBaseAnnotationsSubjectBackgroundName(), g.getBaseAnnotationsSubjectZygosity()));
+            literatureEditList.add(new LiteratureEdit(g.getPubmedId(), g.getDoi()));
             searchGeneResponseList.add(SearchGeneResponse.create(g));
         }
 
@@ -50,6 +53,9 @@ public class GeneDomain {
         GeneEdit geneEdit = GeneEdit.create(gene);
         geneEdit.setHomologyEditList(homologyEditList);
         geneEdit.setSequenceFeatureEditList(sequenceFeatureList);
+        geneEdit.setGenotypeEditList(genotypeEditList);
+        geneEdit.setLiteratureEditList(literatureEditList);
+
         geneEdit.setSearchGeneResponseList(searchGeneResponseList);
 
         return geneEdit;

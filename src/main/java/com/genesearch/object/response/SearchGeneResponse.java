@@ -11,6 +11,7 @@ public class SearchGeneResponse {
     private UtilResponse utils = new UtilResponse();
 
     private Long id;
+    private Long geneId;
     private String ontologyTermPrimaryIdentifier;
     private String ontologyTermName;
 
@@ -23,7 +24,7 @@ public class SearchGeneResponse {
     private String evidenceBaseAnnotationsSubjectBackgroundName;
     private String evidenceBaseAnnotationsSubjectZygosity;
 
-    private Long publicationId;
+    private String publicationId;
     private String publicationDoi;
 
     private String ncbi;
@@ -36,6 +37,14 @@ public class SearchGeneResponse {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getGeneId() {
+        return geneId;
+    }
+
+    public void setGeneId(Long geneId) {
+        this.geneId = geneId;
     }
 
     public String getOntologyTermPrimaryIdentifier() {
@@ -110,11 +119,11 @@ public class SearchGeneResponse {
         this.evidenceBaseAnnotationsSubjectZygosity = evidenceBaseAnnotationsSubjectZygosity;
     }
 
-    public Long getPublicationId() {
+    public String getPublicationId() {
         return publicationId;
     }
 
-    public void setPublicationId(Long publicationId) {
+    public void setPublicationId(String publicationId) {
         this.publicationId = publicationId;
     }
 
@@ -146,6 +155,7 @@ public class SearchGeneResponse {
         SearchGeneResponse response = new SearchGeneResponse();
 
         response.setId(entity.getId());
+        response.setGeneId(entity.getGene().getId());
 
         response.setSubjectPrimaryIdentifier(entity.getGene().getPrimaryIdentifier());
         response.setSubjectSymbol(entity.getGene().getSymbol());

@@ -93,7 +93,7 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
     };
 
      $scope.getDetailsUrl = function(item) {
-        return "#/edit/" + item.id;
+        return "#/edit/" + item.geneId;
     };
 
     $scope.canSort = function (property, ascending) {

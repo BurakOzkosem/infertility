@@ -4,6 +4,7 @@ import com.genesearch.model.Gene;
 import com.genesearch.object.response.SearchGeneResponse;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +25,10 @@ public class GeneEdit extends AbstractEditObject {
     private List<HomologyEdit> homologyEditList = new ArrayList<HomologyEdit>();
 
     private List<SequenceFeatureEdit> sequenceFeatureEditList = new ArrayList<SequenceFeatureEdit>();
+
+    private Set<GenotypeEdit> genotypeEditList = new HashSet<GenotypeEdit>();
+
+    private Set<LiteratureEdit> literatureEditList = new HashSet<LiteratureEdit>();
 
     private List<SearchGeneResponse> searchGeneResponseList = new ArrayList<SearchGeneResponse>();
 
@@ -97,6 +102,22 @@ public class GeneEdit extends AbstractEditObject {
 
     public void setSequenceFeatureEditList(List<SequenceFeatureEdit> sequenceFeatureEditList) {
         this.sequenceFeatureEditList = sequenceFeatureEditList;
+    }
+
+    public Set<GenotypeEdit> getGenotypeEditList() {
+        return genotypeEditList;
+    }
+
+    public void setGenotypeEditList(Set<GenotypeEdit> genotypeEditList) {
+        this.genotypeEditList = genotypeEditList;
+    }
+
+    public Set<LiteratureEdit> getLiteratureEditList() {
+        return literatureEditList;
+    }
+
+    public void setLiteratureEditList(Set<LiteratureEdit> literatureEditList) {
+        this.literatureEditList = literatureEditList;
     }
 
     public List<SearchGeneResponse> getSearchGeneResponseList() {
