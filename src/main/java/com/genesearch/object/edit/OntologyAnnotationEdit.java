@@ -1,17 +1,18 @@
-package com.genesearch.object.response;
+package com.genesearch.object.edit;
 
-import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.object.response.UtilResponse;
 
 /**
  * Created by user on 07.01.2015.
  */
-public class SearchGeneResponse {
+public class OntologyAnnotationEdit {
 
     private UtilResponse utils = new UtilResponse();
 
     private Long id;
     private Long geneId;
+    private Long ontologyTermId;
     private String ontologyTermPrimaryIdentifier;
     private String ontologyTermName;
 
@@ -45,6 +46,14 @@ public class SearchGeneResponse {
 
     public void setGeneId(Long geneId) {
         this.geneId = geneId;
+    }
+
+    public Long getOntologyTermId() {
+        return ontologyTermId;
+    }
+
+    public void setOntologyTermId(Long ontologyTermId) {
+        this.ontologyTermId = ontologyTermId;
     }
 
     public String getOntologyTermPrimaryIdentifier() {
@@ -151,8 +160,8 @@ public class SearchGeneResponse {
         this.utils = utils;
     }
 
-    public static SearchGeneResponse create(OntologyAnnotation entity) {
-        SearchGeneResponse response = new SearchGeneResponse();
+    public static OntologyAnnotationEdit create(OntologyAnnotation entity) {
+        OntologyAnnotationEdit response = new OntologyAnnotationEdit();
 
         response.setId(entity.getId());
         response.setGeneId(entity.getGene().getId());
@@ -165,6 +174,7 @@ public class SearchGeneResponse {
         response.setNcbi(entity.getGene().getNcbi());
 
         if(entity.getPhenotype() != null) {
+            response.setOntologyTermId(entity.getPhenotype().getId());
             response.setOntologyTermName(entity.getPhenotype().getName());
             response.setOntologyTermPrimaryIdentifier(entity.getPhenotype().getPhenotypeId());
         }

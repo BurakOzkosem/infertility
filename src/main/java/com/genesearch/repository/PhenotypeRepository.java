@@ -42,4 +42,5 @@ public class PhenotypeRepository extends  ModelRepository<Phenotype>  {
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return c.list();
     }
+
 }

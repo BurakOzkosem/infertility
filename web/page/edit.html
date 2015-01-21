@@ -223,6 +223,20 @@
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search">
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" ng-model="property.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.ontologyTermName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
                                                 <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-default" type="button" ng-click="save(property)">

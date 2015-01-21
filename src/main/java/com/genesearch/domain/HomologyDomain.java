@@ -28,6 +28,10 @@ public class HomologyDomain {
         return result;
     }
 
+    public void update(List<HomologyEdit> homologyEditList) {
+
+    }
+
 //    public Set<Homology> update(List<HomologyEdit> homologyEditList) {
 //        Set<Homology> result = new HashSet<Homology>();
 //

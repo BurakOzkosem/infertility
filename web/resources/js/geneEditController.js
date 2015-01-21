@@ -1,7 +1,7 @@
 /**
  * Created by kmorozov on 21.01.2015.
  */
-function GeneEditCtrl($scope, $modalInstance, model) {
+function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
 
     $scope.state = {
         model : angular.isDefined(model) && model != null
@@ -35,6 +35,8 @@ function GeneEditCtrl($scope, $modalInstance, model) {
                     ],
                     geneAnnotationList: [
                         {
+                            id: null,
+                            ontologyTermId: null,
                             evidenceBaseAnnotationsSubjectBackgroundName: '',
                             evidenceBaseAnnotationsSubjectZygosity: '',
                             publicationId: '',
@@ -53,6 +55,8 @@ function GeneEditCtrl($scope, $modalInstance, model) {
     };
 
     $scope.newGeneAnnotation = {
+        id: null,
+        ontologyTermId: null,
         evidenceBaseAnnotationsSubjectBackgroundName: null,
         evidenceBaseAnnotationsSubjectZygosity: '',
         publicationId: '',
@@ -68,6 +72,10 @@ function GeneEditCtrl($scope, $modalInstance, model) {
         datasetsName: ''
     };
 
+    $scope.reference = {
+        ontologyTerm: []
+    };
+
     $scope.isSelected = function (item) {
         return $scope.state.sequenceFeatureSelected == item;
     };
@@ -80,8 +88,24 @@ function GeneEditCtrl($scope, $modalInstance, model) {
         }
     };
 
+    $scope.loadReferences = function() {
+        Restangular.oneUrl('gene/reference/ontologyterm').get().then(function(result) {
+                $scope.reference.ontologyTerm = result;
+            },
+            function() { });
+    };
+
     $scope.ok = function() {
-        $modalInstance.close();
+        if($scope.state.model.id != null) {
+            Restangular.all("gene/update").post($scope.state.model).then(function(result) {
+                $modalInstance.close();
+            }, function(error) {});
+        }
+        else {
+            Restangular.all("gene/add").post($scope.state.model).then(function(result) {
+                $modalInstance.close();
+            }, function(error) {});
+        }
     };
 
     $scope.cancel = function() {
@@ -107,6 +131,8 @@ function GeneEditCtrl($scope, $modalInstance, model) {
             $scope.state.model.geneAnnotationList.push($scope.newGeneAnnotation);
 
             $scope.newGeneAnnotation = {
+                id: null,
+                ontologyTermId: null,
                 evidenceBaseAnnotationsSubjectBackgroundName: null,
                 evidenceBaseAnnotationsSubjectZygosity: '',
                 publicationId: '',

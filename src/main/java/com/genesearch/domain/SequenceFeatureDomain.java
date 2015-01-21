@@ -29,4 +29,8 @@ public class SequenceFeatureDomain {
 
         return result;
     }
+
+    public void update(List<SequenceFeatureEdit> sequenceFeatureEditList) {
+
+    }
 }

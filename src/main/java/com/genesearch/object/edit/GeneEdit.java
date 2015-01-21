@@ -1,7 +1,6 @@
 package com.genesearch.object.edit;
 
 import com.genesearch.model.Gene;
-import com.genesearch.object.response.SearchGeneResponse;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +29,7 @@ public class GeneEdit extends AbstractEditObject {
 
     private Set<LiteratureEdit> literatureEditList = new HashSet<LiteratureEdit>();
 
-    private List<SearchGeneResponse> geneAnnotationList = new ArrayList<SearchGeneResponse>();
+    private List<OntologyAnnotationEdit> geneAnnotationList = new ArrayList<OntologyAnnotationEdit>();
 
 
     public String getPrimaryIdentifier() {
@@ -121,11 +120,11 @@ public class GeneEdit extends AbstractEditObject {
         this.literatureEditList = literatureEditList;
     }
 
-    public List<SearchGeneResponse> getGeneAnnotationList() {
+    public List<OntologyAnnotationEdit> getGeneAnnotationList() {
         return geneAnnotationList;
     }
 
-    public void setGeneAnnotationList(List<SearchGeneResponse> geneAnnotationList) {
+    public void setGeneAnnotationList(List<OntologyAnnotationEdit> geneAnnotationList) {
         this.geneAnnotationList = geneAnnotationList;
     }
 

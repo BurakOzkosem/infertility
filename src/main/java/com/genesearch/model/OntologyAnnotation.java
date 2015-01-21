@@ -1,5 +1,6 @@
 package com.genesearch.model;
 
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -95,5 +96,14 @@ public class OntologyAnnotation extends  AbstractEntity {
 
     public void setPhenotype(Phenotype phenotype) {
         this.phenotype = phenotype;
+    }
+
+    public void update(OntologyAnnotationEdit oaEdit, Phenotype phenotype, Gene gene) {
+        setPhenotype(phenotype);
+        setGene(gene);
+        setBaseAnnotationsSubjectBackgroundName(oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName());
+        setBaseAnnotationsSubjectZygosity(oaEdit.getEvidenceBaseAnnotationsSubjectZygosity());
+        setPubmedId(oaEdit.getPublicationId());
+        setDoi(oaEdit.getPublicationDoi());
     }
 }

@@ -1,12 +1,16 @@
 package com.genesearch.repository;
 
+import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
+import com.genesearch.model.Phenotype;
 import com.genesearch.object.request.SearchGeneRequest;
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
@@ -19,6 +23,11 @@ import java.util.List;
  */
 @Repository
 public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnotation>{
+
+    @Autowired
+    private PhenotypeRepository phenotypeRepository;
+    @Autowired
+    private GeneRepository geneRepository;
 
     public Page<OntologyAnnotation> search(SearchGeneRequest request) {
         Criteria c = getSession().createCriteria(getEntityClass(), "oa");
@@ -132,5 +141,52 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
             return null;
         }
         return result.get(0);
+    }
+
+    public void create(OntologyAnnotationEdit oaEdit) {
+        OntologyAnnotation ontologyAnnotation = new OntologyAnnotation();
+
+        OntologyAnnotation oa = find(oaEdit.getGeneId(), oaEdit.getOntologyTermId(), oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName(),
+                oaEdit.getEvidenceBaseAnnotationsSubjectZygosity(), oaEdit.getPublicationId(), oaEdit.getPublicationDoi());
+
+        if(oa == null) {
+            Gene gene = geneRepository.find(oaEdit.getGeneId());
+            ontologyAnnotation.setGene(gene);
+            ontologyAnnotation.setPhenotype(phenotypeRepository.findById(oaEdit.getOntologyTermId()));
+            ontologyAnnotation.setBaseAnnotationsSubjectBackgroundName(oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName());
+            ontologyAnnotation.setBaseAnnotationsSubjectZygosity(oaEdit.getEvidenceBaseAnnotationsSubjectZygosity());
+            ontologyAnnotation.setPubmedId(oaEdit.getPublicationId());
+            ontologyAnnotation.setDoi(oaEdit.getPublicationDoi());
+
+            save(ontologyAnnotation);
+        }
+
+    }
+
+    public void update(OntologyAnnotationEdit oaEdit) {
+        OntologyAnnotation oa = null;
+        if(oaEdit.getId() != null) {
+            oa = findById(oaEdit.getId());
+        }
+        else {
+            oa = find(oaEdit.getGeneId(), oaEdit.getOntologyTermId(), oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName(),
+                    oaEdit.getEvidenceBaseAnnotationsSubjectZygosity(), oaEdit.getPublicationId(), oaEdit.getPublicationDoi());
+        }
+
+        Gene gene = geneRepository.findById(oaEdit.getId());
+        Phenotype phenotype = phenotypeRepository.findById(oaEdit.getOntologyTermId());
+        oa.update(oaEdit, phenotype, gene);
+        save(oa);
+    }
+
+    public void update(List<OntologyAnnotationEdit> geneAnnotationList) {
+        for(OntologyAnnotationEdit ontologyAnnotationEdit : geneAnnotationList) {
+            if(ontologyAnnotationEdit.getId() != null) {
+                update(ontologyAnnotationEdit);
+            }
+            else {
+                create(ontologyAnnotationEdit);
+            }
+        }
     }
 }

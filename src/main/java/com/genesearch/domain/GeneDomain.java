@@ -3,7 +3,7 @@ package com.genesearch.domain;
 import com.genesearch.model.Gene;
 import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.object.edit.*;
-import com.genesearch.object.response.SearchGeneResponse;
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.repository.GeneRepository;
 import com.genesearch.repository.OntologyAnnotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class GeneDomain {
 
         Long geneId = gene.getId();
 
-        List<SearchGeneResponse> searchGeneResponseList = new ArrayList<SearchGeneResponse>();
+        List<OntologyAnnotationEdit> ontologyAnnotationEditList = new ArrayList<OntologyAnnotationEdit>();
 
         List<OntologyAnnotation> ontologyAnnotationList = ontologyAnnotationRepository.find(geneId);
 
@@ -44,7 +44,7 @@ public class GeneDomain {
         for(OntologyAnnotation g : ontologyAnnotationList) {
             genotypeEditList.add(new GenotypeEdit(g.getBaseAnnotationsSubjectBackgroundName(), g.getBaseAnnotationsSubjectZygosity()));
             literatureEditList.add(new LiteratureEdit(g.getPubmedId(), g.getDoi()));
-            searchGeneResponseList.add(SearchGeneResponse.create(g));
+            ontologyAnnotationEditList.add(OntologyAnnotationEdit.create(g));
         }
 
         List<HomologyEdit> homologyEditList = homologyDomain.find(geneId);
@@ -56,7 +56,7 @@ public class GeneDomain {
         geneEdit.setGenotypeEditList(genotypeEditList);
         geneEdit.setLiteratureEditList(literatureEditList);
 
-        geneEdit.setGeneAnnotationList(searchGeneResponseList);
+        geneEdit.setGeneAnnotationList(ontologyAnnotationEditList);
 
         return geneEdit;
     }
@@ -67,7 +67,11 @@ public class GeneDomain {
 
         gene.update(geneEdit);
 
+        geneRepository.save(gene);
 
+        ontologyAnnotationRepository.update(geneEdit.getGeneAnnotationList());
+        sequenceFeatureDomain.update(geneEdit.getSequenceFeatureEditList());
+        homologyDomain.update(geneEdit.getHomologyEditList());
 /**
  * The code below needed in case of updating homologues of gene
  *
@@ -94,16 +98,7 @@ public class GeneDomain {
         return geneEdit;
     }
 
-//    public Page<SearchGeneResponse> search(SearchGeneRequest request) {
-//
-//        Page<Gene> searchResult = geneRepository.search(request);
-//
-//        List<SearchGeneResponse> responses = new ArrayList<SearchGeneResponse>();
-//        for(Gene gene : searchResult.getContent()) {
-//            responses.add(SearchGeneResponse.create(gene));
-//        }
-//
-//        return new PageImpl<SearchGeneResponse>(responses, request, searchResult.getTotalElements());
-//    }
+    public void create(GeneEdit request) {
+    }
 
 }
