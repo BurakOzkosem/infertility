@@ -1,7 +1,7 @@
 /**
  * Created by user on 02.01.2015.
  */
-function EditCtrl($scope, $routeParams, Restangular) {
+function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
 
     $scope.state = {
         rdOnly: true,
@@ -34,7 +34,7 @@ function EditCtrl($scope, $routeParams, Restangular) {
                     evidenceWithText: ''
                 }
             ],
-            searchGeneResponseList: [],
+            geneAnnotationList: [],
             phenotypes: '',
             chromosomes: ''
         }
@@ -71,11 +71,11 @@ function EditCtrl($scope, $routeParams, Restangular) {
             $scope.state.model = result;
 
             var phenotypeArray = [];
-            for(var i=0; i < $scope.state.model.searchGeneResponseList.length; i++) {
-                if($scope.state.model.searchGeneResponseList[i].ontologyTermName != null
-                    && $scope.state.model.searchGeneResponseList[i].ontologyTermName.length > 0
-                    && !phenotypeArray.contains($scope.state.model.searchGeneResponseList[i].ontologyTermName)) {
-                    phenotypeArray.push($scope.state.model.searchGeneResponseList[i].ontologyTermName);
+            for(var i=0; i < $scope.state.model.geneAnnotationList.length; i++) {
+                if($scope.state.model.geneAnnotationList[i].ontologyTermName != null
+                    && $scope.state.model.geneAnnotationList[i].ontologyTermName.length > 0
+                    && !phenotypeArray.contains($scope.state.model.geneAnnotationList[i].ontologyTermName)) {
+                    phenotypeArray.push($scope.state.model.geneAnnotationList[i].ontologyTermName);
                 }
             }
             var phenotypes = '';
@@ -87,26 +87,41 @@ function EditCtrl($scope, $routeParams, Restangular) {
         });
     };
 
-    $scope.update = function() {
-        Restangular.all("details/update").post($scope.state.model).then(function(result) {
-            $scope.state.model = result;
+    $scope.openEdit = function() {
+        var modalInstance = $modal.open({
+            templateUrl: BASE_PATH+'/page/edit.html',
+            controller: GeneEditCtrl,
+            windowClass: 'modal-large',
+            resolve: {
+                model: function() {
+                    return angular.isDefined($scope.state.model)  &&  $scope.state.model ? $scope.state.model : null;
+                }
+            },
+            backdrop: 'static'
         });
+        return modalInstance.result;
     };
 
-    $scope.editOrSave = function() {
-        if($scope.isReadOnly()) {
-            // Edit
-            $scope.state.rdOnly = false;
-            $scope.state.backup = angular.copy($scope.state.model);
-        }
-        else {
-            // Save
-            Restangular.all("details/save").post($scope.state.model).then(function(result) {
-                $scope.state.model = result;
-            });
-            $scope.state.backup = {};
-        }
-    };
+    //$scope.update = function() {
+    //    Restangular.all("details/update").post($scope.state.model).then(function(result) {
+    //        $scope.state.model = result;
+    //    });
+    //};
+    //
+    //$scope.editOrSave = function() {
+    //    if($scope.isReadOnly()) {
+    //        // Edit
+    //        $scope.state.rdOnly = false;
+    //        $scope.state.backup = angular.copy($scope.state.model);
+    //    }
+    //    else {
+    //        // Save
+    //        Restangular.all("details/save").post($scope.state.model).then(function(result) {
+    //            $scope.state.model = result;
+    //        });
+    //        $scope.state.backup = {};
+    //    }
+    //};
 
     $scope.cancel = function() {
         $scope.state.rdOnly = true;

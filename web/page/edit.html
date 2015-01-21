@@ -3,195 +3,480 @@
     <h3 id="clientModalLabel">Edit gene</h3>
 </div>
 
-<div class="modal-body" style="max-height: 520px;overflow-y: auto;">
+<div class="modal-body">
     <div class="container-fluid">
         <form class="form-horizontal" name="formEditGene" novalidate>
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="row" style="margin-bottom: 5px;">
-
-                        <div class="col-sm-12" ng-hide="isCollapsed">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <!-- ----------- ЕСЛИ РОУМИНГ НЕ МГ ------------------------------- -->
-                                    <div class="form-group" ng-show="!isMg()">
-                                        <label class="col-sm-4 control-label">Страна B</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group input-group-btn">
-                                                <input class="form-control" ng-model="state.model.operatorB.country.value" name="title" placeholder="Страна B" disabled="" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- ----------- ИЛИ, ЕСЛИ РОУМИНГ МГ ------------------------------- -->
-                                    <div class="form-group" ng-show="isMg()">
-                                        <label class="col-sm-4 control-label">Станция РТ</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input class="form-control" ng-model="state.model.primarySwitch.name" name="title" placeholder="Станция РТ" disabled="" type="text" ng-required="isMg()">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" ng-click="clearEntity(state.model.primarySwitch)">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </button>
-                                                    <button class="btn btn-default" type="button" ng-click="selectFilterService.selectEntity(state.model.primarySwitch, 'switch')">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group" ng-show="isMg()">
-                                        <label class="col-sm-4 control-label">SPR PT</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input class="form-control" ng-model="state.model.primarySignalPoint.structure" name="title" placeholder="SPR PT" disabled="" type="text">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" ng-click="clearEntity(state.model.primarySignalPoint)">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </button>
-                                                    <button class="btn btn-default" type="button" ng-click="selectFilterService.selectEntity(state.model.primarySignalPoint, 'signalpoint')">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Оператор B</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input class="form-control" ng-model="state.model.operatorB.name" name="title" placeholder="Оператор B" disabled="" type="text" required>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" ng-click="clearEntity(state.model.operatorB)">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </button>
-                                                    <button class="btn btn-default" type="button" ng-click="selectFilterService.selectEntity(state.model.operatorB, 'operator')">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Оператор A</label>
-                                        <div class="col-sm-8">
-                                            <div class="input-group">
-                                                <input class="form-control" ng-model="state.model.operatorA.name" name="title" placeholder="Оператор A" disabled="" type="text" required>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" ng-click="clearEntity(state.model.operatorA)">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                    </button>
-                                                    <button class="btn btn-default" type="button" ng-click="selectFilterService.selectEntity(state.model.operatorA, 'operator')">
-                                                        <i class="glyphicon glyphicon-pencil"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row" style="margin-bottom: 5px;">
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
-                                <div class="row" style="padding-top: 5px">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">Дата открытия</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input class="form-control" type="text"
-                                                           datepicker-popup="dd.MM.yyyy"
-                                                           datepicker-options="{'starting-day': 1}"
-                                                           toggle-weeks-text="№ недели"
-                                                           current-text="Сегодня"
-                                                           clear-text="Сброс"
-                                                           close-text="Закрыть"
-                                                           is-open="state.openedDate[0].opened"
-                                                           max="state.model.closeDate"
-                                                           ng-model="state.model.openDate">
-                                                    <span class="input-group-btn">
-                                                         <button name="openDateButton" class="btn btn-default" ng-click="openDate($event, state.openedDate[0])"><i class="glyphicon glyphicon-calendar"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">Дата закрытия</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input class="form-control" type="text"
-                                                           datepicker-popup="dd.MM.yyyy"
-                                                           datepicker-options="{'starting-day': 1}"
-                                                           toggle-weeks-text="№ недели"
-                                                           current-text="Сегодня"
-                                                           clear-text="Сброс"
-                                                           close-text="Закрыть"
-                                                           is-open="state.openedDate[1].opened"
-                                                           min="state.model.openDate"
-                                                           ng-model="state.model.closeDate">
-                                                    <span class="input-group-btn">
-                                                         <button name="closeDateButton" class="btn btn-default" ng-click="openDate($event, state.openedDate[1])"><i class="glyphicon glyphicon-calendar"></i></button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1" />
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="checkbox">
-                                                <input type="checkbox" ng-model="state.model.isGlobalTitleList" checked="state.model.isGlobalTitleList">
-                                                Специальный список глобальных заголовков
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="margin-top: 5px">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label">SPR Провайдера SCCP</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group">
-                                                    <input class="form-control" ng-model="state.model.sprPoint.value" name="title" placeholder="SPR" disabled="" type="text" ng-required="!isMg()">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="selectFilterService.clearFilter(state.model.sprPoint)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="selectFilterService.selectFilter(state.model.sprPoint, 'sprpoint')">
-                                                                <i class="glyphicon glyphicon-pencil"></i>
-                                                            </button>
-                                                        </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Gene ID</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" ng-model="state.model.primaryIdentifier" name="title" placeholder="" type="text" >
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <!-- Табы -->
-                    <div class="form-group">
-                        <div class="col-sm-12">
-
-                            <!--Табы-->
-
-
-                        </div>
+                    <div class="row" style="margin-bottom: 5px;">
+                        <form class="form-horizontal" name="dates">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Gene Symbol</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" ng-model="state.model.symbol" name="title" placeholder="" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
+                    <div class="row" style="margin-bottom: 5px;">
+                        <form class="form-horizontal" name="dates">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Gene Name</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" ng-model="state.model.name" name="title" placeholder="" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 5px;">
+                        <form class="form-horizontal" name="dates">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Gene Description</label>
+                                    <div class="col-sm-7">
+                                        <textarea ng-model="state.model.dsc" ng-maxlength="2000" style="margin: 0px;width: 100%;min-height: 60px;max-height: 60px;height: 60px" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 5px;">
+                        <form class="form-horizontal" name="dates">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Chromosome</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" ng-model="state.model.chromosome" name="title" placeholder="" type="text" >
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 5px;">
+                        <form class="form-horizontal" name="dates">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">NCBI Gene Number</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" ng-model="state.model.ncbi" name="title" placeholder="" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <tabset>
+                        <tab heading="Function">
+                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="ng-binding">
+                                                GO Term ID
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="ng-binding">
+                                                GO Term Name
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="ng-binding">
+                                                Evidence Link
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        ng-repeat="property in state.model.sequenceFeatureEditList"
+                                        ng-click="setSelected(property)"
+                                        gs-zebra-rows gs-index="{{$index}}">
+                                        <td>
+                                            <div ng-if="isSelected(property)">
+                                                <div class="input-group search">
+                                                    <input class="form-control" ng-model="property.ontologyTermId" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!isSelected(property)">
+                                                {{property.ontologyTermId}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div ng-if="isSelected(property)">
+                                                <div class="input-group search">
+                                                    <input class="form-control" ng-model="property.ontologyTermName" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!isSelected(property)">
+                                                {{property.ontologyTermName}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div ng-if="isSelected(property)">
+                                                <div class="input-group search">
+                                                    <input class="form-control" ng-model="property.evidenceWithText" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                                </div>
+                                            </div>
+                                            <div ng-if="!isSelected(property)">
+                                                {{property.evidenceWithText}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="newSequenceFeature.ontologyTermId" type="text">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="newSequenceFeature.ontologyTermName" type="text">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="newSequenceFeature.evidenceWithText" type="text">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </tab>
+                        <tab heading="Genotype">
+                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Background
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Zygosity
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            PubmedId
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Doi
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr
+                                        ng-repeat="property in state.model.geneAnnotationList"
+                                        ng-click="setSelected(property)"
+                                        gs-zebra-rows gs-index="{{$index}}">
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.evidenceBaseAnnotationsSubjectBackgroundName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectZygosity" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.evidenceBaseAnnotationsSubjectZygosity}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.publicationId" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.publicationId}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.publicationDoi" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.publicationDoi}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.evidenceBaseAnnotationsSubjectZygosity" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.publicationId" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.publicationDoi" type="text">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </tab>
+
+                        <tab heading="Homology">
+                            <table class="table table-bordered tablesorter-bootstrap tablesorter" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="ng-binding">
+                                            ID
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Symbol
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Organism name
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Type
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Datasets
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr
+                                        ng-repeat="property in state.model.homologyEditList"
+                                        ng-click="setSelected(property)"
+                                        gs-zebra-rows gs-index="{{$index}}">
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.primaryIdentifier" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.primaryIdentifier}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.symbol" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.symbol}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.organismName" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.organismName}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.type" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.type}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search">
+                                                <input class="form-control" ng-model="property.datasetsName" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
+                                                                <i class="glyphicon glyphicon-ok"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
+                                                                <i class="glyphicon glyphicon-remove"></i>
+                                                            </button>
+                                                        </span>
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.datasetsName}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.primaryIdentifier" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.symbol" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.organismName" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.type" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search">
+                                            <input class="form-control" ng-model="newGeneAnnotation.datasetsName" type="text">
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </tab>
+                    </tabset>
                 </div>
             </div>
         </form>
@@ -199,6 +484,26 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-default nriv-btn" ng-click="ok();" ng-disabled="formCreateOrg.$invalid">Сохранить</button>
-    <button type="button" data-dismiss="modal" class="btn btn-default nriv-btn" ng-click="cancel();">Закрыть</button>
+    <button type="button" class="btn btn-default gs-btn" ng-click="ok();" ng-disabled="formCreateOrg.$invalid">Save</button>
+    <button type="button" data-dismiss="modal" class="btn btn-default gs-btn" ng-click="cancel();">Cancel</button>
 </div>
+
+
+
+
+<!--<div class="form-group">-->
+    <!--<label class="col-sm-4 control-label">SPR Провайдера SCCP</label>-->
+    <!--<div class="col-sm-8">-->
+        <!--<div class="input-group">-->
+            <!--<input class="form-control" ng-model="state.model.sprPoint.value" name="title" placeholder="SPR" disabled="" type="text" >-->
+                                                        <!--<span class="input-group-btn">-->
+                                                            <!--<button class="btn btn-default" type="button" ng-click="selectFilterService.clearFilter(state.model.sprPoint)">-->
+                                                                <!--<i class="glyphicon glyphicon-remove"></i>-->
+                                                            <!--</button>-->
+                                                            <!--<button class="btn btn-default" type="button" ng-click="selectFilterService.selectFilter(state.model.sprPoint, 'sprpoint')">-->
+                                                                <!--<i class="glyphicon glyphicon-pencil"></i>-->
+                                                            <!--</button>-->
+                                                        <!--</span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

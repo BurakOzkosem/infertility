@@ -56,7 +56,7 @@ public class GeneDomain {
         geneEdit.setGenotypeEditList(genotypeEditList);
         geneEdit.setLiteratureEditList(literatureEditList);
 
-        geneEdit.setSearchGeneResponseList(searchGeneResponseList);
+        geneEdit.setGeneAnnotationList(searchGeneResponseList);
 
         return geneEdit;
     }

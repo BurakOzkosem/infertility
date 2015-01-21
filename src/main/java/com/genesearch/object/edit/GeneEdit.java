@@ -30,7 +30,8 @@ public class GeneEdit extends AbstractEditObject {
 
     private Set<LiteratureEdit> literatureEditList = new HashSet<LiteratureEdit>();
 
-    private List<SearchGeneResponse> searchGeneResponseList = new ArrayList<SearchGeneResponse>();
+    private List<SearchGeneResponse> geneAnnotationList = new ArrayList<SearchGeneResponse>();
+
 
     public String getPrimaryIdentifier() {
         return primaryIdentifier;
@@ -120,12 +121,12 @@ public class GeneEdit extends AbstractEditObject {
         this.literatureEditList = literatureEditList;
     }
 
-    public List<SearchGeneResponse> getSearchGeneResponseList() {
-        return searchGeneResponseList;
+    public List<SearchGeneResponse> getGeneAnnotationList() {
+        return geneAnnotationList;
     }
 
-    public void setSearchGeneResponseList(List<SearchGeneResponse> searchGeneResponseList) {
-        this.searchGeneResponseList = searchGeneResponseList;
+    public void setGeneAnnotationList(List<SearchGeneResponse> geneAnnotationList) {
+        this.geneAnnotationList = geneAnnotationList;
     }
 
     public static GeneEdit create(Gene entity) {

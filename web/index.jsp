@@ -68,7 +68,8 @@
 
     <script src="<c:url value="/resources/js/common.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/searchController.js"/>?v=<%=key%>"></script>
-    <script src="<c:url value="/resources/js/editController.js"/>?v=<%=key%>"></script>
+    <script src="<c:url value="/resources/js/detailsController.js"/>?v=<%=key%>"></script>
+    <script src="<c:url value="/resources/js/geneEditController.js"/>?v=<%=key%>"></script>
     <script src="<c:url value="/resources/js/downloader.js"/>?v=<%=key%>"></script>
 
     <link href='<c:url value="/resources/css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
