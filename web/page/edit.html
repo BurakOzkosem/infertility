@@ -288,29 +288,13 @@
                                             {{property.publicationId}}
                                         </div>
                                     </td>
-                                    <td>
-                                        <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
-                                                <input class="form-control" ng-model="property.publicationDoi" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
-                                            </div>
-                                        </div>
-                                        <div ng-if="!isSelected(property)">
-                                            {{property.publicationDoi}}
-                                        </div>
-                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
+                                            <select class="form-control" ng-model="newGeneAnnotation.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
+                                                <option value=""></option>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>

@@ -53,6 +53,7 @@ public class GeneDomain {
         List<SequenceFeatureEdit> sequenceFeatureList = sequenceFeatureDomain.find(geneId);
 
         GeneEdit geneEdit = GeneEdit.create(gene);
+
         geneEdit.setHomologyEditList(homologyEditList);
         geneEdit.setSequenceFeatureEditList(sequenceFeatureList);
         geneEdit.setGenotypeEditList(genotypeEditList);

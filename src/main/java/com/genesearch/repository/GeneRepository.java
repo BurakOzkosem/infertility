@@ -27,18 +27,6 @@ public class GeneRepository extends ModelRepository<Gene> {
         safeAddRestrictionEq(and, "gn.dsc", dsc);
         safeAddRestrictionEq(and, "gn.chromosome", chromosome);
 
-//        if(phenotypeId != null) {
-//            and.add(Restrictions.eq("ph.id", phenotypeId));
-//        }
-//        else {
-//            and.add(Restrictions.isNull("ph.id"));
-//        }
-//
-//        safeAddRestrictionEqOrNull(and, "gn.baseAnnotationsSubjectBackgroundName", baseAnnotationsSubjectBackgroundName);
-//        safeAddRestrictionEqOrNull(and, "gn.baseAnnotationsSubjectZygosity", baseAnnotationsSubjectZygosity);
-//        safeAddRestrictionEqOrNull(and, "gn.pubmedId", pubmedId);
-//        safeAddRestrictionEqOrNull(and, "gn.doi", doi);
-
         c.add(and);
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 

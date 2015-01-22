@@ -8,39 +8,39 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
             ? model
             : {
                     id: null,
-                    primaryIdentifier: '',
-                    symbol: '',
-                    name: '',
-                    dsc: '',
-                    chromosome: '',
-                    ncbi: '',
-                    organismName: '',
+                    primaryIdentifier: null,
+                    symbol: null,
+                    name: null,
+                    dsc: null,
+                    chromosome: null,
+                    ncbi: null,
+                    organismName: null,
                     homologyEditList: [
                         {
                             id: null,
-                            primaryIdentifier: '',
-                            symbol: '',
-                            organismName: '',
-                            type: '',
-                            datasetsName: ''
+                            primaryIdentifier: null,
+                            symbol: null,
+                            organismName: null,
+                            type: null,
+                            datasetsName: null
                         }
                     ],
                     sequenceFeatureEditList: [
                         {
                             id: null,
-                            ontologyTermId: '',
-                            ontologyTermName: '',
-                            evidenceWithText: ''
+                            ontologyTermId: null,
+                            ontologyTermName: null,
+                            evidenceWithText: null
                         }
                     ],
                     geneAnnotationList: [
                         {
                             id: null,
                             ontologyTermId: null,
-                            evidenceBaseAnnotationsSubjectBackgroundName: '',
-                            evidenceBaseAnnotationsSubjectZygosity: '',
-                            publicationId: '',
-                            publicationDoi: ''
+                            evidenceBaseAnnotationsSubjectBackgroundName: null,
+                            evidenceBaseAnnotationsSubjectZygosity: null,
+                            publicationId: null,
+                            publicationDoi: null
                         }
                     ]
                 },
@@ -49,27 +49,27 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
 
     $scope.newSequenceFeature = {
         id: null,
-        ontologyTermId: '',
-        ontologyTermName: '',
-        evidenceWithText: ''
+        ontologyTermId: null,
+        ontologyTermName: null,
+        evidenceWithText: null
     };
 
     $scope.newGeneAnnotation = {
         id: null,
         ontologyTermId: null,
         evidenceBaseAnnotationsSubjectBackgroundName: null,
-        evidenceBaseAnnotationsSubjectZygosity: '',
-        publicationId: '',
-        publicationDoi: ''
+        evidenceBaseAnnotationsSubjectZygosity: null,
+        publicationId: null,
+        publicationDoi: null
     };
 
     $scope.newHomology = {
         id: null,
-        primaryIdentifier: '',
-        symbol: '',
-        organismName: '',
-        type: '',
-        datasetsName: ''
+        primaryIdentifier: null,
+        symbol: null,
+        organismName: null,
+        type: null,
+        datasetsName: null
     };
 
     $scope.reference = {
@@ -113,46 +113,79 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
     };
 
     $scope.$watch( 'newSequenceFeature',
-        function() {
+        function(newValue, oldValue) {
+            var hasNotNullProperty = false;
+            angular.forEach(newValue, function(value, key) {
+                if(value != null) {
+                    hasNotNullProperty = true;
+                }
+            });
+
+            if(!hasNotNullProperty) {
+                return;
+            }
+
             $scope.state.model.sequenceFeatureEditList.push($scope.newSequenceFeature);
 
             $scope.newSequenceFeature = {
                 id: null,
-                ontologyTermId: '',
-                ontologyTermName: '',
-                evidenceWithText: ''
+                ontologyTermId: null,
+                ontologyTermName: null,
+                evidenceWithText: null
             };
         },
         true
     );
 
     $scope.$watch( 'newGeneAnnotation',
-        function() {
+        function(newValue, oldValue) {
+            var hasNotNullProperty = false;
+            angular.forEach(newValue, function(value, key) {
+                if(value != null) {
+                    hasNotNullProperty = true;
+                }
+            });
+
+            if(!hasNotNullProperty) {
+                return;
+            }
+
             $scope.state.model.geneAnnotationList.push($scope.newGeneAnnotation);
 
             $scope.newGeneAnnotation = {
                 id: null,
                 ontologyTermId: null,
                 evidenceBaseAnnotationsSubjectBackgroundName: null,
-                evidenceBaseAnnotationsSubjectZygosity: '',
-                publicationId: '',
-                publicationDoi: ''
+                evidenceBaseAnnotationsSubjectZygosity: null,
+                publicationId: null,
+                publicationDoi: null
             };
         },
         true
     );
 
     $scope.$watch( 'newHomology',
-        function() {
+        function(newValue, oldValue) {
+            var hasNotNullProperty = false;
+            angular.forEach(newValue, function(value, key) {
+                if(value != null) {
+                    hasNotNullProperty = true;
+                }
+            });
+
+            if(!hasNotNullProperty) {
+                return;
+            }
+
             $scope.state.model.homologyEditList.push($scope.newHomology);
 
             $scope.newHomology = {
                 id: null,
-                primaryIdentifier: '',
-                symbol: '',
-                organismName: '',
-                type: '',
-                datasetsName: ''
+                primaryIdentifier: null,
+                symbol: null,
+                organismName: null,
+                type: null,
+                datasetsName: null
             };
         },
         true

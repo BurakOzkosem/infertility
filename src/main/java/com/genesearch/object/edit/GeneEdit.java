@@ -131,6 +131,7 @@ public class GeneEdit extends AbstractEditObject {
     public static GeneEdit create(Gene entity) {
         GeneEdit result = new GeneEdit();
 
+        result.setId(entity.getId());
         result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
         result.setSymbol(entity.getSymbol());
         result.setName(entity.getName());

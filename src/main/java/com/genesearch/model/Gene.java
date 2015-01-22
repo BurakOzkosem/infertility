@@ -115,8 +115,11 @@ public class Gene extends AbstractEntity {
     public void update(GeneEdit geneEdit) {
         this.setPrimaryIdentifier(geneEdit.getPrimaryIdentifier());
         this.setSymbol(geneEdit.getSymbol());
+        this.setName(geneEdit.getName());
+        this.setDsc(geneEdit.getDsc());
         this.setOrganismName(geneEdit.getOrganismName());
         this.setNcbi(geneEdit.getNcbi());
+        this.setChromosome(geneEdit.getChromosome());
     }
 
     public static Gene create(GeneEdit geneEdit) {
