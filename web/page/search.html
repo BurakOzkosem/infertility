@@ -78,11 +78,12 @@
         </div>
 
         <div class="row" style="margin-top: 15px">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
+            <!--<div class="col-sm-2"></div>-->
+            <div class="col-sm-12" align="center">
                 <ul class="list-inline gs-header-ul">
                     <li><div ng-include="'page/table-pagination.html'"></div></li>
                     <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li><button class="btn btn-default gs-btn" type="button" ng-click="newGene()">New Gene...</button></li>
                     <li><button class="btn btn-default gs-btn" type="button" ng-click="clearFilters()">Clear</button></li>
                     <li><button class="btn btn-default gs-btn" type="button" ng-click="load()">Search</button></li>
                 </ul>

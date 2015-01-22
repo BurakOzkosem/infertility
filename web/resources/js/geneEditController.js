@@ -16,32 +16,10 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
                     ncbi: null,
                     organismName: null,
                     homologyEditList: [
-                        {
-                            id: null,
-                            primaryIdentifier: null,
-                            symbol: null,
-                            organismName: null,
-                            type: null,
-                            datasetsName: null
-                        }
                     ],
                     sequenceFeatureEditList: [
-                        {
-                            id: null,
-                            ontologyTermId: null,
-                            ontologyTermName: null,
-                            evidenceWithText: null
-                        }
                     ],
                     geneAnnotationList: [
-                        {
-                            id: null,
-                            ontologyTermId: null,
-                            evidenceBaseAnnotationsSubjectBackgroundName: null,
-                            evidenceBaseAnnotationsSubjectZygosity: null,
-                            publicationId: null,
-                            publicationDoi: null
-                        }
                     ]
                 },
         sequenceFeatureSelected: false
@@ -98,18 +76,18 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
     $scope.ok = function() {
         if($scope.state.model.id != null) {
             Restangular.all("gene/update").post($scope.state.model).then(function(result) {
-                $modalInstance.close();
+                $modalInstance.close(true);
             }, function(error) {});
         }
         else {
             Restangular.all("gene/add").post($scope.state.model).then(function(result) {
-                $modalInstance.close();
+                $modalInstance.close(true);
             }, function(error) {});
         }
     };
 
     $scope.cancel = function() {
-        $modalInstance.close('cancel');
+        $modalInstance.close(false);
     };
 
     $scope.$watch( 'newSequenceFeature',
@@ -127,15 +105,38 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
 
             $scope.state.model.sequenceFeatureEditList.push($scope.newSequenceFeature);
 
+            var lastAdded = $scope.newSequenceFeature;
+
             $scope.newSequenceFeature = {
                 id: null,
                 ontologyTermId: null,
                 ontologyTermName: null,
                 evidenceWithText: null
             };
+
+            $scope.setSelected(lastAdded);
         },
         true
     );
+
+    $scope.removeSequenceFeature = function(property) {
+        var index = $scope.state.model.sequenceFeatureEditList.indexOf(property);
+        if (index > -1) {
+            $scope.state.model.sequenceFeatureEditList.splice(index, 1);
+        }
+    };
+    $scope.removeGeneAnotation = function(property) {
+        var index = $scope.state.model.geneAnnotationList.indexOf(property);
+        if (index > -1) {
+            $scope.state.model.geneAnnotationList.splice(index, 1);
+        }
+    };
+    $scope.removeHomology = function(property) {
+        var index = $scope.state.model.homologyEditList.indexOf(property);
+        if (index > -1) {
+            $scope.state.model.homologyEditList.splice(index, 1);
+        }
+    };
 
     $scope.$watch( 'newGeneAnnotation',
         function(newValue, oldValue) {
@@ -152,6 +153,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
 
             $scope.state.model.geneAnnotationList.push($scope.newGeneAnnotation);
 
+            var lastAdded = $scope.newGeneAnnotation;
+
             $scope.newGeneAnnotation = {
                 id: null,
                 ontologyTermId: null,
@@ -160,6 +163,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
                 publicationId: null,
                 publicationDoi: null
             };
+
+            $scope.setSelected(lastAdded);
         },
         true
     );
@@ -179,6 +184,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
 
             $scope.state.model.homologyEditList.push($scope.newHomology);
 
+            var lastAdded = $scope.newHomology;
+
             $scope.newHomology = {
                 id: null,
                 primaryIdentifier: null,
@@ -187,7 +194,11 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
                 type: null,
                 datasetsName: null
             };
+
+            $scope.setSelected(lastAdded);
         },
         true
     );
+
+    $scope.loadReferences();
 }

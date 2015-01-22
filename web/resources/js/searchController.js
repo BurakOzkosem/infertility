@@ -1,7 +1,7 @@
 /**
  * Created by user on 31.12.2014.
  */
-function SearchCtrl($scope, $modal, Restangular, localStorageService) {
+function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH) {
 
     $scope.collapsed = false;
 
@@ -183,7 +183,29 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService) {
 
     $scope.loadReferences();
 
+    $scope.newGene = function() {
+        var modalInstance = $modal.open({
+            templateUrl: BASE_PATH+'/page/edit.html',
+            controller: GeneEditCtrl,
+            windowClass: 'modal-large',
+            resolve: {
+                model: function() {
+                    return null;
+                }
+            },
+            backdrop: 'static'
+        });
+
+        modalInstance.result.then(function(result) {
+            if(result == false) {
+                $scope.load();
+            }
+        });
+    };
+
     $scope.load();
+
+     //     --- POPOVER PART BELOW ---
 
     $scope.genePrimaryIdentifier = function(item) { return item.subjectPrimaryIdentifier };
     $scope.geneSymbol = function(item) { return item.subjectSymbol };

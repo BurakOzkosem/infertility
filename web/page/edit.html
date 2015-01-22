@@ -15,7 +15,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">Gene ID</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control" ng-model="state.model.primaryIdentifier" name="title" placeholder="" type="text" >
+                                        <input class="form-control" ng-model="state.model.primaryIdentifier" name="title" placeholder="" type="text" required>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">Gene Symbol</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control" ng-model="state.model.symbol" name="title" placeholder="" type="text" >
+                                        <input class="form-control" ng-model="state.model.symbol" name="title" placeholder="" type="text" required>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">Gene Name</label>
                                     <div class="col-sm-7">
-                                        <input class="form-control" ng-model="state.model.name" name="title" placeholder="" type="text" >
+                                        <input class="form-control" ng-model="state.model.name" name="title" placeholder="" type="text" required>
                                     </div>
                                 </div>
                             </div>
@@ -107,6 +107,9 @@
                                                 Evidence Link
                                             </div>
                                         </th>
+                                        <th>
+                                            <div style="max-width: 20px; min-width: 20px;"></div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,16 +119,8 @@
                                         gs-zebra-rows gs-index="{{$index}}">
                                         <td>
                                             <div ng-if="isSelected(property)">
-                                                <div class="input-group search">
+                                                <div class="input-group search" style="width:100%">
                                                     <input class="form-control" ng-model="property.ontologyTermId" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                                 </div>
                                             </div>
                                             <div ng-if="!isSelected(property)">
@@ -134,16 +129,8 @@
                                         </td>
                                         <td>
                                             <div ng-if="isSelected(property)">
-                                                <div class="input-group search">
+                                                <div class="input-group search" style="width:100%">
                                                     <input class="form-control" ng-model="property.ontologyTermName" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                                 </div>
                                             </div>
                                             <div ng-if="!isSelected(property)">
@@ -152,36 +139,31 @@
                                         </td>
                                         <td>
                                             <div ng-if="isSelected(property)">
-                                                <div class="input-group search">
+                                                <div class="input-group search" style="width:100%">
                                                     <input class="form-control" ng-model="property.evidenceWithText" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                                 </div>
                                             </div>
                                             <div ng-if="!isSelected(property)">
                                                 {{property.evidenceWithText}}
                                             </div>
                                         </td>
+                                        <td style="max-width: 20px; min-width: 20px; padding: 2px;" align="center">
+                                            <button ng-click="removeSequenceFeature(property)"><i class="glyphicon glyphicon-remove"></i></button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="newSequenceFeature.ontologyTermId" type="text">
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="newSequenceFeature.ontologyTermName" type="text">
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="newSequenceFeature.evidenceWithText" type="text">
                                             </div>
                                         </td>
@@ -193,6 +175,11 @@
                             <table class="table table-bordered tablesorter-bootstrap tablesorter" style="width: 100%">
                                 <thead>
                                 <tr>
+                                    <th>
+                                        <div class="ng-binding">
+                                            Phenotype
+                                        </div>
+                                    </th>
                                     <th>
                                         <div class="ng-binding">
                                             Background
@@ -213,6 +200,9 @@
                                             Doi
                                         </div>
                                     </th>
+                                    <th>
+                                        <div style="max-width: 20px; min-width: 20px;"></div>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -223,7 +213,7 @@
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search">
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8" style="width:100%">
                                                     <select class="form-control" ng-model="property.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
                                                         <option value=""></option>
                                                     </select>
@@ -236,16 +226,8 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -254,16 +236,8 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectZygosity" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -274,41 +248,53 @@
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search">
                                                 <input class="form-control" ng-model="property.publicationId" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
                                             {{property.publicationId}}
                                         </div>
                                     </td>
+                                    <td>
+                                        <div ng-if="isSelected(property)">
+                                            <div class="input-group search" style="width:100%">
+                                                <input class="form-control" ng-model="property.publicationDoi" type="text">
+                                            </div>
+                                        </div>
+                                        <div ng-if="!isSelected(property)">
+                                            {{property.publicationDoi}}
+                                        </div>
+                                    </td>
+                                    <td style="max-width: 20px; min-width: 20px; padding: 2px;">
+                                        <button ng-click="removeGeneAnotation(property)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <div class="input-group search">
-                                            <select class="form-control" ng-model="newGeneAnnotation.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
-                                                <option value=""></option>
-                                            </select>
+                                            <div class="col-sm-8" style="width:100%">
+                                                <select class="form-control" ng-model="newGeneAnnotation.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newGeneAnnotation.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group search" style="width:100%">
                                             <input class="form-control" ng-model="newGeneAnnotation.evidenceBaseAnnotationsSubjectZygosity" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
+                                        <div class="input-group search" style="width:100%">
                                             <input class="form-control" ng-model="newGeneAnnotation.publicationId" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
+                                        <div class="input-group search" style="width:100%">
                                             <input class="form-control" ng-model="newGeneAnnotation.publicationDoi" type="text">
                                         </div>
                                     </td>
@@ -346,6 +332,9 @@
                                             Datasets
                                         </div>
                                     </th>
+                                    <th>
+                                        <div style="max-width: 20px; min-width: 20px;"></div>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -355,16 +344,8 @@
                                         gs-zebra-rows gs-index="{{$index}}">
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.primaryIdentifier" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -373,16 +354,8 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%" style="width:100%">
                                                 <input class="form-control" ng-model="property.symbol" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -391,16 +364,8 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.organismName" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -409,16 +374,8 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.type" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -427,47 +384,42 @@
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
-                                            <div class="input-group search">
+                                            <div class="input-group search" style="width:100%">
                                                 <input class="form-control" ng-model="property.datasetsName" type="text">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button" ng-click="save(property)">
-                                                                <i class="glyphicon glyphicon-ok"></i>
-                                                            </button>
-                                                            <button class="btn btn-default" type="button" ng-click="restore(property)">
-                                                                <i class="glyphicon glyphicon-remove"></i>
-                                                            </button>
-                                                        </span>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
                                             {{property.datasetsName}}
                                         </div>
                                     </td>
+                                    <td style="max-width: 20px; min-width: 20px; padding: 2px;">
+                                        <button ng-click="removeHomology(property)"><i class="glyphicon glyphicon-remove"></i></button>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.primaryIdentifier" type="text">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newHomology.primaryIdentifier" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.symbol" type="text">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newHomology.symbol" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.organismName" type="text">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newHomology.organismName" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.type" type="text">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newHomology.type" type="text">
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="input-group search">
-                                            <input class="form-control" ng-model="newGeneAnnotation.datasetsName" type="text">
+                                        <div class="input-group search" style="width:100%">
+                                            <input class="form-control" ng-model="newHomology.datasetsName" type="text">
                                         </div>
                                     </td>
                                 </tr>
@@ -482,7 +434,7 @@
 </div>
 
 <div class="modal-footer">
-    <button type="button" class="btn btn-default gs-btn" ng-click="ok();" ng-disabled="formCreateOrg.$invalid">Save</button>
+    <button type="button" class="btn btn-default gs-btn" ng-click="ok();" ng-disabled="formEditGene.$invalid">Save</button>
     <button type="button" data-dismiss="modal" class="btn btn-default gs-btn" ng-click="cancel();">Cancel</button>
 </div>
 

@@ -99,29 +99,13 @@ function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
             },
             backdrop: 'static'
         });
-        return modalInstance.result;
-    };
 
-    //$scope.update = function() {
-    //    Restangular.all("details/update").post($scope.state.model).then(function(result) {
-    //        $scope.state.model = result;
-    //    });
-    //};
-    //
-    //$scope.editOrSave = function() {
-    //    if($scope.isReadOnly()) {
-    //        // Edit
-    //        $scope.state.rdOnly = false;
-    //        $scope.state.backup = angular.copy($scope.state.model);
-    //    }
-    //    else {
-    //        // Save
-    //        Restangular.all("details/save").post($scope.state.model).then(function(result) {
-    //            $scope.state.model = result;
-    //        });
-    //        $scope.state.backup = {};
-    //    }
-    //};
+        modalInstance.result.then(function(result) {
+            if(result == false) {
+                $scope.show($routeParams.id);
+            }
+        });
+    };
 
     $scope.cancel = function() {
         $scope.state.rdOnly = true;
