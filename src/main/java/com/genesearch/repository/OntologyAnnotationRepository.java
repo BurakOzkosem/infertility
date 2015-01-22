@@ -16,7 +16,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by user on 20.01.2015.
@@ -144,4 +146,20 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
     }
 
 
+    public void remove(Gene gene, List<OntologyAnnotationEdit> geneAnnotationList) {
+        Set<Long> remainIdList = new HashSet<Long>();
+        Set<OntologyAnnotation> forDelete = new HashSet<OntologyAnnotation>();
+
+        for(OntologyAnnotationEdit oaEdit : geneAnnotationList) {
+            remainIdList.add(oaEdit.getId());
+        }
+
+        List<OntologyAnnotation> ontologyAnnotationList =  find(gene.getId());
+        for(OntologyAnnotation  oa : ontologyAnnotationList) {
+            if(!remainIdList.contains(oa.getId())) {
+                forDelete.add(oa);
+            }
+        }
+        delete(forDelete);
+    }
 }

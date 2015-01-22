@@ -1,6 +1,10 @@
 package com.genesearch.repository;
 
+import com.genesearch.model.Gene;
 import com.genesearch.model.Homology;
+import com.genesearch.model.SequenceFeature;
+import com.genesearch.object.edit.HomologyEdit;
+import com.genesearch.object.edit.SequenceFeatureEdit;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Projections;
@@ -55,6 +59,23 @@ public class HomologyRepository extends  ModelRepository<Homology> {
         c.add(and);
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return c.list();
+    }
+
+    public void remove(Gene gene, List<HomologyEdit> homologyEditList) {
+        Set<Long> remainIdList = new HashSet<Long>();
+        Set<Homology> forDelete = new HashSet<Homology>();
+
+        for(HomologyEdit homologyEdit : homologyEditList) {
+            remainIdList.add(homologyEdit.getId());
+        }
+
+        List<Homology> homologyList =  find(gene.getId());
+        for(Homology  homology : homologyList) {
+            if(!remainIdList.contains(homology.getId())) {
+                forDelete.add(homology);
+            }
+        }
+        delete(forDelete);
     }
 
 

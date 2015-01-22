@@ -34,6 +34,8 @@ public class SequenceFeatureDomain {
     }
 
     public void update(Gene gene, List<SequenceFeatureEdit> sequenceFeatureEditList) {
+        sequenceFeatureRepositoty.remove(gene, sequenceFeatureEditList);
+
         for(SequenceFeatureEdit sequenceFeatureEdit : sequenceFeatureEditList) {
             if(sequenceFeatureEdit.getId() != null) {
                 update(gene, sequenceFeatureEdit);

@@ -28,6 +28,8 @@ public class OntologyAnnotationDomain {
     private OntologyAnnotationRepository ontologyAnnotationRepository;
 
     public void update(Gene gene, List<OntologyAnnotationEdit> geneAnnotationList) {
+        ontologyAnnotationRepository.remove(gene, geneAnnotationList);
+
         for(OntologyAnnotationEdit ontologyAnnotationEdit : geneAnnotationList) {
             if(ontologyAnnotationEdit.getId() != null) {
                 update(gene, ontologyAnnotationEdit);

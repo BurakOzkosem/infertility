@@ -30,6 +30,8 @@ public class HomologyDomain {
     }
 
     public void update(Gene gene, List<HomologyEdit> homologyEditList) {
+        homologyRepository.remove(gene, homologyEditList);
+
         for(HomologyEdit homologyEdit : homologyEditList) {
             if(homologyEdit.getId() != null) {
                 update(gene, homologyEdit);
