@@ -1,11 +1,11 @@
 /**
  * Created by kmorozov on 21.01.2015.
  */
-function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
+function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
 
     $scope.state = {
         model : angular.isDefined(model) && model != null
-            ? model
+            ? angular.copy(model)
             : {
                     id: null,
                     primaryIdentifier: null,
@@ -22,7 +22,7 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
                     geneAnnotationList: [
                     ]
                 },
-        sequenceFeatureSelected: false
+        selected: false
     };
 
     $scope.newSequenceFeature = {
@@ -55,14 +55,14 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
     };
 
     $scope.isSelected = function (item) {
-        return $scope.state.sequenceFeatureSelected == item;
+        return $scope.state.selected == item;
     };
 
     $scope.setSelected = function (item) {
-        if ($scope.state.sequenceFeatureSelected == item) {
+        if ($scope.state.selected == item) {
             //$scope.state.selected = false;
         } else {
-            $scope.state.sequenceFeatureSelected = item;
+            $scope.state.selected = item;
         }
     };
 
@@ -90,35 +90,6 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
         $modalInstance.close(false);
     };
 
-    $scope.$watch( 'newSequenceFeature',
-        function(newValue, oldValue) {
-            var hasNotNullProperty = false;
-            angular.forEach(newValue, function(value, key) {
-                if(value != null) {
-                    hasNotNullProperty = true;
-                }
-            });
-
-            if(!hasNotNullProperty) {
-                return;
-            }
-
-            $scope.state.model.sequenceFeatureEditList.push($scope.newSequenceFeature);
-
-            var lastAdded = $scope.newSequenceFeature;
-
-            $scope.newSequenceFeature = {
-                id: null,
-                ontologyTermId: null,
-                ontologyTermName: null,
-                evidenceWithText: null
-            };
-
-            $scope.setSelected(lastAdded);
-        },
-        true
-    );
-
     $scope.removeSequenceFeature = function(property) {
         var index = $scope.state.model.sequenceFeatureEditList.indexOf(property);
         if (index > -1) {
@@ -137,6 +108,42 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
             $scope.state.model.homologyEditList.splice(index, 1);
         }
     };
+
+    $scope.getSelectValue = function(ontologyTermId){
+        return $scope.reference.ontologyTerm[ontologyTermId-1].value;
+    };
+
+    $scope.$watch( 'newSequenceFeature',
+        function(newValue, oldValue) {
+            var hasNotNullProperty = false;
+            angular.forEach(newValue, function(value, key) {
+                if(value != null) {
+                    hasNotNullProperty = true;
+                }
+            });
+
+            if(!hasNotNullProperty) {
+                return;
+            }
+
+            var element = document.activeElement;
+
+            $scope.state.model.sequenceFeatureEditList.push($scope.newSequenceFeature);
+
+            var lastAdded = $scope.newSequenceFeature;
+
+            $scope.newSequenceFeature = {
+                id: null,
+                ontologyTermId: null,
+                ontologyTermName: null,
+                evidenceWithText: null
+            };
+
+            $scope.setSelected(lastAdded);
+            focusInput('td1' + ($scope.state.model.sequenceFeatureEditList.length -1));
+        },
+        true
+    );
 
     $scope.$watch( 'newGeneAnnotation',
         function(newValue, oldValue) {
@@ -165,6 +172,7 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
             };
 
             $scope.setSelected(lastAdded);
+            focusInput('td2' + ($scope.state.model.geneAnnotationList.length -1));
         },
         true
     );
@@ -196,6 +204,7 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular) {
             };
 
             $scope.setSelected(lastAdded);
+            focusInput('td3' + ($scope.state.model.homologyEditList.length -1));
         },
         true
     );

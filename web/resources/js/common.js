@@ -131,3 +131,41 @@ geneSearchApp.directive('ngEnter', function() {
         });
     };
 });
+
+geneSearchApp.factory('focusInput', function($timeout) {
+    return function(id) {
+        // timeout makes sure that is invoked after any other event has been triggered.
+        // e.g. click events that need to run before the focus or
+        // inputs elements that are in a disabled state but are enabled when those events
+        // are triggered.
+        $timeout(function() {
+            var element = document.getElementById(id);
+            if(element)
+                element.focus();
+                element.select();
+        });
+    };
+})
+
+geneSearchApp.directive("setFocus",function(){
+
+    var link = function(scope,elem,attrs){
+
+        angular.element(elem[0]).on('blur',function(){
+            scope.$apply(function(){
+                scope.doFocus=false;
+            });
+        });
+
+        scope.$watch("doFocus",function(v){
+            if(v==true){
+                elem[0].focus();
+            }
+        });
+    };
+    return {
+        "restrict" : "A",
+        "link" : link,
+        "scope" : {doFocus : "=setFocus"}
+    };
+});

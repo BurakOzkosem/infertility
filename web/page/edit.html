@@ -3,13 +3,13 @@
     <h3 id="clientModalLabel">Edit gene</h3>
 </div>
 
-<div class="modal-body">
+<div class="modal-body" style="max-height: 500px;">
     <div class="container-fluid">
         <form class="form-horizontal" name="formEditGene" novalidate>
             <div class="row">
                 <div class="col-sm-12">
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -22,7 +22,7 @@
                         </form>
                     </div>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -35,7 +35,7 @@
                         </form>
                     </div>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -48,7 +48,7 @@
                         </form>
                     </div>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -61,7 +61,7 @@
                         </form>
                     </div>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -74,7 +74,7 @@
                         </form>
                     </div>
 
-                    <div class="row" style="margin-bottom: 5px;">
+                    <div class="row" >
                         <form class="form-horizontal" name="dates">
                             <div class="col-sm-12">
                                 <div class="form-group">
@@ -86,7 +86,6 @@
                             </div>
                         </form>
                     </div>
-
                     <tabset>
                         <tab heading="Function">
                             <table class="table table-bordered tablesorter-bootstrap tablesorter" style="width: 100%">
@@ -116,11 +115,12 @@
                                     <tr
                                         ng-repeat="property in state.model.sequenceFeatureEditList"
                                         ng-click="setSelected(property)"
-                                        gs-zebra-rows gs-index="{{$index}}">
+                                        gs-zebra-rows gs-index="{{$index}}"
+                                        ng-class="{'focus' : $last }">
                                         <td>
                                             <div ng-if="isSelected(property)">
                                                 <div class="input-group search" style="width:100%">
-                                                    <input class="form-control" ng-model="property.ontologyTermId" type="text">
+                                                    <input class="form-control" ng-model="property.ontologyTermId" type="text" required id="td1{{$index}}">
                                                 </div>
                                             </div>
                                             <div ng-if="!isSelected(property)">
@@ -130,7 +130,7 @@
                                         <td>
                                             <div ng-if="isSelected(property)">
                                                 <div class="input-group search" style="width:100%">
-                                                    <input class="form-control" ng-model="property.ontologyTermName" type="text">
+                                                    <input class="form-control" ng-model="property.ontologyTermName" type="text" required>
                                                 </div>
                                             </div>
                                             <div ng-if="!isSelected(property)">
@@ -214,20 +214,22 @@
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search">
                                                 <div class="col-sm-8" style="width:100%">
-                                                    <select class="form-control" ng-model="property.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
+                                                    <select class="form-control" ng-model="property.ontologyTermId"
+                                                            ng-change="updateSelect(property.ontologyTermId, property.ontologyTermName)"
+                                                            ng-options="term.id as term.value for term in reference.ontologyTerm">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
-                                            {{property.ontologyTermName}}
+                                            {{getSelectValue(property.ontologyTermId)}}
                                         </div>
                                     </td>
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search" style="width:100%">
-                                                <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectBackgroundName" type="text">
+                                                <input class="form-control" ng-model="property.evidenceBaseAnnotationsSubjectBackgroundName" type="text" id="td2{{$index}}">
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -272,7 +274,8 @@
                                     <td>
                                         <div class="input-group search">
                                             <div class="col-sm-8" style="width:100%">
-                                                <select class="form-control" ng-model="newGeneAnnotation.ontologyTermId" ng-options="term.id as term.value for term in reference.ontologyTerm">
+                                                <select class="form-control" ng-model="newGeneAnnotation.ontologyTermId"
+                                                        ng-options="term.id as term.value for term in reference.ontologyTerm">
                                                     <option value=""></option>
                                                 </select>
                                             </div>
@@ -345,7 +348,7 @@
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search" style="width:100%">
-                                                <input class="form-control" ng-model="property.primaryIdentifier" type="text">
+                                                <input class="form-control" ng-model="property.primaryIdentifier" type="text" id="td3{{$index}}" required>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -355,7 +358,7 @@
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search" style="width:100%" style="width:100%">
-                                                <input class="form-control" ng-model="property.symbol" type="text">
+                                                <input class="form-control" ng-model="property.symbol" type="text" required>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">
@@ -365,7 +368,7 @@
                                     <td>
                                         <div ng-if="isSelected(property)">
                                             <div class="input-group search" style="width:100%">
-                                                <input class="form-control" ng-model="property.organismName" type="text">
+                                                <input class="form-control" ng-model="property.organismName" type="text" required>
                                             </div>
                                         </div>
                                         <div ng-if="!isSelected(property)">

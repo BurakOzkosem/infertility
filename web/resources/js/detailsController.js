@@ -101,7 +101,7 @@ function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
         });
 
         modalInstance.result.then(function(result) {
-            if(result == false) {
+            if(result == true) {
                 $scope.show($routeParams.id);
             }
         });
