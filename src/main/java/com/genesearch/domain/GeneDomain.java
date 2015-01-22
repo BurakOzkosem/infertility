@@ -21,6 +21,8 @@ import java.util.Set;
 public class GeneDomain {
 
     @Autowired
+    private OntologyAnnotationDomain ontologyAnnotationDomain;
+    @Autowired
     private HomologyDomain homologyDomain;
     @Autowired
     private SequenceFeatureDomain sequenceFeatureDomain;
@@ -61,7 +63,7 @@ public class GeneDomain {
         return geneEdit;
     }
 
-    public GeneEdit update(GeneEdit geneEdit) {
+    public void update(GeneEdit geneEdit) {
 
         Gene gene = geneRepository.findById(geneEdit.getId());
 
@@ -69,36 +71,26 @@ public class GeneDomain {
 
         geneRepository.save(gene);
 
-        ontologyAnnotationRepository.update(geneEdit.getGeneAnnotationList());
-        sequenceFeatureDomain.update(geneEdit.getSequenceFeatureEditList());
-        homologyDomain.update(geneEdit.getHomologyEditList());
-/**
- * The code below needed in case of updating homologues of gene
- *
- * */
-
-//        Set<Homologue> newHomologues = homologueDomain.update(geneEdit.getHomologueEditList());
-//
-//        Iterator<GeneHomologue> it = gene.getGeneHomologueSet().iterator();
-//
-//        while(it.hasNext()) {
-//            GeneHomologue existing = it.next();
-//            if(!newHomologues.contains(existing.getHomologue())) {
-//                it.remove();
-//            }
-//        }
-//
-//        for(Homologue hm : newHomologues) {
-//            GeneHomologue existing = geneHomologueRepository.findOne(gene.getId(), hm.getId());
-//            gene.getGeneHomologueSet().add(existing != null ? existing : new GeneHomologue(gene, hm));
-//        }
-
-        geneRepository.save(gene);
-
-        return geneEdit;
+        ontologyAnnotationDomain.update(gene, geneEdit.getGeneAnnotationList());
+        sequenceFeatureDomain.update(gene, geneEdit.getSequenceFeatureEditList());
+        homologyDomain.update(gene, geneEdit.getHomologyEditList());
     }
 
-    public void create(GeneEdit request) {
+    public void create(GeneEdit geneEdit) {
+
+        Gene gene = geneRepository.find(geneEdit.getPrimaryIdentifier(), geneEdit.getSymbol(), geneEdit.getName(), geneEdit.getDsc(), geneEdit.getChromosome());
+
+        if(gene != null) {
+            // TODO: Similar entity already exists
+            return;
+        }
+
+        gene = Gene.create(geneEdit);
+        geneRepository.save(gene);
+
+        ontologyAnnotationDomain.update(gene, geneEdit.getGeneAnnotationList());
+        sequenceFeatureDomain.update(gene, geneEdit.getSequenceFeatureEditList());
+        homologyDomain.update(gene, geneEdit.getHomologyEditList());
     }
 
 }

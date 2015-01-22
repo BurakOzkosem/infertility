@@ -1,5 +1,6 @@
 package com.genesearch.model;
 
+import com.genesearch.object.edit.SequenceFeatureEdit;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,10 +23,11 @@ public class SequenceFeature extends AbstractEntity{
     @JoinColumn(name = "gene_id")
     private Gene gene;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "phenotype_id")
-    @Filter(name="phenotype_sequence_feature",condition="type = 'SEQUENCE_FEATURE'")
-    private Phenotype phenotype;
+    @Column(name="phenotype_id", length = 200)
+    private String phenotypeId;
+
+    @Column(name="phenotype_name", length = 200)
+    private String phenotypeName;
 
     @Column(name="evidence_with_text", length = 200)
     private String evidenceWithText;
@@ -54,12 +56,27 @@ public class SequenceFeature extends AbstractEntity{
         this.evidenceWithText = evidenceWithText;
     }
 
-    public Phenotype getPhenotype() {
-        return phenotype;
+    public String getPhenotypeId() {
+        return phenotypeId;
     }
 
-    public void setPhenotype(Phenotype phenotype) {
-        this.phenotype = phenotype;
+    public void setPhenotypeId(String phenotypeId) {
+        this.phenotypeId = phenotypeId;
     }
 
+    public String getPhenotypeName() {
+        return phenotypeName;
+    }
+
+    public void setPhenotypeName(String phenotypeName) {
+        this.phenotypeName = phenotypeName;
+    }
+
+
+    public void update(Gene gene, SequenceFeatureEdit sequenceFeatureEdit) {
+        this.setGene(gene);
+        this.setPhenotypeId(sequenceFeatureEdit.getOntologyTermId());
+        this.setPhenotypeName(sequenceFeatureEdit.getOntologyTermName());
+        this.setEvidenceWithText(sequenceFeatureEdit.getEvidenceWithText());
+    }
 }

@@ -30,27 +30,16 @@ public class SequenceFeatureSaver implements DbSaver {
 
         for (List<Object> row : result) {
             SequenceFeature sequenceFeature = new SequenceFeature();
-            Phenotype phenotype = new Phenotype("SEQUENCE_FEATURE");
 
-            phenotype.setPhenotypeId(Util.safeString(row.get(1)));
-            phenotype.setName(Util.safeString(row.get(2)));
-
-            Phenotype phenotypeFromDb = phenotypeRepository.find(phenotype.getPhenotypeId(), phenotype.getName(), phenotype.getType());
-            if(phenotypeFromDb == null) {
-                phenotypeRepository.save(phenotype);
-            }
-            else {
-                phenotype = phenotypeFromDb;
-            }
-
-            sequenceFeature.setPhenotype(phenotype);
+            sequenceFeature.setPhenotypeId(Util.safeString(row.get(1)));
+            sequenceFeature.setPhenotypeName(Util.safeString(row.get(2)));
             sequenceFeature.setEvidenceWithText(Util.safeString(row.get(3)));
 
             Gene gene = geneRepository.find(Util.safeString(row.get(0)));
             sequenceFeature.setGene(gene);
 
             SequenceFeature sequenceFeatureFromDb =
-                    sequenceFeatureRepositoty.find(gene.getId(), sequenceFeature.getPhenotype().getId(), sequenceFeature.getEvidenceWithText());
+                    sequenceFeatureRepositoty.find(gene.getId(), sequenceFeature.getPhenotypeId(), sequenceFeature.getPhenotypeName(), sequenceFeature.getEvidenceWithText());
             if(sequenceFeatureFromDb == null) {
                 sequenceFeatureRepositoty.save(sequenceFeature);
             }

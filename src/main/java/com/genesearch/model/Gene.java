@@ -112,6 +112,18 @@ public class Gene extends AbstractEntity {
         this.chromosome = chromosome;
     }
 
+    public void update(GeneEdit geneEdit) {
+        this.setPrimaryIdentifier(geneEdit.getPrimaryIdentifier());
+        this.setSymbol(geneEdit.getSymbol());
+        this.setOrganismName(geneEdit.getOrganismName());
+        this.setNcbi(geneEdit.getNcbi());
+    }
+
+    public static Gene create(GeneEdit geneEdit) {
+        Gene gene = new Gene();
+        gene.update(geneEdit);
+        return  gene;
+    }
 
 //    public Set<GeneHomologue> getGeneHomologueSet() {
 //        return geneHomologueSet;
@@ -150,10 +162,4 @@ public class Gene extends AbstractEntity {
 //        return result;
 //    }
 
-    public void update(GeneEdit geneEdit) {
-        this.setPrimaryIdentifier(geneEdit.getPrimaryIdentifier());
-        this.setSymbol(geneEdit.getSymbol());
-        this.setOrganismName(geneEdit.getOrganismName());
-        this.setNcbi(geneEdit.getNcbi());
-    }
 }

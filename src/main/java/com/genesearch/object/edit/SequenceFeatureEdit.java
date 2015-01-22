@@ -47,8 +47,8 @@ public class SequenceFeatureEdit {
     public static SequenceFeatureEdit create(SequenceFeature sf) {
         SequenceFeatureEdit newEntity = new SequenceFeatureEdit();
         newEntity.setId(sf.getId());
-        newEntity.setOntologyTermId(sf.getPhenotype().getPhenotypeId());
-        newEntity.setOntologyTermName(sf.getPhenotype().getName());
+        newEntity.setOntologyTermId(sf.getPhenotypeId());
+        newEntity.setOntologyTermName(sf.getPhenotypeName());
         newEntity.setEvidenceWithText(sf.getEvidenceWithText());
         return newEntity;
     }

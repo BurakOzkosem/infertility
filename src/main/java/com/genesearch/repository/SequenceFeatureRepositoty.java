@@ -26,14 +26,14 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
         return c.list();
     }
 
-    public SequenceFeature find(Long geneId, Long phenotypeId, String evidenceWithText) {
+    public SequenceFeature find(Long geneId, String phenotypeId, String phenotypeName, String evidenceWithText) {
         Criteria c = getSession().createCriteria(getEntityClass(), "sf");
         c.createAlias("sf.gene", "g", JoinType.INNER_JOIN);
-        c.createAlias("sf.phenotype", "ph", JoinType.INNER_JOIN);
 
         Conjunction and = new Conjunction();
         safeAddRestrictionEq(and, "g.id", geneId);
-        safeAddRestrictionEq(and, "ph.id", phenotypeId);
+        safeAddRestrictionEq(and, "phenotypeId", phenotypeId);
+        safeAddRestrictionEq(and, "phenotypeName", phenotypeName);
         safeAddRestrictionEq(and, "evidenceWithText", evidenceWithText);
         c.add(and);
 

@@ -98,6 +98,14 @@ public class Homology extends AbstractEntity {
         this.gene = gene;
     }
 
+    public void update(Gene gene, HomologyEdit homologyEdit) {
+        this.setGene(gene);
+        this.setPrimaryIdentifier(homologyEdit.getPrimaryIdentifier());
+        this.setSymbol(homologyEdit.getSymbol());
+        this.setOrganismName(homologyEdit.getOrganismName());
+        this.setType(homologyEdit.getType());
+        this.setDatasetsName(homologyEdit.getDatasetsName());
+    }
 //    public Set<GeneHomologue> getGeneHomologueSet() {
 //        return geneHomologueSet;
 //    }
@@ -141,11 +149,4 @@ public class Homology extends AbstractEntity {
 //        return result;
 //    }
 
-    public void update(HomologyEdit ed) {
-        this.setPrimaryIdentifier(ed.getPrimaryIdentifier());
-        this.setSymbol(ed.getSymbol());
-        this.setOrganismName(ed.getOrganismName());
-        this.setType(ed.getType());
-        this.setDatasetsName(ed.getDatasetsName());
-    }
 }

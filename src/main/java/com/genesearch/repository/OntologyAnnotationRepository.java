@@ -143,50 +143,5 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return result.get(0);
     }
 
-    public void create(OntologyAnnotationEdit oaEdit) {
-        OntologyAnnotation ontologyAnnotation = new OntologyAnnotation();
 
-        OntologyAnnotation oa = find(oaEdit.getGeneId(), oaEdit.getOntologyTermId(), oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName(),
-                oaEdit.getEvidenceBaseAnnotationsSubjectZygosity(), oaEdit.getPublicationId(), oaEdit.getPublicationDoi());
-
-        if(oa == null) {
-            Gene gene = geneRepository.find(oaEdit.getGeneId());
-            ontologyAnnotation.setGene(gene);
-            ontologyAnnotation.setPhenotype(phenotypeRepository.findById(oaEdit.getOntologyTermId()));
-            ontologyAnnotation.setBaseAnnotationsSubjectBackgroundName(oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName());
-            ontologyAnnotation.setBaseAnnotationsSubjectZygosity(oaEdit.getEvidenceBaseAnnotationsSubjectZygosity());
-            ontologyAnnotation.setPubmedId(oaEdit.getPublicationId());
-            ontologyAnnotation.setDoi(oaEdit.getPublicationDoi());
-
-            save(ontologyAnnotation);
-        }
-
-    }
-
-    public void update(OntologyAnnotationEdit oaEdit) {
-        OntologyAnnotation oa = null;
-        if(oaEdit.getId() != null) {
-            oa = findById(oaEdit.getId());
-        }
-        else {
-            oa = find(oaEdit.getGeneId(), oaEdit.getOntologyTermId(), oaEdit.getEvidenceBaseAnnotationsSubjectBackgroundName(),
-                    oaEdit.getEvidenceBaseAnnotationsSubjectZygosity(), oaEdit.getPublicationId(), oaEdit.getPublicationDoi());
-        }
-
-        Gene gene = geneRepository.findById(oaEdit.getId());
-        Phenotype phenotype = phenotypeRepository.findById(oaEdit.getOntologyTermId());
-        oa.update(oaEdit, phenotype, gene);
-        save(oa);
-    }
-
-    public void update(List<OntologyAnnotationEdit> geneAnnotationList) {
-        for(OntologyAnnotationEdit ontologyAnnotationEdit : geneAnnotationList) {
-            if(ontologyAnnotationEdit.getId() != null) {
-                update(ontologyAnnotationEdit);
-            }
-            else {
-                create(ontologyAnnotationEdit);
-            }
-        }
-    }
 }
