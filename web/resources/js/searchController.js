@@ -205,6 +205,13 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
 
     $scope.load();
 
+    $scope.changeLeft = function(element) {
+        return {
+            left: element.css()
+        }
+    };
+
+
      //     --- POPOVER PART BELOW ---
 
     $scope.genePrimaryIdentifier = function(item) { return item.subjectPrimaryIdentifier };

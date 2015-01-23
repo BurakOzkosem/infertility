@@ -84,35 +84,36 @@ geneSearchApp.directive('gsZebraRows', function() {
     };
 });
 
-geneSearchApp.directive('customPopover', function () {
-    return {
+//geneSearchApp.directive('customPopover', function () {
+//    return {
+//        restrict: 'A',
+//        template: '<span>{{label}}</span>',
+//        link: function (scope, el, attrs) {
+//            scope.label = attrs.popoverLabel;
+//
+//            $(el).popover({
+//                trigger: 'click',
+//                html: true,
+//                content: attrs.popoverHtml,
+//                placement: attrs.popoverPlacement
+//            });
+//        }
+//    };
+//});
+
+geneSearchApp.directive('normalize', function(){
+    return{
         restrict: 'A',
-        template: '<span>{{label}}</span>',
-        link: function (scope, el, attrs) {
-            scope.label = attrs.popoverLabel;
+        link: function(scope, element, attrs){
+            var id = element[0].id;
+            //if(angular.isDefined(id) && id.length > 0 && id.indexOf('tdLeft') == 0) {
+                element[0].style.left = 5;
+            //}
 
-            $(el).popover({
-                trigger: 'click',
-                html: true,
-                content: attrs.popoverHtml,
-                placement: attrs.popoverPlacement
-            });
+            //element[0].style.left = element[0].style.left < 0 ? 5 : element[0].style.left;
         }
-    };
+    }
 });
-
-angular.module("template/popover/popover.html", []).run(["$templateCache", function ($templateCache) {
-    $templateCache.put("template/popover/popover.html",
-            "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
-            "  <div class=\"arrow\"></div>\n" +
-            "\n" +
-            "  <div class=\"popover-inner\">\n" +
-            "      <h3 class=\"popover-title\" ng-bind-html=\"title | unsafe\" ng-show=\"title\" style=\"background-color: rgba(227, 227, 227, 0.9)\"></h3>\n" +
-            "      <div class=\"popover-content\"ng-bind-html=\"content | unsafe\"></div>\n" +
-            "  </div>\n" +
-            "</div>\n" +
-            "");
-}]);
 
 geneSearchApp.directive('ngEnter', function() {
     return function(scope, element, attrs) {
@@ -145,27 +146,40 @@ geneSearchApp.factory('focusInput', function($timeout) {
                 element.select();
         });
     };
-})
-
-geneSearchApp.directive("setFocus",function(){
-
-    var link = function(scope,elem,attrs){
-
-        angular.element(elem[0]).on('blur',function(){
-            scope.$apply(function(){
-                scope.doFocus=false;
-            });
-        });
-
-        scope.$watch("doFocus",function(v){
-            if(v==true){
-                elem[0].focus();
-            }
-        });
-    };
-    return {
-        "restrict" : "A",
-        "link" : link,
-        "scope" : {doFocus : "=setFocus"}
-    };
 });
+
+angular.module("template/popover/popover.html", []).run(["$templateCache", function ($templateCache) {
+    $templateCache.put("template/popover/popover.html",
+        "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\" normalize>\n" +
+        "  <div class=\"arrow\"></div>\n" +
+        "\n" +
+        "  <div class=\"popover-inner\">\n" +
+        "      <h3 class=\"popover-title\" ng-bind-html=\"title | unsafe\" ng-show=\"title\" style=\"background-color: rgba(227, 227, 227, 0.9)\"></h3>\n" +
+        "      <div class=\"popover-content\"ng-bind-html=\"content | unsafe\"></div>\n" +
+        "  </div>\n" +
+        "</div>\n" +
+        "");
+}]);
+
+//geneSearchApp.directive("setFocus",function(){
+//
+//    var link = function(scope,elem,attrs){
+//
+//        angular.element(elem[0]).on('blur',function(){
+//            scope.$apply(function(){
+//                scope.doFocus=false;
+//            });
+//        });
+//
+//        scope.$watch("doFocus",function(v){
+//            if(v==true){
+//                elem[0].focus();
+//            }
+//        });
+//    };
+//    return {
+//        "restrict" : "A",
+//        "link" : link,
+//        "scope" : {doFocus : "=setFocus"}
+//    };
+//});

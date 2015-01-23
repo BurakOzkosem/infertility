@@ -51,7 +51,10 @@
     <script src="<c:url value="/resources/lib/restangular.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-resource.min.js"/>?v=<%=version%>"></script>
     <script src="<c:url value="/resources/lib/angular-route.min.js"/>?v=<%=version%>"></script>
-    <script src="<c:url value="/resources/lib/ngProgress.min.js"/>?v=<%=version%>"></script>
+    <script src="<c:url value="/resources/lib/angular-local-storage.min.js"/>?v=<%=version%>"></script>
+    <%--<script src="<c:url value="/resources/lib/less.min.js"/>?v=<%=version%>"></script>--%>
+
+    <%--<script src="<c:url value="/resources/lib/ngProgress.min.js"/>?v=<%=version%>"></script>--%>
     <%--<script src="<c:url value="/resources/new/ng-breadcrumbs.js"/>?v=<%=version%>"></script>--%>
 
     <%--<script src="<c:url value="/resources/lib/angular-class-extender.js"/>?v=<%=version%>"></script>--%>
@@ -59,7 +62,6 @@
     <%--<script src="<c:url value="/resources/new/angular-file-upload.js"/>?v=<%=version%>"></script>--%>
 
     <%--<script src="<c:url value="/resources/new/angular-cookies.js"/>?v=<%=version%>"></script>--%>
-    <script src="<c:url value="/resources/lib/angular-local-storage.min.js"/>?v=<%=version%>"></script>
 
 
     <% double key = 101d;//Math.random() * 100;%>
@@ -74,6 +76,9 @@
 
     <link href='<c:url value="/resources/css/bootstrap.css"/>?v=<%=version%>' rel="stylesheet">
     <link href='<c:url value="/resources/css/application.css"/>?v=<%=version%>' rel="stylesheet">
+
+    <%--<link href='<c:url value="/resources/css/style.less"/>?v=<%=version%>' rel="stylesheet/less">--%>
+    <%--<link rel="stylesheet/less" type="text/css" href="style.less">--%>
 
 
     <!--[if lte IE 9]>
