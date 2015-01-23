@@ -32,6 +32,7 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
         return c.list();
     }
 
+    // Used for checking sequence feature uniqueness when saving to database
     public SequenceFeature find(Long geneId, String phenotypeId, String phenotypeName, String evidenceWithText) {
         Criteria c = getSession().createCriteria(getEntityClass(), "sf");
         c.createAlias("sf.gene", "g", JoinType.INNER_JOIN);
@@ -54,6 +55,8 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
         return result.get(0);
     }
 
+    // Removes sequence feature from database, related to selected gene
+    // Method removes from database all sequence feature from that DOES NOT listed in an input list
     public void remove(Gene gene, List<SequenceFeatureEdit> sequenceFeatureEditList) {
         Set<Long> remainIdList = new HashSet<Long>();
         Set<SequenceFeature> forDelete = new HashSet<SequenceFeature>();
@@ -70,27 +73,5 @@ public class SequenceFeatureRepositoty extends ModelRepository<SequenceFeature> 
         }
         delete(forDelete);
     }
-
-//    public SequenceFeature find(Long geneId, String ontologyTermId, String ontologyTermName, String evidenceWithText) {
-//        Criteria c = getSession().createCriteria(getEntityClass(), "sf");
-//        c.createAlias("sf.gene", "g", JoinType.INNER_JOIN);
-//
-//        Conjunction and = new Conjunction();
-//        safeAddRestrictionEq(and, "g.id", geneId);
-//        safeAddRestrictionEq(and, "ontologyTermId", ontologyTermId);
-//        safeAddRestrictionEq(and, "ontologyTermName", ontologyTermName);
-//        safeAddRestrictionEq(and, "evidenceWithText", evidenceWithText);
-//        c.add(and);
-//
-//        c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-//
-//        List<SequenceFeature> result = c.list();
-//
-//        if(result.size() == 0) {
-//            return null;
-//        }
-//
-//        return result.get(0);
-//    }
 
 }

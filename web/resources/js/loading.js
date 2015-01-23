@@ -1,6 +1,3 @@
-/**
- * Created by user on 06.01.2015.
- */
 angular.module('directive.loading', [])
 
     .directive('loading',   ['$http' ,function ($http)

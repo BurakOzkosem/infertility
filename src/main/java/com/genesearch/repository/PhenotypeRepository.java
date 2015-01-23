@@ -7,13 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by kmorozov on 19.01.2015.
- */
 @Repository
 public class PhenotypeRepository extends  ModelRepository<Phenotype>  {
 
-
+    // Used for checking phenotype uniqueness when saving to database
     public Phenotype find(String phenotypeId, String name, String type) {
         Criteria c = getSession().createCriteria(getEntityClass());
 

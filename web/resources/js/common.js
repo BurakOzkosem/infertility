@@ -1,6 +1,4 @@
-/**
- * Created by user on 03.01.2015.
- */
+
 var geneSearchApp = angular.module('geneSearchApp', ['ui.bootstrap', 'restangular', 'ngRoute', 'LocalStorageModule', 'directive.loading']);
 
 geneSearchApp.constant('BASE_PATH', '/genesearch');
@@ -15,17 +13,7 @@ geneSearchApp.filter('unsafe', ['$sce', function ($sce) {
 geneSearchApp.config(function (RestangularProvider, $sceProvider, BASE_PATH, API_END_POINT) {
 
     $sceProvider.enabled(false);
-//            $parseProvider.unwrapPromises(true);
     RestangularProvider.setBaseUrl(BASE_PATH + API_END_POINT);
-
-//            $httpProvider.interceptors.push('HttpInterceptor');
-
-//            if (!$httpProvider.defaults.headers.get) {
-//                $httpProvider.defaults.headers.get = {};
-//            }
-//            $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Sat, 01 Jan 2000 00:00:00 GMT';
-//            $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
-//            $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 });
 
 geneSearchApp.config(function($locationProvider, $routeProvider) {
@@ -84,37 +72,7 @@ geneSearchApp.directive('gsZebraRows', function() {
     };
 });
 
-//geneSearchApp.directive('customPopover', function () {
-//    return {
-//        restrict: 'A',
-//        template: '<span>{{label}}</span>',
-//        link: function (scope, el, attrs) {
-//            scope.label = attrs.popoverLabel;
-//
-//            $(el).popover({
-//                trigger: 'click',
-//                html: true,
-//                content: attrs.popoverHtml,
-//                placement: attrs.popoverPlacement
-//            });
-//        }
-//    };
-//});
-
-geneSearchApp.directive('normalize', function(){
-    return{
-        restrict: 'A',
-        link: function(scope, element, attrs){
-            var id = element[0].id;
-            //if(angular.isDefined(id) && id.length > 0 && id.indexOf('tdLeft') == 0) {
-                element[0].style.left = 5;
-            //}
-
-            //element[0].style.left = element[0].style.left < 0 ? 5 : element[0].style.left;
-        }
-    }
-});
-
+// Execute on enter keypress event
 geneSearchApp.directive('ngEnter', function() {
     return function(scope, element, attrs) {
         element.bind("keydown", function(event) {
@@ -133,6 +91,7 @@ geneSearchApp.directive('ngEnter', function() {
     };
 });
 
+// Set focus on input element
 geneSearchApp.factory('focusInput', function($timeout) {
     return function(id) {
         // timeout makes sure that is invoked after any other event has been triggered.
@@ -150,7 +109,7 @@ geneSearchApp.factory('focusInput', function($timeout) {
 
 angular.module("template/popover/popover.html", []).run(["$templateCache", function ($templateCache) {
     $templateCache.put("template/popover/popover.html",
-        "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\" normalize>\n" +
+        "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
         "  <div class=\"arrow\"></div>\n" +
         "\n" +
         "  <div class=\"popover-inner\">\n" +
@@ -161,25 +120,3 @@ angular.module("template/popover/popover.html", []).run(["$templateCache", funct
         "");
 }]);
 
-//geneSearchApp.directive("setFocus",function(){
-//
-//    var link = function(scope,elem,attrs){
-//
-//        angular.element(elem[0]).on('blur',function(){
-//            scope.$apply(function(){
-//                scope.doFocus=false;
-//            });
-//        });
-//
-//        scope.$watch("doFocus",function(v){
-//            if(v==true){
-//                elem[0].focus();
-//            }
-//        });
-//    };
-//    return {
-//        "restrict" : "A",
-//        "link" : link,
-//        "scope" : {doFocus : "=setFocus"}
-//    };
-//});

@@ -1,24 +1,18 @@
 package com.genesearch.webservice;
 
 import com.genesearch.Util;
-import com.genesearch.model.*;
+import com.genesearch.model.Gene;
+import com.genesearch.model.SequenceFeature;
 import com.genesearch.repository.GeneRepository;
-import com.genesearch.repository.HomologyRepository;
-import com.genesearch.repository.PhenotypeRepository;
 import com.genesearch.repository.SequenceFeatureRepositoty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by user on 19.01.2015.
- */
 @Service
 public class SequenceFeatureSaver implements DbSaver {
 
-    @Autowired
-    private PhenotypeRepository phenotypeRepository;
     @Autowired
     private GeneRepository geneRepository;
     @Autowired

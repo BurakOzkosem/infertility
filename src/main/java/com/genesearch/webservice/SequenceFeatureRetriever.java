@@ -9,9 +9,6 @@ import org.intermine.webservice.client.services.QueryService;
 
 import java.util.List;
 
-/**
- * Created by user on 19.01.2015.
- */
 public class SequenceFeatureRetriever implements WebServiceRetriever {
 
     private String geneId;
@@ -29,7 +26,7 @@ public class SequenceFeatureRetriever implements WebServiceRetriever {
         Model model = factory.getModel();
         PathQuery query = new PathQuery(model);
 
-// Select the output columns:
+    // Select the output columns:
         query.addViews("SequenceFeature.primaryIdentifier",
                 "SequenceFeature.ontologyAnnotations.ontologyTerm.identifier",
                 "SequenceFeature.ontologyAnnotations.ontologyTerm.name",

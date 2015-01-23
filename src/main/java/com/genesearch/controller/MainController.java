@@ -4,16 +4,14 @@ import com.genesearch.domain.GeneDomain;
 import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.model.Phenotype;
 import com.genesearch.object.edit.GeneEdit;
+import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.request.SearchGeneRequest;
 import com.genesearch.object.response.ReferenceResponse;
-import com.genesearch.object.edit.OntologyAnnotationEdit;
 import com.genesearch.object.response.SimpleDateResponse;
 import com.genesearch.object.response.SimpleStringResponse;
 import com.genesearch.repository.OntologyAnnotationRepository;
 import com.genesearch.repository.PhenotypeRepository;
 import com.genesearch.scheduler.ScheduleInformator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,8 +28,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/api")
 public class MainController {
-
-    private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private GeneDomain geneDomain;

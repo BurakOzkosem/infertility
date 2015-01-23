@@ -3,20 +3,13 @@ package com.genesearch.webservice;
 import com.genesearch.Util;
 import com.genesearch.model.*;
 import com.genesearch.repository.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by user on 06.01.2015.
- */
 @Service
 public class GeneSaver implements DbSaver {
-
-    private static final Logger log = LoggerFactory.getLogger(GeneSaver.class);
 
     @Autowired
     private GeneRepository geneRepository;
@@ -43,7 +36,6 @@ public class GeneSaver implements DbSaver {
             gene.setChromosome(Util.safeString(row.get(10)));
 
 
-            //phenotype
             phenotype.setPhenotypeId(Util.safeString(row.get(6)));
             phenotype.setName(Util.safeString(row.get(3)));
 
@@ -76,8 +68,6 @@ public class GeneSaver implements DbSaver {
             if(ontologyAnnotationFromDb == null) {
                 ontologyAnnotationRepository.save(ontologyAnnotation);
             }
-
-//            break;
         }
     }
 }

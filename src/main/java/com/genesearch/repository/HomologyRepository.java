@@ -20,7 +20,7 @@ import java.util.*;
 @Repository
 public class HomologyRepository extends  ModelRepository<Homology> {
 
-
+    // Used for checking homology uniqueness when saving to database
     public Homology find(String primaryIdentifier, String symbol, String organismName, String type, String datasetsName, Long geneId) {
         Criteria c = getSession().createCriteria(getEntityClass(), "hm");
         c.createAlias("hm.gene", "gn", JoinType.INNER_JOIN);
@@ -61,6 +61,8 @@ public class HomologyRepository extends  ModelRepository<Homology> {
         return c.list();
     }
 
+    // Removes homologies from database, related to selected gene
+    // Method removes from database all homologies from that DOES NOT listed in an input list
     public void remove(Gene gene, List<HomologyEdit> homologyEditList) {
         Set<Long> remainIdList = new HashSet<Long>();
         Set<Homology> forDelete = new HashSet<Homology>();

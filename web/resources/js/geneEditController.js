@@ -1,6 +1,3 @@
-/**
- * Created by kmorozov on 21.01.2015.
- */
 function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
 
     $scope.state = {
@@ -66,6 +63,7 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
         }
     };
 
+    // Load phenotypes reference values for select box
     $scope.loadReferences = function() {
         Restangular.oneUrl('gene/reference/ontologyterm').get().then(function(result) {
                 $scope.reference.ontologyTerm = result;
@@ -73,6 +71,7 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
             function() { });
     };
 
+    // Save button
     $scope.ok = function() {
         if($scope.state.model.id != null) {
             Restangular.all("gene/update").post($scope.state.model).then(function(result) {
@@ -80,28 +79,45 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
             }, function(error) {});
         }
         else {
+            if($scope.state.model.geneAnnotationList.length == 0) {
+                $scope.state.model.geneAnnotationList.push({
+                    id: null,
+                    ontologyTermId: null,
+                    evidenceBaseAnnotationsSubjectBackgroundName: '-',
+                    evidenceBaseAnnotationsSubjectZygosity: null,
+                    publicationId: '-',
+                    publicationDoi: null
+                });
+            }
+
             Restangular.all("gene/add").post($scope.state.model).then(function(result) {
                 $modalInstance.close(true);
             }, function(error) {});
         }
     };
 
+    // Cancel button
     $scope.cancel = function() {
         $modalInstance.close(false);
     };
 
+    // Remove sequence feature from table button
     $scope.removeSequenceFeature = function(property) {
         var index = $scope.state.model.sequenceFeatureEditList.indexOf(property);
         if (index > -1) {
             $scope.state.model.sequenceFeatureEditList.splice(index, 1);
         }
     };
+
+    // Remove gene annotation from table button
     $scope.removeGeneAnotation = function(property) {
         var index = $scope.state.model.geneAnnotationList.indexOf(property);
         if (index > -1) {
             $scope.state.model.geneAnnotationList.splice(index, 1);
         }
     };
+
+    // Remove homology from table button
     $scope.removeHomology = function(property) {
         var index = $scope.state.model.homologyEditList.indexOf(property);
         if (index > -1) {
@@ -113,6 +129,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
         return $scope.reference.ontologyTerm[ontologyTermId-1].value;
     };
 
+    // Catching event of typing something in the last row of sequence feature table
+    // Adds new row below and set focus back to edited row
     $scope.$watch( 'newSequenceFeature',
         function(newValue, oldValue) {
             var hasNotNullProperty = false;
@@ -145,6 +163,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
         true
     );
 
+    // Catching event of typing something in the last row of gene annotation table
+    // Adds new row below and set focus back to edited row
     $scope.$watch( 'newGeneAnnotation',
         function(newValue, oldValue) {
             var hasNotNullProperty = false;
@@ -177,6 +197,8 @@ function GeneEditCtrl($scope, $modalInstance, model, Restangular, focusInput) {
         true
     );
 
+    // Catching event of typing something in the last row of homology table
+    // Adds new row below and set focus back to edited row
     $scope.$watch( 'newHomology',
         function(newValue, oldValue) {
             var hasNotNullProperty = false;

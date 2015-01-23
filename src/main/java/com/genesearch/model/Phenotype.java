@@ -5,8 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * Created by kmorozov on 19.01.2015.
- */
+ *  Every attribute commented with query field names used to download data from Mousemine.org
+ * */
 @Entity
 @Table(name = "Phenotype")
 public class Phenotype extends AbstractEntity{
@@ -17,13 +17,15 @@ public class Phenotype extends AbstractEntity{
     @Column(name="id")
     private Long id;
 
-    @Column(name="phenotype_id")
+    // OntologyAnnotation.ontologyTerm.identifier
+    @Column(name="phenotype_id", length = 200)
     private String phenotypeId;
 
-    @Column(name="name")
+    // OntologyAnnotation.ontologyTerm.name
+    @Column(name="name", length = 200)
     private String name;
 
-    @Column(name="type")
+    @Column(name="type", length = 25, nullable = false)
     private String type;
 
     public Phenotype() {

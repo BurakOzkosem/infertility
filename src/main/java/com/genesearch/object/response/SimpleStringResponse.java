@@ -1,8 +1,5 @@
 package com.genesearch.object.response;
 
-/**
- * Created by user on 17.01.2015.
- */
 public class SimpleStringResponse {
 
     private String value;

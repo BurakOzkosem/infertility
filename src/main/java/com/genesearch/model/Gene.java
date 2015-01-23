@@ -1,14 +1,13 @@
 package com.genesearch.model;
 
 import com.genesearch.object.edit.GeneEdit;
-import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * Created by user on 02.01.2015.
- */
+ *  Every attribute commented with query field names used to download data from Mousemine.org
+ * */
 @Entity
 @Table(name="Gene")
 public class Gene extends AbstractEntity {
@@ -19,32 +18,33 @@ public class Gene extends AbstractEntity {
     @Column(name = "gene_id")
     private Long id;
 
+    // Gene.primaryIdentifier
     @Column(name="primary_identifier", length = 200)
     private String primaryIdentifier;
 
+    // OntologyAnnotation.subject.symbol
     @Column(name="symbol", length = 200)
     private String symbol;
 
-    @Column(name="name", length = 200) //
+    // OntologyAnnotation.subject.name
+    @Column(name="name", length = 200)
     private String name;
 
-    @Column(name="dsc", length = 2000) //
+    // OntologyAnnotation.subject.description
+    @Column(name="dsc", length = 2000)
     private String dsc;
 
+    // Gene.organism.name
     @Column(name="organism_name", length = 200)
     private String organismName;
 
+    // Gene.ncbiGeneNumber
     @Column(name="ncbi_id", length = 200)
     private String ncbi;
 
+    // OntologyAnnotation.subject.chromosome.name
     @Column(name="chromosome", length = 200)
     private String chromosome;
-
-
-
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "gene", cascade = CascadeType.ALL)
-//    private Set<GeneHomologue> geneHomologueSet = new HashSet<GeneHomologue>();
 
     @Override
     public Long getId() {
@@ -127,42 +127,5 @@ public class Gene extends AbstractEntity {
         gene.update(geneEdit);
         return  gene;
     }
-
-//    public Set<GeneHomologue> getGeneHomologueSet() {
-//        return geneHomologueSet;
-//    }
-//
-//    public void setGeneHomologueSet(Set<GeneHomologue> geneHomologueSet) {
-//        this.geneHomologueSet = geneHomologueSet;
-//    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        if (!super.equals(o)) return false;
-//
-//        Gene gene = (Gene) o;
-//
-//        if (this.geneHomologueSet != null ? !this.geneHomologueSet.equals(gene.geneHomologueSet) : gene.geneHomologueSet != null)
-//            return false;
-//        if (this.ncbi != null ? !this.ncbi.equals(gene.ncbi) : gene.ncbi != null) return false;
-//        if (this.organismName != null ? !this.organismName.equals(gene.organismName) : gene.organismName != null) return false;
-//        if (this.primaryIdentifier != null ? !this.primaryIdentifier.equals(gene.primaryIdentifier) : gene.primaryIdentifier != null)
-//            return false;
-//        if (this.symbol != null ? !this.symbol.equals(gene.symbol) : gene.symbol != null) return false;
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = this.primaryIdentifier != null ? this.primaryIdentifier.hashCode() : 0;
-//        result = 31 * result + (this.symbol != null ? this.symbol.hashCode() : 0);
-//        result = 31 * result + (this.organismName != null ? this.organismName.hashCode() : 0);
-//        result = 31 * result + (this.ncbi != null ? this.ncbi.hashCode() : 0);
-//        result = 31 * result + (this.geneHomologueSet != null ? this.geneHomologueSet.hashCode() : 0);
-//        return result;
-//    }
 
 }

@@ -11,9 +11,6 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.util.Date;
 
-/**
- * Created by user on 17.01.2015.
- */
 @Component
 public class ScheduleInformator {
 

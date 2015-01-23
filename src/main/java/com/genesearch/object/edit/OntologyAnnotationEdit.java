@@ -4,8 +4,8 @@ import com.genesearch.model.OntologyAnnotation;
 import com.genesearch.object.response.UtilResponse;
 
 /**
- * Created by user on 07.01.2015.
- */
+ *  Main search response
+ * */
 public class OntologyAnnotationEdit {
 
     private UtilResponse utils = new UtilResponse();

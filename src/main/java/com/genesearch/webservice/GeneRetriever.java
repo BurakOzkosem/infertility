@@ -9,9 +9,6 @@ import org.intermine.webservice.client.services.QueryService;
 
 import java.util.List;
 
-/**
- * Created by user on 14.01.2015.
- */
 public class GeneRetriever implements WebServiceRetriever {
 
     @Override

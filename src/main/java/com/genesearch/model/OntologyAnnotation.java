@@ -7,8 +7,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * Created by user on 20.01.2015.
- */
+ *  Every attribute commented with query field names used to download data from Mousemine.org
+ * */
 @Entity
 @Table(name="Ontology_annotation")
 public class OntologyAnnotation extends  AbstractEntity {
@@ -23,15 +23,19 @@ public class OntologyAnnotation extends  AbstractEntity {
     @JoinColumn(name = "gene_id")
     private Gene gene;
 
-    @Column(name = "pubmed_id")
+    // OntologyAnnotation.evidence.publications.pubMedId
+    @Column(name = "pubmed_id", length = 200)
     private String pubmedId;
 
+    // OntologyAnnotation.evidence.baseAnnotations.subject.background.name
     @Column(name = "b_annot_subj_bckground_name", length = 200)
     private String baseAnnotationsSubjectBackgroundName;
 
+    // OntologyAnnotation.evidence.baseAnnotations.subject.zygosity
     @Column(name = "b_annot_subj_zygocity", length = 200)
     private String baseAnnotationsSubjectZygosity;
 
+    // OntologyAnnotation.evidence.publications.doi
     @Column(name = "doi", length = 200)
     private String doi;
 

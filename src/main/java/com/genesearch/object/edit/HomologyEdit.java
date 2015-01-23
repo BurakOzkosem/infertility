@@ -2,9 +2,6 @@ package com.genesearch.object.edit;
 
 import com.genesearch.model.Homology;
 
-/**
- * Created by kmorozov on 16.01.2015.
- */
 public class HomologyEdit extends AbstractEditObject {
 
     private String primaryIdentifier;

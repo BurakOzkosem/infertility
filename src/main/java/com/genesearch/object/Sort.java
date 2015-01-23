@@ -5,12 +5,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.data.domain.Sort.Direction;
 
 /**
- * Created with IntelliJ IDEA.
- * User: skiselev
- * Date: 10.10.13
- * Time: 16:49
- * To change this template use File | Settings | File Templates.
- */
+ *  This object comes in request and determines sort order
+ * */
 @JsonAutoDetect(
         fieldVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,

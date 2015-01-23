@@ -9,9 +9,6 @@ import org.intermine.webservice.client.services.QueryService;
 
 import java.util.List;
 
-/**
- * Created by user on 19.01.2015.
- */
 public class HomologyRetriever implements WebServiceRetriever{
 
     private String geneId;

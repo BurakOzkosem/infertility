@@ -1,7 +1,7 @@
 package com.genesearch.object.edit;
 
 /**
- * Created by kmorozov on 21.01.2015.
+ * This object is convenient for displaying genotype data and literatire data on separate tabs
  */
 public class GeneAnnotationEdit {
 

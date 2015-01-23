@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by user on 19.01.2015.
- */
 @Service
 public class HomologySaver implements DbSaver {
 
@@ -52,22 +49,6 @@ public class HomologySaver implements DbSaver {
             if(homologyFromDb == null) {
                 homologyRepository.save(homology);
             }
-
-
-//            else {
-//                homology = homologyFromDb;
-//            }
-
-
-
-//            GeneHomology gh = new GeneHomology();
-//            gh.setGene(gene);
-//            gh.setHomology(homology);
-//
-//            GeneHomology ghFromDb = geneHomologyRepository.findOne(gene.getId(), homology.getId());
-//            if(ghFromDb == null) {
-//                geneHomologyRepository.save(gh);
-//            }
         }
     }
 }

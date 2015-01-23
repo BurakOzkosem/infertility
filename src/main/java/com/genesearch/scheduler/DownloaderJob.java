@@ -1,18 +1,16 @@
 package com.genesearch.scheduler;
 
-/**
- * Created by user on 17.01.2015.
- */
-
-import com.genesearch.webservice.*;
 import com.genesearch.repository.JobStatusRepository;
+import com.genesearch.webservice.MainSaver;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *  The main class, responsible for downloading data from external datasources and saving it to database
+ * */
 public class DownloaderJob implements Job {
 
     private static final Logger log = LoggerFactory.getLogger(DownloaderJob.class);

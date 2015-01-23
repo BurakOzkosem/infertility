@@ -1,14 +1,13 @@
 package com.genesearch.model;
 
 import com.genesearch.object.edit.SequenceFeatureEdit;
-import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * Created by kmorozov on 19.01.2015.
- */
+ *  Every attribute commented with query field names used to download data from Mousemine.org
+ * */
 @Entity
 @Table(name="Sequence_feature")
 public class SequenceFeature extends AbstractEntity{
@@ -20,15 +19,18 @@ public class SequenceFeature extends AbstractEntity{
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "gene_id")
+    @JoinColumn(name = "gene_id", nullable = false)
     private Gene gene;
 
-    @Column(name="phenotype_id", length = 200)
+    // SequenceFeature.ontologyAnnotations.ontologyTerm.identifier
+    @Column(name="phenotype_id", length = 200, nullable = false)
     private String phenotypeId;
 
-    @Column(name="phenotype_name", length = 200)
+    // SequenceFeature.ontologyAnnotations.ontologyTerm.name
+    @Column(name="phenotype_name", length = 200, nullable = false)
     private String phenotypeName;
 
+    // SequenceFeature.ontologyAnnotations.evidence.withText
     @Column(name="evidence_with_text", length = 200)
     private String evidenceWithText;
 

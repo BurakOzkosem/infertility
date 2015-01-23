@@ -16,9 +16,6 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 import static org.quartz.CronScheduleBuilder.*;
 
-/**
- * Created by user on 17.01.2015.
- */
 
 @Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {

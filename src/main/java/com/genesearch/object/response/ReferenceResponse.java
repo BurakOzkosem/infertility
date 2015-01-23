@@ -1,7 +1,7 @@
 package com.genesearch.object.response;
 
 /**
- * Created by user on 07.01.2015.
+ * Response with reference id=value pair
  */
 public class ReferenceResponse {
 

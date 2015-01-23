@@ -14,9 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by user on 16.01.2015.
- */
 @Service
 public class GeneDomain {
 
@@ -82,7 +79,6 @@ public class GeneDomain {
         Gene gene = geneRepository.find(geneEdit.getPrimaryIdentifier(), geneEdit.getSymbol(), geneEdit.getName(), geneEdit.getDsc(), geneEdit.getChromosome());
 
         if(gene != null) {
-            // TODO: Similar entity already exists
             return;
         }
 

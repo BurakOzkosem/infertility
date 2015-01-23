@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by kmorozov on 16.01.2015.
- */
 public class GeneEdit extends AbstractEditObject {
 
     private String primaryIdentifier;
@@ -143,23 +140,4 @@ public class GeneEdit extends AbstractEditObject {
         return  result;
     }
 
-//    public static GeneEdit createBrief(Gene entity) {
-//        GeneEdit result = new GeneEdit();
-//        result.setPrimaryIdentifier(entity.getPrimaryIdentifier());
-//        result.setSymbol(entity.getSymbol());
-//        result.setOrganismName(entity.getOrganismName());
-//        result.setNcbi(entity.getNcbi());
-//        return  result;
-//    }
-
-    private static String concatenateWithComma(Set<String> strings) {
-        StringBuilder sb = new StringBuilder();
-        for(String s : strings) {
-            sb.append(s.trim()).append(", ");
-        }
-        if(sb.length() > 1) {
-            sb.delete(sb.length() - 2, sb.length());
-        }
-        return sb.toString();
-    }
 }

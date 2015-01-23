@@ -20,17 +20,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by user on 20.01.2015.
- */
 @Repository
 public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnotation>{
 
-    @Autowired
-    private PhenotypeRepository phenotypeRepository;
-    @Autowired
-    private GeneRepository geneRepository;
-
+    // Main search method
     public Page<OntologyAnnotation> search(SearchGeneRequest request) {
         Criteria c = getSession().createCriteria(getEntityClass(), "oa");
         c.createAlias("oa.phenotype", "ph", JoinType.LEFT_OUTER_JOIN);
@@ -119,6 +112,7 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return c.list();
     }
 
+    // Used for checking ontology annotation uniqueness when saving to database
     public OntologyAnnotation find(Long geneId, Long phenotypeId, String baseAnnotationsSubjectBackgroundName,
                                    String baseAnnotationsSubjectZygosity, String pubmedId, String doi) {
         Criteria c = getSession().createCriteria(getEntityClass(), "oa");
@@ -145,7 +139,8 @@ public class OntologyAnnotationRepository extends ModelRepository<OntologyAnnota
         return result.get(0);
     }
 
-
+    // Removes ontology annotations from database, related to selected gene
+    // Method removes from database all ontology annotations from that DOES NOT listed in an input list
     public void remove(Gene gene, List<OntologyAnnotationEdit> geneAnnotationList) {
         Set<Long> remainIdList = new HashSet<Long>();
         Set<OntologyAnnotation> forDelete = new HashSet<OntologyAnnotation>();

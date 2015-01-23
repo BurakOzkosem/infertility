@@ -1,6 +1,3 @@
-/**
- * Created by user on 31.12.2014.
- */
 function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH) {
 
     $scope.collapsed = false;
@@ -45,6 +42,7 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
         };
     }
 
+    // Main search function
     $scope.load = function () {
         localStorageService.set('gene.filters.v1.2', $scope.filters);
 
@@ -85,6 +83,7 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
         });
     };
 
+    // Load phenotypes reference values for select box
     $scope.loadReferences = function() {
         Restangular.oneUrl('gene/reference/ontologyterm').get().then(function(result) {
                 $scope.reference.ontologyTerm = result;
@@ -92,9 +91,59 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
             function() { });
     };
 
+    // URL for gene details link
      $scope.getDetailsUrl = function(item) {
         return "#/edit/" + item.geneId;
     };
+
+    $scope.clearFilters = function() {
+        $scope.filters = {
+            id: '',
+            ontologyTermId: '',
+
+            ontologyTermPrimaryIdentifier: '',
+            ontologyTermName: '',
+            subjectPrimaryIdentifier: '',
+            subjectSymbol: '',
+            subjectName: '',
+            subjectDsc: '',
+            subjectChromosomeName: '',
+            evidenceBaseAnnotationsSubjectBackgroundName: '',
+            evidenceBaseAnnotationsSubjectZygosity: '',
+            publicationId: '',
+            publicationDoi: ''
+        };
+
+        localStorageService.remove('gene.filters.v1.2');
+        $scope.sorts = {direction: 'asc', property: 'id'};
+
+        $scope.load();
+    };
+
+    $scope.loadReferences();
+
+    // New gene button
+    $scope.newGene = function() {
+        var modalInstance = $modal.open({
+            templateUrl: BASE_PATH+'/page/edit.html',
+            controller: GeneEditCtrl,
+            windowClass: 'modal-large',
+            resolve: {
+                model: function() {
+                    return null;
+                }
+            },
+            backdrop: 'static'
+        });
+
+        modalInstance.result.then(function(result) {
+            if(result == false) {
+                $scope.load();
+            }
+        });
+    };
+
+    $scope.load();
 
     $scope.canSort = function (property, ascending) {
         if ($scope.sorts.property == property) {
@@ -157,63 +206,9 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
     };
 
 
-    $scope.clearFilters = function() {
-        $scope.filters = {
-            id: '',
-            ontologyTermId: '',
-
-            ontologyTermPrimaryIdentifier: '',
-            ontologyTermName: '',
-            subjectPrimaryIdentifier: '',
-            subjectSymbol: '',
-            subjectName: '',
-            subjectDsc: '',
-            subjectChromosomeName: '',
-            evidenceBaseAnnotationsSubjectBackgroundName: '',
-            evidenceBaseAnnotationsSubjectZygosity: '',
-            publicationId: '',
-            publicationDoi: ''
-        };
-
-        localStorageService.remove('gene.filters.v1.2');
-        $scope.sorts = {direction: 'asc', property: 'id'};
-
-        $scope.load();
-    };
-
-    $scope.loadReferences();
-
-    $scope.newGene = function() {
-        var modalInstance = $modal.open({
-            templateUrl: BASE_PATH+'/page/edit.html',
-            controller: GeneEditCtrl,
-            windowClass: 'modal-large',
-            resolve: {
-                model: function() {
-                    return null;
-                }
-            },
-            backdrop: 'static'
-        });
-
-        modalInstance.result.then(function(result) {
-            if(result == false) {
-                $scope.load();
-            }
-        });
-    };
-
-    $scope.load();
-
-    $scope.changeLeft = function(element) {
-        return {
-            left: element.css()
-        }
-    };
-
-
      //     --- POPOVER PART BELOW ---
 
+    // Load data for popup
     $scope.genePrimaryIdentifier = function(item) { return item.subjectPrimaryIdentifier };
     $scope.geneSymbol = function(item) { return item.subjectSymbol };
     $scope.geneDescription = function(item) { return item.subjectDsc };
@@ -222,7 +217,7 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
 
     $scope.createPopoverTemplate = function(model) {
 
-        // In order to change popover width you must change 'div[title~=' style in application.css
+        // In order to change popover width you must change 'div[title='<b>Gene brief details</b>']' style in application.css
 
             $scope.state.popoverTemplate =
         '<div class="row" style="width: 500px">' +

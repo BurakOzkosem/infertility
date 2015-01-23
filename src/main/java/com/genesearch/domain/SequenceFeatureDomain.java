@@ -1,8 +1,6 @@
 package com.genesearch.domain;
 
 import com.genesearch.model.Gene;
-import com.genesearch.model.OntologyAnnotation;
-import com.genesearch.model.Phenotype;
 import com.genesearch.model.SequenceFeature;
 import com.genesearch.object.edit.SequenceFeatureEdit;
 import com.genesearch.repository.SequenceFeatureRepositoty;
@@ -12,9 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by user on 20.01.2015.
- */
 @Service
 public class SequenceFeatureDomain {
 
@@ -66,9 +61,5 @@ public class SequenceFeatureDomain {
 
             sequenceFeatureRepositoty.save(sequenceFeature);
         }
-        else {
-            // TODO: Similar entity already exists
-        }
     }
-
 }

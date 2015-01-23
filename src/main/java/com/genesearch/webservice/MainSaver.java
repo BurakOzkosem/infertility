@@ -7,9 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
-/**
- * Created by user on 18.01.2015.
- */
 @Service
 public class MainSaver {
 

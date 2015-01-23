@@ -17,20 +17,6 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:resources mapping="/page/**" location="/page/"/>
 
-    <!--<mvc:interceptors>-->
-        <!--<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">-->
-            <!--<property name="cacheSeconds" value="2100"/>-->
-            <!--<property name="useExpiresHeader" value="false"/>-->
-            <!--<property name="useCacheControlHeader" value="false"/>-->
-            <!--<property name="useCacheControlNoStore" value="false"/>-->
-            <!--<property name="cacheMappings">-->
-                <!--<props>-->
-                    <!--<prop key="/**/**">-1</prop>-->
-                <!--</props>-->
-            <!--</property>-->
-        <!--</bean>-->
-    <!--</mvc:interceptors>-->
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass"
@@ -38,10 +24,6 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
-    <!--<bean id="validator"-->
-          <!--class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">-->
-    <!--</bean>    -->
 
     <import resource="data.xml"/>
 

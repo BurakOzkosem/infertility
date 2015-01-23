@@ -10,19 +10,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <!--<jee:jndi-lookup id="dataSource" jndi-name="jdbc/rtnriDS" lookup-on-startup="true" lazy-init="false"/>-->
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <!--<bean id="dataSourceInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="databasePopulator">-->
-            <!--<bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">-->
-                <!--<property name="sqlScriptEncoding" value="UTF-8"/>-->
-                <!--<property name="continueOnError" value="true"/>-->
-            <!--</bean>-->
-        <!--</property>-->
-    <!--</bean>-->
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -33,7 +21,6 @@
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-          <!--depends-on="dataSourceInitializer">-->
         <property name="dataSource" ref="dataSource"/>
         <property name="hibernateProperties">
             <props>
@@ -41,7 +28,7 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 
                 <!-- Echo all executed SQL to stdout -->
-                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
 
                 <!-- Drop and re-create the database schema on startup -->
                 <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
@@ -65,14 +52,5 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
-
-    <!--<bean id="jdbcOperations" class="ru.atconsulting.spring.jdbc.JdbcHibernateTemplate">-->
-        <!--<constructor-arg index="0" ref="sessionFactory"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-        <!--<constructor-arg index="0" ref="jdbcOperations"/>-->
-    <!--</bean>-->
 
 </beans>

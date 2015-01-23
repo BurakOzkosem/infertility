@@ -1,8 +1,5 @@
 package com.genesearch.scheduler;
 
-/**
- * Created by user on 17.01.2015.
- */
 public enum JobStatus {
 
     SUCCESS(1),

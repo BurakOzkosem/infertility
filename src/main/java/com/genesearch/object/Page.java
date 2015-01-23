@@ -11,12 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: skiselev
- * Date: 13.08.13
- * Time: 11:25
- * To change this template use File | Settings | File Templates.
- */
+ *  Represents the search results page
+ * */
 @JsonAutoDetect(
         fieldVisibility = JsonAutoDetect.Visibility.NONE,
         setterVisibility = JsonAutoDetect.Visibility.NONE,

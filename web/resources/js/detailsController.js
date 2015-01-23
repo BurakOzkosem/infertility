@@ -1,12 +1,6 @@
-/**
- * Created by user on 02.01.2015.
- */
 function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
 
     $scope.state = {
-        rdOnly: true,
-        backup: {},
-        functionAccordeon: { isFirstOpen: true },
         model: {
             id: null,
             primaryIdentifier: '',
@@ -66,6 +60,7 @@ function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
         return false;
     };
 
+    // Retrieve detailed gene data from database
     $scope.show = function(id) {
         Restangular.one("gene/showDetails", id).get().then(function(result) {
             $scope.state.model = result;
@@ -87,6 +82,7 @@ function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
         });
     };
 
+    // Open edit modal window
     $scope.openEdit = function() {
         var modalInstance = $modal.open({
             templateUrl: BASE_PATH+'/page/edit.html',
@@ -107,24 +103,6 @@ function EditCtrl($scope, $routeParams, $modal, Restangular, BASE_PATH) {
         });
     };
 
-    $scope.cancel = function() {
-        $scope.state.rdOnly = true;
-        $scope.state.model = angular.copy($scope.state.backup);
-        $scope.state.backup = {};
-    };
-
-
-    $scope.getEditButtonText = function() {
-        return $scope.isReadOnly() ? "Edit" : "Save";
-    };
-
-    $scope.isReadOnly = function() {
-        return $scope.state.rdOnly != false;
-    };
-
-    $scope.canSort = function() {
-
-    };
 
     $scope.show($routeParams.id);
 }

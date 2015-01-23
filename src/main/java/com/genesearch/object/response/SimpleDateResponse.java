@@ -2,9 +2,6 @@ package com.genesearch.object.response;
 
 import java.util.Date;
 
-/**
- * Created by user on 17.01.2015.
- */
 public class SimpleDateResponse {
 
     private Date value;

@@ -1,8 +1,5 @@
 package com.genesearch.object.edit;
 
-/**
- * Created by user on 20.01.2015.
- */
 public class LiteratureEdit {
 
     public LiteratureEdit() {

@@ -1,12 +1,5 @@
 package com.genesearch.exception;
 
-/**
- * Created with IntelliJ IDEA.
- * User: skiselev
- * Date: 28.10.13
- * Time: 17:10
- * To change this template use File | Settings | File Templates.
- */
 public class WebApplicationException extends RuntimeException {
     private final int status;
     private final String message;

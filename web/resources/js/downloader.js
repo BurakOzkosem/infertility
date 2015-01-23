@@ -1,6 +1,3 @@
-/**
- * Created by user on 17.01.2015.
- */
 function DownloaderCtrl($scope, Restangular) {
 
     $scope.state = {

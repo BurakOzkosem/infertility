@@ -7,41 +7,35 @@
 
     <div class="col-sm-8">
         <div class="border" style="padding: 10px;">
-
             <form class="form-horizontal" name="formDownloader" novalidate>
+                <div class="row vspace-top-20 vspace-bottom-30">
+                    <div class="col-sm-12">
 
-            <div class="row vspace-top-20 vspace-bottom-30">
-                <div class="col-sm-12">
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Next download time:</label>
-                        <div class="col-sm-7">
-                            <!--<input type="text" ng-model="state.model.ontologyAnnotationEdit.subjectEdit.primaryIdentifier" style="width: 100%;">-->
-                            <label class="control-label propertyDataText">
-                                {{state.nextFireTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
-                            </label>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Next download time:</label>
+                            <div class="col-sm-7">
+                                <label class="control-label propertyDataText">
+                                    {{state.nextFireTime | date:'yyyy-MM-dd HH:mm:ss Z'}}
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Download status</label>
-                        <div class="col-sm-7">
-                            <label class="control-label propertyDataText">
-                                {{state.status}}
-                            </label>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Download status</label>
+                            <div class="col-sm-7">
+                                <label class="control-label propertyDataText">
+                                    {{state.status}}
+                                </label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group vspace-top-30">
-                        <div class="col-sm-2"></div>
-                        <button class="btn btn-default gs-btn" type="button" ng-click="fireStart()">Download now</button>
-
+                        <div class="form-group vspace-top-30">
+                            <div class="col-sm-2"></div>
+                            <button class="btn btn-default gs-btn" type="button" ng-click="fireStart()">Download now</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
             </form>
-
         </div>
     </div>
 </div>
