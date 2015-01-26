@@ -1,40 +1,57 @@
 
+DATA MODEL.
+
+The main entity of the application is Gene.
+OntologyAnnotation, Homology and SequenceFeature entities all has foreign key, references to Gene.
+Search performs against OntologyAnnotation table.
+
+Spring app context:             spring.xml
+Database connection settings:   data.xml
+
+
 1. Queriying mousemine.org webservice functionality
 
-com.genesearch.webserviceGeneRetriever.java
-com.genesearch.webserviceHomologyRetriever.java
-com.genesearch.webserviceSequenceFeatureRetriever.java
+    com.genesearch.webserviceGeneRetriever.java
+    com.genesearch.webserviceHomologyRetriever.java
+    com.genesearch.webserviceSequenceFeatureRetriever.java
 
 2. Query results saving.
 
-com.genesearch.webserviceGeneSaver.java
-com.genesearch.webserviceHomologySaver.java
-com.genesearch.webserviceSequenceFeatureSaver.java
+This part is responsible for creating database entities in appliance with application data model.
 
-3. Schedule job, retrieving data from mousemine.org
+Main logic:    com.genesearch.webservice.MainSaver.java
 
-com.genesearch.scheduler
+    com.genesearch.webserviceGeneSaver.java
+    com.genesearch.webserviceHomologySaver.java
+    com.genesearch.webserviceSequenceFeatureSaver.java
 
-4. Retrieving schedule job status and immediate job starter
+3. Schedule job, retrieving data from mousemine.org, interacting with job from UI.
 
-com.genesearch.scheduler.ScheduleInformator
+    com.genesearch.scheduler
+
+4. Retrieving schedule job status and immediate job starting
+
+    com.genesearch.scheduler.ScheduleInformator
 
 5. Data model
 
-com.genesearch.model
+Each attribute of data entities commented with corresponding mousemine.org query paths
+
+    com.genesearch.model
 
 6. JSON data objects
 
-com.genesearch.object
+    com.genesearch.object
 
 7. MVC controller
 
-com.genesearch.controller.MainController
+    com.genesearch.controller.MainController
 
 8. Database repository
 
-com.genesearch.repository
+    com.genesearch.repository
 
 9. Executes at application startup
 
-com.genesearch.StartupListener
+    com.genesearch.StartupListener - schedules a job for retrieving and saving data to database
+

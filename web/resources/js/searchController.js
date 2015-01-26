@@ -169,46 +169,46 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
         $scope.load();
     };
 
-    $scope.canEdit = function () {
-        return $scope.state.selected !== false;
-    };
-
-    $scope.canDelete = function () {
-        for(var i=0; i<$scope.state.geneList.length; i++) {
-            if($scope.state.geneList[i].utils.selected === true) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    $scope.isSelected = function (item) {
-        return $scope.state.selected == item;
-    };
-
-    $scope.setSelected = function (item) {
-        if ($scope.state.selected == item) {
-            $scope.state.selected = false;
-        } else {
-            $scope.state.selected = item;
-        }
-    };
-
-    $scope.checkGt = function(itemSelected) {
-        itemSelected.utils.selected = !itemSelected.utils.selected;
-    };
-
-    $scope.checkAll = function() {
-        $scope.state.allChecked = !$scope.state.allChecked;
-        for(var i=0; i<$scope.state.geneList.length; i++) {
-            $scope.state.geneList[i].utils.selected = $scope.state.allChecked;
-        }
-    };
+    //$scope.canEdit = function () {
+    //    return $scope.state.selected !== false;
+    //};
+    //
+    //$scope.canDelete = function () {
+    //    for(var i=0; i<$scope.state.geneList.length; i++) {
+    //        if($scope.state.geneList[i].utils.selected === true) {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //};
+    //
+    //$scope.isSelected = function (item) {
+    //    return $scope.state.selected == item;
+    //};
+    //
+    //$scope.setSelected = function (item) {
+    //    if ($scope.state.selected == item) {
+    //        $scope.state.selected = false;
+    //    } else {
+    //        $scope.state.selected = item;
+    //    }
+    //};
+    //
+    //$scope.checkGt = function(itemSelected) {
+    //    itemSelected.utils.selected = !itemSelected.utils.selected;
+    //};
+    //
+    //$scope.checkAll = function() {
+    //    $scope.state.allChecked = !$scope.state.allChecked;
+    //    for(var i=0; i<$scope.state.geneList.length; i++) {
+    //        $scope.state.geneList[i].utils.selected = $scope.state.allChecked;
+    //    }
+    //};
 
 
      //     --- POPOVER PART BELOW ---
 
-    // Load data for popup
+    // Load popup data
     $scope.genePrimaryIdentifier = function(item) { return item.subjectPrimaryIdentifier };
     $scope.geneSymbol = function(item) { return item.subjectSymbol };
     $scope.geneDescription = function(item) { return item.subjectDsc };
@@ -217,6 +217,7 @@ function SearchCtrl($scope, $modal, Restangular, localStorageService, BASE_PATH)
 
     $scope.createPopoverTemplate = function(model) {
 
+        // NB!!!
         // In order to change popover width you must change 'div[title='<b>Gene brief details</b>']' style in application.css
 
             $scope.state.popoverTemplate =

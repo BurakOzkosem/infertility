@@ -28,6 +28,7 @@ public class MainSaver {
 
         HomologyRetriever homologyRetriever = new HomologyRetriever();
         SequenceFeatureRetriever sequenceFeatureRetriever = new SequenceFeatureRetriever();
+
         for(String geneId : geneIdList) {
             homologyRetriever.setGeneId(geneId);
             sequenceFeatureRetriever.setGeneId(geneId);
