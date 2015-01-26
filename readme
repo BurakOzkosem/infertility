@@ -8,6 +8,10 @@ Search performs against OntologyAnnotation table.
 Spring app context:             spring.xml
 Database connection settings:   data.xml
 
+Application main page: web/index.jsp
+HTML templates: web/page
+Javascript: web/resources/js
+
 
 1. Queriying mousemine.org webservice functionality
 
